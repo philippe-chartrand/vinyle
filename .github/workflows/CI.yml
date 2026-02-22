@@ -7,18 +7,4 @@ name: CI
 
 jobs:
 
-  flatpak:
-    name: Flatpak
-    runs-on: ubuntu-latest
-    container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-nightly
-      options: --privileged
-    steps:
-    - uses: actions/checkout@v4
-    - uses: flatpak/flatpak-github-actions/flatpak-builder@master
-      with:
-        bundle: lib.flatpak
-        manifest-path: de.wagnermartin.Plattenalbum.json
-        run-tests: true
-        cache-key: flatpak-builder-${{ github.sha }}
-        upload-artifact: false
+
