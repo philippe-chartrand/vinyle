@@ -1,4 +1,4 @@
-src/plattenalbum.py
-data/de.wagnermartin.Plattenalbum.metainfo.xml.in
-data/de.wagnermartin.Plattenalbum.desktop.in
+src/vinyle.py
+data/fr.chartrandphilippe.Vinyle.metainfo.xml.in
+data/fr.chartrandphilippe.Vinyle.desktop.in
 data/shortcuts-dialog.ui

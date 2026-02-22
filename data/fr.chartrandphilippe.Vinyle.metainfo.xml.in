@@ -16,27 +16,27 @@
   </branding>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/main_window.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/main_window.png</image>
       <caption>Main window</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/album_view.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/album_view.png</image>
       <caption>Album view</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/search.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/search.png</image>
       <caption>Search</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/small.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small.png</image>
       <caption>Small window</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/small_playlist.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small_playlist.png</image>
       <caption>Small window with playlist</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/plattenalbum/v2.5.0/screenshots/small_cover.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small_cover.png</image>
       <caption>Small window with cover</caption>
     </screenshot>
   </screenshots>
@@ -160,13 +160,13 @@
     <value key="Purism::form_factor">mobile</value>
   </custom>
   <launchable type="desktop-id">fr.chartrandphilippe/Vinyle.desktop</launchable>
-  <url type="bugtracker">https://github.com/philippe-chartrand/plattenalbum/issues</url>
-  <url type="homepage">https://github.com/philippe-chartrand/plattenalbum</url>
-  <url type="vcs-browser">https://github.com/philippe-chartrand/plattenalbum</url>
+  <url type="bugtracker">https://github.com/philippe-chartrand/vinyle/issues</url>
+  <url type="homepage">https://github.com/philippe-chartrand/vinyle</url>
+  <url type="vcs-browser">https://github.com/philippe-chartrand/vinyle</url>
   <content_rating type="oars-1.1" />
-  <translation type="gettext">fr.chartrandphilippe.VInyle</translation>
+  <translation type="gettext">fr.chartrandphilippe.Vinyle</translation>
   <provides>
-    <binary>plattenalbum</binary>
+    <binary>vinyle</binary>
   </provides>
   <developer id="chartrandphilippe.fr">
     <name translate="no">Philippe Chartrand</name>
