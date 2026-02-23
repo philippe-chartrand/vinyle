@@ -6,7 +6,7 @@ from .song import SongMenu
 from .functions import lookup_icon
 
 class BrowserSongRow(Adw.ActionRow):
-    def __init__(self, song, show_track=True, hide_artist="",  hide_composer="", **kwargs):
+    def __init__(self, song, show_track=True, show_year=True, hide_artist="",  hide_composer="", **kwargs):
         super().__init__(use_markup=False, activatable=True, **kwargs)
         self.song=song
 
@@ -16,6 +16,10 @@ class BrowserSongRow(Adw.ActionRow):
             self.set_subtitle(subtitle)
         length=Gtk.Label(label=str(song["duration"]), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         self.add_suffix(length)
+        if show_year:
+            year_from_date = song["date"][0][0:4]
+            year = Gtk.Label(label=str(year_from_date), xalign=1, single_line_mode=True, css_classes=["numeric"])
+            self.add_suffix(year)
         if show_track:
             track=Gtk.Label(label=song["track"][0], xalign=1, single_line_mode=True, width_chars=3, css_classes=["numeric", "dimmed"])
             self.add_prefix(track)

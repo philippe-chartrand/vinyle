@@ -14,8 +14,15 @@ class ArtistAlbumsPage(AlbumsPage):
         super().__init__(client, settings, ArtistAlbum, ArtistAlbumListRow, "Select an artist")
 
     def _get_albums(self, artist, role):
-        albums=self._client.list("album", role, artist, "group", "date")
-        for album in albums:
+        albums = {}
+        grouped_albums=self._client.list("album", role, artist, "group", "date")
+        for album in grouped_albums:
+            if album['album'] in albums:
+                if album['date'] > albums[album['album']]['date']:
+                    albums[album['album']]['date'] = album['date']
+            else:
+                albums[album['album']] = album
+        for album in albums.values():
             yield ArtistAlbum(artist, role, album["album"], album["date"])
 
     def _on_activate(self, widget, pos):
