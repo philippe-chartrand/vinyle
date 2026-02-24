@@ -12,10 +12,7 @@ class BrowserSongRow(Adw.ActionRow):
 
         # populate
         self.set_title(song["title"][0])
-        if subtitle := ", ".join(artist for artist in song["artist"]):
-            if subtitle == artist_to_highlight:
-                self.set_property('css_classes',['activatable','heading'])
-            self.set_subtitle(subtitle)
+        self.define_and_set_subtitle(artist_to_highlight, song)
         length=Gtk.Label(label=str(song["duration"]), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         self.add_suffix(length)
         if show_year:
@@ -25,6 +22,22 @@ class BrowserSongRow(Adw.ActionRow):
         if show_track:
             track=Gtk.Label(label=song["track"][0], xalign=1, single_line_mode=True, width_chars=3, css_classes=["numeric", "dimmed"])
             self.add_prefix(track)
+
+    def define_and_set_subtitle(self, artist_to_highlight, song):
+        artist_subtitle = ", ".join(artist for artist in song["artist"])
+        composer_subtitle = ", ".join(composer for composer in song["composer"])
+        conductor_subtitle = ", ".join(conductor for conductor in song["conductor"])
+        credits = []
+        if artist_subtitle:
+            credits.append(artist_subtitle)
+        if composer_subtitle:
+            credits.append(composer_subtitle)
+        if conductor_subtitle:
+            credits.append(conductor_subtitle)
+        if subtitle := "\r".join(credits):
+            if artist_to_highlight in credits:
+                self.set_property('css_classes', ['activatable', 'heading'])
+            self.set_subtitle(subtitle)
 
 
 class BrowserSongList(Gtk.ListBox):

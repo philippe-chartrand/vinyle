@@ -1,3 +1,5 @@
+from os.path import dirname
+
 from ..album import AlbumPage
 from ..browsersong import BrowserSongRow
 from ..duration import Duration
@@ -6,26 +8,51 @@ from ..duration import Duration
 class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, artist_role, albumartist, album, date):
         super().__init__(client, album, date)
-        tag_filter = ("album", album)
+        if artist_role == 'conductor':
+            tag_filter=("conductor", albumartist, "album", album)
+        elif artist_role == 'composer':
+            tag_filter=("composer", albumartist, "album", album)
+        else:
+            tag_filter=("albumartist", albumartist, "album", album)
 
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
-        self.suptitle.set_text(albumartist)
+        self.suptitle.set_text(f"{artist_role}: {albumartist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
-        client.restrict_tagtypes("track", "title", "artist", "date")
-        songs=client.find(*tag_filter)
+        client.restrict_tagtypes("track", "title", "artist", "composer", "conductor", "date")
+        artist_album_songs=client.find(*tag_filter)
+        songs = self.expand_songs_for_all_album(client, artist_album_songs)
         client.tagtypes("all")
         self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
         show_year = False
-        dates = {s['date'][0][0:3] for s in songs}
-        artists = {s['albumartist'][0] for s in songs}
-
+        dates = self.roundup_dates_to_year(songs)
+        artists = self.list_album_artists(artist_role, songs)
         if len(dates) > 1:
             show_year = True
         for song in songs:
-            artist_to_highlight = ""
-            if song['artist'][0] == albumartist and len(artists) > 1:
-                artist_to_highlight = albumartist
+            artist_to_highlight = self.artist_name_to_hilite(albumartist, artist_role, artists, song)
             row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year)
             self.song_list.append(row)
+
+    def list_album_artists(self, artist_role, songs):
+        artists = {s[artist_role][0] for s in songs}
+        return artists
+
+    def roundup_dates_to_year(self, songs):
+        dates = {s['date'][0][0:3] for s in songs}
+        return dates
+
+    def artist_name_to_hilite(self, albumartist, artist_role, artists, song):
+        artist_to_highlight = ""
+        if song[artist_role][0] == albumartist and len(artists) > 1:
+            artist_to_highlight = albumartist
+        return artist_to_highlight
+
+    def expand_songs_for_all_album(self, client, artist_album_songs):
+        # for compilations and multiple cd albums, album title is not sufficient to find the songs
+        directories = { dirname(song["file"]) for song in artist_album_songs }
+        songs = []
+        for directory in directories:
+            songs.extend(client.get_albums_songs_by_common_directory(directory))
+        return songs
