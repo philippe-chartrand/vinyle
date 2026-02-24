@@ -6,12 +6,7 @@ from ..duration import Duration
 class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, artist_role, albumartist, album, date):
         super().__init__(client, album, date)
-        if artist_role == 'conductor':
-            tag_filter=("conductor", albumartist, "album", album)
-        elif artist_role == 'composer':
-            tag_filter=("composer", albumartist, "album", album)
-        else:
-            tag_filter=("albumartist", albumartist, "album", album)
+        tag_filter = ("album", album)
 
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
@@ -24,8 +19,13 @@ class ArtistAlbumPage(AlbumPage):
         self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
         show_year = False
         dates = {s['date'][0][0:3] for s in songs}
+        artists = {s['albumartist'][0] for s in songs}
+
         if len(dates) > 1:
             show_year = True
         for song in songs:
-            row=BrowserSongRow(song, hide_artist=albumartist, show_year=show_year)
+            artist_to_highlight = ""
+            if song['artist'][0] == albumartist and len(artists) > 1:
+                artist_to_highlight = albumartist
+            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year)
             self.song_list.append(row)
