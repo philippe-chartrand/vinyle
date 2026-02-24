@@ -20,7 +20,7 @@ class ArtistAlbumPage(AlbumPage):
 
         self.suptitle.set_text(f"{artist_role}: {albumartist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
-        client.restrict_tagtypes("track", "title", "artist", "composer", "conductor", "date")
+        client.restrict_tagtypes("track", "disc", "title", "artist", "composer", "conductor", "date")
         artist_album_songs=client.find(*tag_filter)
         songs = self.expand_songs_for_all_album(client, artist_album_songs)
         client.tagtypes("all")
@@ -28,16 +28,24 @@ class ArtistAlbumPage(AlbumPage):
         show_year = False
         dates = self.roundup_dates_to_year(songs)
         artists = self.list_album_artists(artist_role, songs)
+        show_disc = self.check_for_multiple_discs(songs)
+
         if len(dates) > 1:
             show_year = True
         for song in songs:
             artist_to_highlight = self.artist_name_to_hilite(albumartist, artist_role, artists, song)
-            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year)
+            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
             self.song_list.append(row)
 
     def list_album_artists(self, artist_role, songs):
         artists = {s[artist_role][0] for s in songs}
         return artists
+
+    def  check_for_multiple_discs(self, songs):
+        discs = max([s['disc'][0] for s in songs])
+        if not discs.isdigit():
+            return False
+        return True if int(discs) > 1 else False
 
     def roundup_dates_to_year(self, songs):
         dates = {s['date'][0][0:3] for s in songs}
