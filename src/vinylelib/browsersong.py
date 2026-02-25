@@ -2,7 +2,7 @@ import gi
 
 gi.require_version("Gtk", "4.0")
 from gi.repository import Adw, Gdk, Gio, Gtk, Graphene
-from .song import SongMenu
+from .song import SongMenu, define_subtitle
 from .functions import lookup_icon
 
 class BrowserSongRow(Adw.ActionRow):
@@ -31,18 +31,9 @@ class BrowserSongRow(Adw.ActionRow):
             self.add_prefix(track)
 
     def define_and_set_subtitle(self, artist_to_highlight, song):
-        artist_subtitle = ", ".join(artist for artist in song["artist"])
-        composer_subtitle = ", ".join(composer for composer in song["composer"])
-        conductor_subtitle = ", ".join(conductor for conductor in song["conductor"])
-        credits = []
-        if artist_subtitle:
-            credits.append(artist_subtitle)
-        if composer_subtitle:
-            credits.append(composer_subtitle)
-        if conductor_subtitle:
-            credits.append(conductor_subtitle)
-        if subtitle := "\r".join(credits):
-            if artist_to_highlight in credits:
+        subtitle, found_in_credit = define_subtitle(song, artist_to_highlight)
+        if subtitle:
+            if found_in_credit:
                 self.set_property('css_classes', ['activatable', 'heading'])
             self.set_subtitle(subtitle)
 

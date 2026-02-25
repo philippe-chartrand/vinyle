@@ -1,5 +1,6 @@
 import gi
 
+from ..song import define_subtitle
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
@@ -68,7 +69,8 @@ class PlayerBar(Gtk.Overlay):
         if song:
             self._cover.set_visible(True)
             self._title.set_text(song["title"][0])
-            self._subtitle.set_text(str(song["artist"]))
+            subtitle, _ignore = define_subtitle(song, None, ' - ')
+            self._subtitle.set_text(subtitle)
         else:
             self._cover.set_visible(False)
             self._clear_title()

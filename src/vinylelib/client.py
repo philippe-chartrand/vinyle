@@ -28,6 +28,7 @@ class Client(MPDClient):
 
     # overloads to use Song class
     def currentsong(self, *args):
+        self.tagtypes("all")
         return Song(super().currentsong(*args))
     def search(self, *args):
         return [Song(song) for song in super().search(*args)]

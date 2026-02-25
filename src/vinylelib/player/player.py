@@ -9,6 +9,8 @@ from ..lyrics import LyricsWindow
 from ..cover import FALLBACK_COVER
 from .playback_controls import PlaybackControls
 from .player_menu import PlayerMenu
+
+
 class Player(Adw.Bin):
     def __init__(self, client, settings):
         super().__init__(width_request=300, height_request=200)
