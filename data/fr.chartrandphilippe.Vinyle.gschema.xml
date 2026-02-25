@@ -46,9 +46,13 @@
 			<default>true</default>
 			<summary>Provide MPRIS</summary>
 		</key>
-		<key type="b" name="composer">
-			<default>false</default>
-			<summary>Browse by composer</summary>
+		<key type="s" name="default-browsing-mode">
+			<choices>
+				<choice value="artist" />
+				<choice value="composer" />
+				<choice value="conductor" />
+			</choices>
+			<default>"artist"</default>
 		</key>
 	</schema>
 </schemalist>

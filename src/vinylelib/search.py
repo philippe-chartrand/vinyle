@@ -17,10 +17,9 @@ class SearchView(Gtk.Stack):
         "conductor-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str, )),
         "album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,))
     }
-    def __init__(self, client, settings):
+    def __init__(self, client):
         super().__init__()
         self._client=client
-        self.browse_by_composer = settings['composer']
 
         self._results=20  # TODO adjust number of results
         self._song_tags=("title", "artist", "composer", "album", "date")

@@ -5,7 +5,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio, GObject, Pango, GLib
 from gettext import gettext as _
 
-from .artist import ArtistList, ArtistSelectionModel
+from .artist import ArtistList, ArtistSelectionModel, RoleDropDown
 from .artist_album import ArtistAlbumsPage, ArtistAlbumPage
 from .search import SearchView
 
@@ -29,10 +29,10 @@ class Browser(Gtk.Stack):
     def __init__(self, client, settings):
         super().__init__()
         self._client=client
-        self.artist_role='artist'
+        self.artist_role=settings['default-browsing-mode']
         self.artist_page=None
         # search
-        self._search_view=SearchView(client, settings)
+        self._search_view=SearchView(client)
         self.search_entry=Gtk.SearchEntry(placeholder_text=_("Search collection"), max_width_chars=25)
         self.search_entry.update_property([Gtk.AccessibleProperty.LABEL], [_("Search collection")])
         search_toolbar_view=Adw.ToolbarView(content=self._search_view)
@@ -95,14 +95,10 @@ class Browser(Gtk.Stack):
         header_bar = Adw.HeaderBar()
         search_button = Gtk.Button(icon_name="system-search-symbolic", tooltip_text=_("Search"))
         search_button.connect("clicked", lambda *args: self.search())
-        self.role_dropdown = Gtk.DropDown()
-        self.role_dropdown.connect("notify::selected-item", self.on_role_selected)
-        items = Gtk.StringList()
-        self.role_dropdown.props.model = items
-        for item in ArtistSelectionModel().do_get_item_type().ROLES:
-            items.append(item)
+        role_dropdown = RoleDropDown(ArtistSelectionModel().do_get_item_type().ROLES, self.artist_role)
         header_bar.pack_start(search_button)
-        header_bar.pack_start(self.role_dropdown)
+        header_bar.pack_start(role_dropdown)
+        role_dropdown.connect("notify::selected-item", self.on_role_selected)
         header_bar.pack_end(MainMenuButton())
         toolbar_view = Adw.ToolbarView(content=sidebar_window)
         toolbar_view.add_top_bar(header_bar)
