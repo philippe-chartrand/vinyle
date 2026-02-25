@@ -9,12 +9,10 @@ class ArtistAlbumListRow(AlbumListRow):
         super().set_album(album)
         if album.cover is None:
             self._client.tagtypes("clear")
-            if album.role == 'conductor':
-                tag = 'conductor'
-            elif album.role == 'composer':
-                tag = 'composer'
+            if album.role == 'artist':
+                tag = 'albumartist'
             else:
-                tag="albumartist"
+                tag = album.role
             song=self._client.find(tag, album.artist, "album", album.name, "date", album.date, "window", "0:1")[0]
             self._client.tagtypes("all")
             album.cover=self._client.get_cover(song["file"]).get_paintable()
