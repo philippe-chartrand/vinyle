@@ -167,7 +167,7 @@ class Browser(Gtk.Stack):
     def _change_artist_list_according_to_new_role(self, role):
         self._artist_list = ArtistList(self._client, ArtistSelectionModel, role)
         self._artist_list_connect()
-        self._artist_list._refresh()
+        self._artist_list.refresh()
         # print(len(self._artist_list.selection_model.data))
         self.artist_page.props.child.props.content.props.child = self._artist_list
         self.artist_role = role

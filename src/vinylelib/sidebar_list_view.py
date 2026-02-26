@@ -57,7 +57,7 @@ class SidebarListView(Gtk.ListView):
         else:
             self.scroll_to(selected, Gtk.ListScrollFlags.FOCUS, None)
 
-    def _refresh(self):
+    def refresh(self):
         artists=self._client.list("albumartistsort", "group", "albumartist")
         filtered_artists=[]
         for name, artist in itertools.groupby(((artist["albumartist"], artist["albumartistsort"]) for artist in artists), key=lambda x: x[0]):
@@ -75,7 +75,7 @@ class SidebarListView(Gtk.ListView):
 
     def _on_connected(self, emitter, database_is_empty):
         if not database_is_empty:
-            self._refresh()
+            self.refresh()
             if (song:=self._client.currentsong()):
                 artist=song["albumartist"][0]
                 self.select(artist)
@@ -85,9 +85,9 @@ class SidebarListView(Gtk.ListView):
             self.selection_model.clear()
         else:
             if (item:=self.selection_model.get_selected_item()) is None:
-                self._refresh()
+                self.refresh()
                 self.selection_model.select(0)
                 self.scroll_to(0, Gtk.ListScrollFlags.FOCUS, None)
             else:
-                self._refresh()
+                self.refresh()
                 self.select(item)

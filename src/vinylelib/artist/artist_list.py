@@ -13,26 +13,26 @@ class ArtistList(SidebarListView):
         super().__init__(client, SelectionModel)
         self.artist_role = artist_role
 
-    def _refresh(self):
-        if self.artist_role == 'conductor':
-            artists = self._client.list("conductor")
-            artist_iterator = itertools.groupby(((artist["conductor"], artist["conductor"]) for artist in artists),
-                                                key=lambda x: x[0])
-        elif self.artist_role == 'composer':
-            artists = self._client.list("composer")
-            artist_iterator = itertools.groupby(((artist["composer"], artist["composer"]) for artist in artists),
-                                                key=lambda x: x[0])
+    @staticmethod
+    def move_initial_article(artist):
+        moveable_articles = ('The ', 'Les ')
+        if artist[0:4] in moveable_articles:
+             return f"{artist[4:]}, {artist[0:2]}"
         else:
-            artists=self._client.list("albumartistsort", "group", "albumartist")
-            artist_iterator = itertools.groupby(((artist["albumartist"], artist["albumartistsort"]) for artist in artists),
-                                                key=lambda x: x[0])
+            return artist
+
+    def refresh(self):
+        # TODO: simplify me
+        artists = self._client.list(self.artist_role)
+        artist_iterator = itertools.groupby( ((artist[self.artist_role]) for artist in artists ),
+                                                key=lambda x: x)
         filtered_artists=[]
         for name, artist in artist_iterator:
             if name == "":
                 next(artist)
                 continue
-            artist_with_role=list(next(artist))
-            artist_with_role.append(self.artist_role)
+            value = next(artist)
+            artist_with_role= [value, self.move_initial_article(name), self.artist_role]
             filtered_artists.append(artist_with_role)
             # ignore multiple albumartistsort values
             if next(artist, None) is not None:
@@ -41,12 +41,7 @@ class ArtistList(SidebarListView):
 
     def _on_connected(self, emitter, database_is_empty):
         if not database_is_empty:
-            self._refresh()
+            self.refresh()
             if (song:=self._client.currentsong()):
-                if self.artist_role == 'conductor':
-                    artist=song["conductor"][0]
-                elif self.artist_role == 'composer':
-                    artist=song["composer"][0]
-                else:
-                    artist=song["artist"][0]
+                artist=song[self.artist_role][0]
                 self.select(artist)

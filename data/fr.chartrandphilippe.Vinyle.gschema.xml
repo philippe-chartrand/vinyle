@@ -48,11 +48,14 @@
 		</key>
 		<key type="s" name="default-browsing-mode">
 			<choices>
+				<choice value="albumartist" />
 				<choice value="artist" />
 				<choice value="composer" />
 				<choice value="conductor" />
+				<choice value="performer" />
 			</choices>
 			<default>"artist"</default>
+			<summary>To suit your definition of artist</summary>
 		</key>
 	</schema>
 </schemalist>
