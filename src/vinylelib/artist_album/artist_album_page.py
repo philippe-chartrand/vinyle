@@ -6,19 +6,14 @@ from ..duration import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, artist_role, albumartist, album, date):
+    def __init__(self, client, artist_role, artist, album, date):
         super().__init__(client, album, date)
-        if artist_role == 'conductor':
-            tag_filter=("conductor", albumartist, "album", album)
-        elif artist_role == 'composer':
-            tag_filter=("composer", albumartist, "album", album)
-        else:
-            tag_filter=("albumartist", albumartist, "album", album)
+        tag_filter=(artist_role, artist, "album", album)
 
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
-        self.suptitle.set_text(f"{artist_role}: {albumartist}")
+        self.suptitle.set_text(f"{artist_role}: {artist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
         client.restrict_tagtypes("track", "disc", "title", "artist", "composer", "conductor", "date")
         artist_album_songs=client.find(*tag_filter)
@@ -33,7 +28,7 @@ class ArtistAlbumPage(AlbumPage):
         if len(dates) > 1:
             show_year = True
         for song in songs:
-            artist_to_highlight = self.artist_name_to_hilite(albumartist, artist_role, artists, song)
+            artist_to_highlight = self.artist_name_to_hilite(artist, artist_role, artists, song)
             row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
             self.song_list.append(row)
 

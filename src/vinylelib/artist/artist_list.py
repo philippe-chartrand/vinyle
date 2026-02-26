@@ -23,6 +23,7 @@ class ArtistList(SidebarListView):
 
     def refresh(self):
         # TODO: simplify me
+        # grouping and iterator logic does not seem necessary
         artists = self._client.list(self.artist_role)
         artist_iterator = itertools.groupby( ((artist[self.artist_role]) for artist in artists ),
                                                 key=lambda x: x)
