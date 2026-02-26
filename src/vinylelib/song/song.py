@@ -51,6 +51,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         composer_subtitle = ", ".join(composer for composer in self["composer"])
         conductor_subtitle = ", ".join(conductor for conductor in self["conductor"])
         performer_subtitle = ", ".join(performer for performer in self["performer"])
+        subtitle = ""
         credits = []
         found_in_credits = False
         if artist_subtitle:
@@ -61,7 +62,8 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
             credits.append(conductor_subtitle)
         if performer_subtitle:
             credits.append(performer_subtitle)
-        if subtitle := delim.join(credits):
+        if bool(credits):
+            subtitle = delim.join(credits)
             if artist_to_highlight in credits:
                 found_in_credits = True
-            return subtitle, found_in_credits
+        return subtitle, found_in_credits
