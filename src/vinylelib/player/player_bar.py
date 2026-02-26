@@ -1,7 +1,5 @@
 import gi
 
-from ..song import define_subtitle
-
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk, Pango
@@ -69,7 +67,7 @@ class PlayerBar(Gtk.Overlay):
         if song:
             self._cover.set_visible(True)
             self._title.set_text(song["title"][0])
-            subtitle, _ignore = define_subtitle(song, None, ' - ')
+            subtitle, _ignore = song.define_subtitle(None, ' - ')
             self._subtitle.set_text(subtitle)
         else:
             self._cover.set_visible(False)

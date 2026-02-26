@@ -45,3 +45,23 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
                 return MultiTag([""])
         else:
             return None
+
+    def define_subtitle(self, artist_to_highlight=None, delim="\r"):
+        artist_subtitle = ", ".join(artist for artist in self["artist"])
+        composer_subtitle = ", ".join(composer for composer in self["composer"])
+        conductor_subtitle = ", ".join(conductor for conductor in self["conductor"])
+        performer_subtitle = ", ".join(performer for performer in self["performer"])
+        credits = []
+        found_in_credits = False
+        if artist_subtitle:
+            credits.append(artist_subtitle)
+        if composer_subtitle:
+            credits.append(composer_subtitle)
+        if conductor_subtitle:
+            credits.append(conductor_subtitle)
+        if performer_subtitle:
+            credits.append(performer_subtitle)
+        if subtitle := delim.join(credits):
+            if artist_to_highlight in credits:
+                found_in_credits = True
+            return subtitle, found_in_credits

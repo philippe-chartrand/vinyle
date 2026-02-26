@@ -3,7 +3,6 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GObject, Pango
 
-from .song_info import define_subtitle
 
 class SongListRow(Gtk.Box):
     position=GObject.Property(type=int, default=-1)
@@ -25,7 +24,7 @@ class SongListRow(Gtk.Box):
 
     def set_song(self, song):
         #subtitle=str(song["artist"])
-        subtitle, _ignore = define_subtitle(song, None, ' - ')
+        subtitle, _ignore = song.define_subtitle(None, ' - ')
         self._title.set_text(song["title"][0])
         self._subtitle.set_visible(bool(subtitle))
         self._subtitle.set_text(subtitle)
