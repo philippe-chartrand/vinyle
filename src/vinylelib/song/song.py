@@ -16,35 +16,6 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
     def __init__(self, data):
         collections.UserDict.__init__(self, data)
         GObject.Object.__init__(self)
-    def __setitem__(self, key, value):
-        if key == "time":  # time is deprecated https://mpd.readthedocs.io/en/latest/protocol.html#other-metadata
-            pass
-        elif key == "duration":
-            super().__setitem__(key, Duration(value))
-        elif key in ("range", "file", "pos", "id", "format", "last-modified"):
-            super().__setitem__(key, value)
-        else:
-            if isinstance(value, list):
-                super().__setitem__(key, MultiTag(value))
-            else:
-                super().__setitem__(key, MultiTag([value]))
-
-    def __missing__(self, key):
-        if self.data:
-            if key == "albumartist":
-                return self["artist"]
-            elif key == "albumartistsort":
-                return self["albumartist"]
-            elif key == "artistsort":
-                return self["artist"]
-            elif key == "title":
-                return MultiTag([GLib.path_get_basename(self.data["file"])])
-            elif key == "duration":
-                return Duration()
-            else:
-                return MultiTag([""])
-        else:
-            return None
 
     @property
     def year(self):
@@ -126,6 +97,36 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
     def performers(self):
         return self.data['performer'] if 'performer' in self.data else ()
 
+    def __setitem__(self, key, value):
+        if key == "time":  # time is deprecated https://mpd.readthedocs.io/en/latest/protocol.html#other-metadata
+            pass
+        elif key == "duration":
+            super().__setitem__(key, Duration(value))
+        elif key in ("range", "file", "pos", "id", "format", "last-modified"):
+            super().__setitem__(key, value)
+        else:
+            if isinstance(value, list):
+                super().__setitem__(key, MultiTag(value))
+            else:
+                super().__setitem__(key, MultiTag([value]))
+
+    def __missing__(self, key):
+        if self.data:
+            if key == "albumartist":
+                return self["artist"]
+            elif key == "albumartistsort":
+                return self["albumartist"]
+            elif key == "artistsort":
+                return self["artist"]
+            elif key == "title":
+                return MultiTag([GLib.path_get_basename(self.data["file"])])
+            elif key == "duration":
+                return Duration()
+            else:
+                return MultiTag([""])
+        else:
+            return None
+
     def define_subtitle(self, artist_to_highlight=None, delim="\r"):
         artist_subtitle = ", ".join(artist for artist in self.artists)
         composer_subtitle = ", ".join(composer for composer in self.composers)
@@ -143,7 +144,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         if performer_subtitle:
             credits.append(performer_subtitle)
         if bool(credits):
-            subtitle = delim.join(credits)
+            subtitle = delim.join(list(dict.fromkeys(credits))) #remove duplicates but keep ordering
             if artist_to_highlight in credits:
                 found_in_credits = True
         return subtitle, found_in_credits
