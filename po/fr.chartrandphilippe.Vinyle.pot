@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-28 12:37-0500\n"
+"POT-Creation-Date: 2026-02-28 13:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,7 +241,7 @@ msgstr ""
 msgid "Playtime"
 msgstr ""
 
-#: vinylelib/dialogs/server_info.py:23
+#: vinylelib/dialogs/server_info.py:23 vinylelib/search.py:55
 msgid "Artists"
 msgstr ""
 
@@ -430,6 +430,22 @@ msgstr ""
 
 #: vinylelib/playlist/playlist_window.py:27
 msgid "Scroll to Current Song"
+msgstr ""
+
+#: vinylelib/search.py:54
+msgid "Album Artists"
+msgstr ""
+
+#: vinylelib/search.py:56
+msgid "Composers"
+msgstr ""
+
+#: vinylelib/search.py:57
+msgid "Conductors"
+msgstr ""
+
+#: vinylelib/search.py:58
+msgid "Performers"
 msgstr ""
 
 #: vinylelib/search.py:83

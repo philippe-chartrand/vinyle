@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpdevil\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-28 12:37-0500\n"
-"PO-Revision-Date: 2026-02-28 12:38-0500\n"
+"POT-Creation-Date: 2026-02-28 13:33-0500\n"
+"PO-Revision-Date: 2026-02-28 13:37-0500\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -239,7 +239,7 @@ msgstr "Durée d’activité"
 msgid "Playtime"
 msgstr "Durée de lecture"
 
-#: vinylelib/dialogs/server_info.py:23
+#: vinylelib/dialogs/server_info.py:23 vinylelib/search.py:55
 msgid "Artists"
 msgstr "Artistes"
 
@@ -435,6 +435,22 @@ msgstr "Liste de lecture"
 #: vinylelib/playlist/playlist_window.py:27
 msgid "Scroll to Current Song"
 msgstr "Défiler jusqu'à la chanson courante"
+
+#: vinylelib/search.py:54
+msgid "Album Artists"
+msgstr "Artistes de l'album"
+
+#: vinylelib/search.py:56
+msgid "Composers"
+msgstr "Compositeurs"
+
+#: vinylelib/search.py:57
+msgid "Conductors"
+msgstr "Chefs d'orchestre"
+
+#: vinylelib/search.py:58
+msgid "Performers"
+msgstr "Interprètes"
 
 #: vinylelib/search.py:83
 msgid "No Results"

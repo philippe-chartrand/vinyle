@@ -41,6 +41,13 @@
     </screenshot>
   </screenshots>
   <releases>
+  <release version="2.5.1" date="2026-02-28">
+      <description translate="no">
+        <ul>
+          <li>Allow searching and browsing by album artist, artist, composer, conductor or performer</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.5.0" date="2026-02-22">
       <description translate="no">
         <ul>

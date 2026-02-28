@@ -51,11 +51,11 @@ class SearchView(Gtk.Stack):
         self._song_list.add_css_class("boxed-list")
 
         # boxes
-        self._album_artist_box = self._init_box("Album Artists", self._album_artist_list)
-        self._artist_box = self._init_box("Artists", self._artist_list)
-        self._composer_box = self._init_box("Composers", self._composer_list)
-        self._conductor_box = self._init_box("Conductors", self._conductor_list)
-        self._performer_box = self._init_box("Performers", self._performer_list)
+        self._album_artist_box = self._init_box(_("Album Artists"), self._album_artist_list)
+        self._artist_box = self._init_box(_("Artists"), self._artist_list)
+        self._composer_box = self._init_box(_("Composers"), self._composer_list)
+        self._conductor_box = self._init_box(_("Conductors"), self._conductor_list)
+        self._performer_box = self._init_box(_("Performers"), self._performer_list)
 
         self._album_box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._album_box.append(Gtk.Label(label=_("Albums"), xalign=0, css_classes=["heading"]))
