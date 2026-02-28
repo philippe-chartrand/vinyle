@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpdevil\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-22 14:06-0500\n"
-"PO-Revision-Date: 2026-02-22 14:09-0500\n"
+"POT-Creation-Date: 2026-02-28 12:37-0500\n"
+"PO-Revision-Date: 2026-02-28 12:38-0500\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,326 +18,248 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.7\n"
 
-#: src/vinylelib/application.py:16
-msgid "Debug mode"
-msgstr "Mode debug"
-
-#: src/vinylelib/application.py:97
-msgid "translator-credits"
-msgstr "Emmanuel Averty"
-
-#: src/vinylelib/application.py:165
-msgid "Next Title is Playing"
-msgstr "Le prochain titre est en cours"
-
-#: src/vinylelib/application.py:167
-#, python-brace-format
-msgid "Now playing “{title}” by “{artist}”"
-msgstr "En cours «{title}» par «{artist}»"
-
-#: src/vinylelib/application.py:169
-#, python-brace-format
-msgid "Now playing “{title}”"
-msgstr "En cours «{title}»"
-
-#: src/vinylelib/application.py:171
-msgid "Skip"
-msgstr "Sauter"
-
-#: src/vinylelib/application.py:178
-msgid "Playback Finished"
-msgstr "Lecture terminée"
-
-#: src/vinylelib/application.py:179
-msgid "The playlist is over"
-msgstr "La liste est terminée"
-
-#: src/vinylelib/bitrate.py:12
-#, python-brace-format
-msgid "{bitrate} kb/s"
-msgstr "{bitrate} kb/s"
-
-#: src/vinylelib/browser.py:15 src/vinylelib/main_window.py:82
-msgid "Main Menu"
-msgstr "Menu principal"
-
-#: src/vinylelib/browser.py:17 src/vinylelib/main_window.py:79
-msgid "_Preferences"
-msgstr "_Préférences"
-
-#: src/vinylelib/browser.py:18 src/vinylelib/main_window.py:80
-msgid "_Keyboard Shortcuts"
-msgstr "_Raccourcis clavier"
-
-#: src/vinylelib/browser.py:19 src/vinylelib/main_window.py:81
-msgid "_About Vinyle"
-msgstr "À propos de Vinyle"
-
-#: src/vinylelib/browser.py:21
-msgid "_Disconnect"
-msgstr "_Déconnecter"
-
-#: src/vinylelib/browser.py:22
-msgid "_Update Database"
-msgstr "_Mettre à jour la base"
-
-#: src/vinylelib/browser.py:23
-msgid "_Server Information"
-msgstr "_Informations du serveur"
-
-#: src/vinylelib/browser.py:36 src/vinylelib/browser.py:37
-msgid "Search collection"
-msgstr "Rechercher une collection"
-
-#: src/vinylelib/album/albums_page.py:11 src/vinylelib/album/albums_page.py:64
-#: src/vinylelib/browser.py:50 src/vinylelib/dialogs/server_info.py:24
-#: src/vinylelib/search.py:64
-msgid "Albums"
-msgstr "Albums"
-
-#: src/vinylelib/browser.py:66
-msgid "Collection is Empty"
-msgstr "La collection est vide"
-
-#: src/vinylelib/browser.py:74
-msgid "Collection"
-msgstr "Collection"
-
-#: src/vinylelib/browser.py:75 src/vinylelib/browser.py:96
-msgid "Search"
-msgstr "Rechercher"
-
-#: src/vinylelib/duration.py:22
-#, python-brace-format
-msgid "{days} day"
-msgid_plural "{days} days"
-msgstr[0] "{days} jour"
-msgstr[1] "{days} jours"
-
-#: src/vinylelib/lyrics.py:43
-msgid "No Lyrics"
-msgstr "Paroles introuvables"
-
-#: src/vinylelib/lyrics.py:46
-msgid "Connection Error"
-msgstr "Erreur de connexion"
-
-#: src/vinylelib/lyrics.py:46
-msgid "Check your network connection"
-msgstr "Vérifiez votre connexion réseau"
-
-#: src/vinylelib/lyrics.py:48
-msgid "Searching…"
-msgstr "Recherche…"
-
-#: src/vinylelib/lyrics.py:60
-msgid "Lyrics view"
-msgstr "Voir les paroles"
-
-#: src/vinylelib/main_window.py:28
-msgid "Database is being updated"
-msgstr "La base de données se met à jour"
-
-#: src/vinylelib/main_window.py:29
-msgid "Database updated"
-msgstr "Base de donnée mise à jour"
-
-#: src/vinylelib/main_window.py:67
-msgid "Connect to Your Music"
-msgstr "Connectez-vous à votre musique"
-
-#: src/vinylelib/main_window.py:68
-msgid ""
-"To use Vinyle, an instance of the Music Player Daemon needs to be set up and "
-"running on this device or another one on the network"
-msgstr ""
-"Pour utiliser Vinyle, une instance de Music Player Daemon doit configurée et "
-"exécutée sur ce périphérique ou sur un autre accessible par le réseau"
-
-#: src/vinylelib/dialogs/connect_dialog.py:13 src/vinylelib/main_window.py:70
-msgid "_Connect"
-msgstr "_Connexion"
-
-#: src/vinylelib/main_window.py:72
-msgid "Connect _Manually"
-msgstr "Se connecter manuellement"
-
-#: src/vinylelib/main_window.py:174
-msgid "Playing music"
-msgstr "Jouer la musique"
-
-#: src/vinylelib/main_window.py:211
-msgid "Cleared A‐B loop"
-msgstr "Boucle A-B effacée"
-
-#: src/vinylelib/main_window.py:214
-#, python-brace-format
-msgid "Started A‐B loop at {start}"
-msgstr "Boucle A-B démarrée à {start}"
-
-#: src/vinylelib/main_window.py:216
-#, python-brace-format
-msgid "Activated A‐B loop from {start} to {end}"
-msgstr "Boucle A-B activée de {start} à {end}"
-
-#: src/vinylelib/album/album_page.py:20 src/vinylelib/media_buttons.py:9
-#: src/vinylelib/media_buttons.py:18
-msgid "Play"
-msgstr "Jouer"
-
-#: src/vinylelib/media_buttons.py:15
-msgid "Pause"
-msgstr "Pause"
-
-#: src/vinylelib/media_buttons.py:24
-msgid "Previous"
-msgstr "Précédent"
-
-#: src/vinylelib/media_buttons.py:26
-msgid "Next"
-msgstr "Suivant"
-
-#: src/vinylelib/dialogs/server_info.py:23 src/vinylelib/search.py:52
-msgid "Artists"
-msgstr "Artistes"
-
-#: src/vinylelib/search.py:56
-msgid "Composers"
-msgstr "Compositeurs"
-
-#: src/vinylelib/search.py:60
-msgid "Conductors"
-msgstr "Chefs d'orchestre"
-
-#: src/vinylelib/dialogs/server_info.py:25 src/vinylelib/search.py:67
-msgid "Songs"
-msgstr "Titres"
-
-#: src/vinylelib/search.py:81
-msgid "No Results"
-msgstr "Aucun résultat"
-
-#: src/vinylelib/search.py:81
-msgid "Try a different search"
-msgstr "Essayez une recherche différente"
-
-#: src/vinylelib/sidebar_list_view.py:24
-msgid "Unknown Artist"
-msgstr "Artiste inconnu"
-
-#: src/vinylelib/album/album_list_row.py:23
+#: vinylelib/album/list_row.py:23
 #, python-brace-format
 msgid "Album cover of {album}"
 msgstr "Pochette de l'album {album}"
 
-#: src/vinylelib/album/album_list_row.py:25
-#: src/vinylelib/album/album_page.py:60 src/vinylelib/album/album_page.py:61
+#: vinylelib/album/list_row.py:25 vinylelib/album/page.py:60
+#: vinylelib/album/page.py:61
 msgid "Unknown Album"
 msgstr "Album inconnu"
 
-#: src/vinylelib/album/album_list_row.py:26
+#: vinylelib/album/list_row.py:26
 msgid "Album cover of an unknown album"
 msgstr "Pochette d'un album inconnu"
 
-#: src/vinylelib/album/album_page.py:21
+#: vinylelib/album/page.py:20 vinylelib/media_buttons.py:9
+#: vinylelib/media_buttons.py:18
+msgid "Play"
+msgstr "Jouer"
+
+#: vinylelib/album/page.py:21
 msgid "Append"
 msgstr "Ajouter"
 
-#: src/vinylelib/album/albums_page.py:56
+#: vinylelib/album/pages.py:11 vinylelib/album/pages.py:64
+#: vinylelib/browser/browser.py:50 vinylelib/dialogs/server_info.py:24
+#: vinylelib/search.py:61
+msgid "Albums"
+msgstr "Albums"
+
+#: vinylelib/album/pages.py:56
 msgid "No Albums"
 msgstr "Pas d'albums"
 
-#: src/vinylelib/album/albums_page.py:76
+#: vinylelib/album/pages.py:76
 #, python-brace-format
 msgid "Albums of {item}"
 msgstr "Albums de {item}"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:11
+#: vinylelib/application.py:16
+msgid "Debug mode"
+msgstr "Mode debug"
+
+#: vinylelib/application.py:97
+msgid "translator-credits"
+msgstr "Emmanuel Averty"
+
+#: vinylelib/application.py:165
+msgid "Next Title is Playing"
+msgstr "Le prochain titre est en cours"
+
+#: vinylelib/application.py:167
+#, python-brace-format
+msgid "Now playing “{title}” by “{artist}”"
+msgstr "En cours «{title}» par «{artist}»"
+
+#: vinylelib/application.py:169
+#, python-brace-format
+msgid "Now playing “{title}”"
+msgstr "En cours «{title}»"
+
+#: vinylelib/application.py:171
+msgid "Skip"
+msgstr "Sauter"
+
+#: vinylelib/application.py:178
+msgid "Playback Finished"
+msgstr "Lecture terminée"
+
+#: vinylelib/application.py:179
+msgid "The playlist is over"
+msgstr "La liste est terminée"
+
+#: vinylelib/artist/artist.py:10
+msgid "Albumartist"
+msgstr "Artiste de l'album"
+
+#: vinylelib/artist/artist.py:11
+msgid "Artist"
+msgstr "Artiste"
+
+#: vinylelib/artist/artist.py:12
+msgid "Composer"
+msgstr "Compositeur"
+
+#: vinylelib/artist/artist.py:13
+msgid "Conductor"
+msgstr "Chef d'orchestre"
+
+#: vinylelib/artist/artist.py:14
+msgid "Performer"
+msgstr "Interprète"
+
+#: vinylelib/artist_album/albums_page.py:15
+msgid "Select an artist"
+msgstr "Sélectionnez un artiste"
+
+#: vinylelib/bitrate.py:12
+#, python-brace-format
+msgid "{bitrate} kb/s"
+msgstr "{bitrate} kb/s"
+
+#: vinylelib/browser/browser.py:15 vinylelib/main_window.py:82
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: vinylelib/browser/browser.py:17 vinylelib/main_window.py:79
+msgid "_Preferences"
+msgstr "_Préférences"
+
+#: vinylelib/browser/browser.py:18 vinylelib/main_window.py:80
+msgid "_Keyboard Shortcuts"
+msgstr "_Raccourcis clavier"
+
+#: vinylelib/browser/browser.py:19 vinylelib/main_window.py:81
+msgid "_About Vinyle"
+msgstr "À propos de Vinyle"
+
+#: vinylelib/browser/browser.py:21
+msgid "_Disconnect"
+msgstr "_Déconnecter"
+
+#: vinylelib/browser/browser.py:22
+msgid "_Update Database"
+msgstr "_Mettre à jour la base"
+
+#: vinylelib/browser/browser.py:23
+msgid "_Server Information"
+msgstr "_Informations du serveur"
+
+#: vinylelib/browser/browser.py:36 vinylelib/browser/browser.py:37
+msgid "Search collection"
+msgstr "Rechercher une collection"
+
+#: vinylelib/browser/browser.py:66
+msgid "Collection is Empty"
+msgstr "La collection est vide"
+
+#: vinylelib/browser/browser.py:74
+msgid "Collection"
+msgstr "Collection"
+
+#: vinylelib/browser/browser.py:75 vinylelib/browser/browser.py:96
+msgid "Search"
+msgstr "Rechercher"
+
+#: vinylelib/dialogs/behaviour_preferences.py:14
 msgid "Behavior"
 msgstr "Comportement"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:13
+#: vinylelib/dialogs/behaviour_preferences.py:17
 msgid "Send _Notification on Title Change"
 msgstr "_Notifier lors du changement de titre"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:14
+#: vinylelib/dialogs/behaviour_preferences.py:18
 msgid "Stop _Playback on Quit"
 msgstr "_Arrêt de la lecture en quittant"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:15
+#: vinylelib/dialogs/behaviour_preferences.py:19
 msgid "Support “_MPRIS”"
 msgstr "Support du \"_MPRIS\""
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:15
+#: vinylelib/dialogs/behaviour_preferences.py:19
 msgid "Disable if “MPRIS” is supported by another client"
 msgstr "Désactiver si \"MPRIS\" est supporté par un autre client"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:16
-msgid "Browse by composer, (requires to restart the app)"
-msgstr "Parcourir par compositeur, (requiert un redémarrage)"
+#: vinylelib/dialogs/behaviour_preferences.py:22
+msgid "Default browsing mode, (after restart)"
+msgstr "Mode de navigation par défaut (après redémarrage)"
 
-#: src/vinylelib/dialogs/behaviour_preferences.py:16
-msgid "Choose sidebar navigation"
-msgstr "Choisir la navigation par liste"
+#: vinylelib/dialogs/behaviour_preferences.py:23
+msgid "Choose your favorite sidebar navigation"
+msgstr "Choisir votre mode de navigation par liste"
 
-#: src/vinylelib/dialogs/connect_dialog.py:15
+#: vinylelib/dialogs/connect_dialog.py:13 vinylelib/main_window.py:70
+msgid "_Connect"
+msgstr "_Connexion"
+
+#: vinylelib/dialogs/connect_dialog.py:15
 msgid "Ca_ncel"
 msgstr "Annuler"
 
-#: src/vinylelib/dialogs/connect_dialog.py:23
+#: vinylelib/dialogs/connect_dialog.py:23
 msgid "Connection failed"
 msgstr "Connexion échoué"
 
-#: src/vinylelib/dialogs/manual_connect_dialog.py:13
+#: vinylelib/dialogs/manual_connect_dialog.py:13
 msgid "Manual Connection"
 msgstr "Connexion manuelle"
 
-#: src/vinylelib/dialogs/manual_connect_dialog.py:16
+#: vinylelib/dialogs/manual_connect_dialog.py:16
 msgid "Host"
 msgstr "Hôte"
 
-#: src/vinylelib/dialogs/manual_connect_dialog.py:20
+#: vinylelib/dialogs/manual_connect_dialog.py:20
 msgid "Port"
 msgstr "Port"
 
-#: src/vinylelib/dialogs/manual_connect_dialog.py:23
+#: vinylelib/dialogs/manual_connect_dialog.py:23
 msgid "Password (optional)"
 msgstr "Mot de passe (optionnel)"
 
-#: src/vinylelib/dialogs/server_info.py:11
+#: vinylelib/dialogs/server_info.py:11
 msgid "Server Information"
 msgstr "Informations du serveur"
 
-#: src/vinylelib/dialogs/server_info.py:19
+#: vinylelib/dialogs/server_info.py:19
 msgid "Server"
 msgstr "Serveur"
 
-#: src/vinylelib/dialogs/server_info.py:20
+#: vinylelib/dialogs/server_info.py:20
 msgid "Protocol"
 msgstr "Protocole"
 
-#: src/vinylelib/dialogs/server_info.py:21
+#: vinylelib/dialogs/server_info.py:21
 msgid "Uptime"
 msgstr "Durée d’activité"
 
-#: src/vinylelib/dialogs/server_info.py:22
+#: vinylelib/dialogs/server_info.py:22
 msgid "Playtime"
 msgstr "Durée de lecture"
 
-#: src/vinylelib/dialogs/server_info.py:26
+#: vinylelib/dialogs/server_info.py:23
+msgid "Artists"
+msgstr "Artistes"
+
+#: vinylelib/dialogs/server_info.py:25 vinylelib/search.py:65
+msgid "Songs"
+msgstr "Titres"
+
+#: vinylelib/dialogs/server_info.py:26
 msgid "Total Database Playtime"
 msgstr "Temps total de lecture"
 
-#: src/vinylelib/dialogs/server_info.py:27
+#: vinylelib/dialogs/server_info.py:27
 msgid "Last Database Update"
 msgstr "Dernière mise à jour de la base"
 
-#: src/vinylelib/dialogs/setup_dialog.py:25
+#: vinylelib/dialogs/setup_dialog.py:25
 msgid "Setup"
 msgstr "Configuration"
 
-#: src/vinylelib/dialogs/setup_dialog.py:27
-#, fuzzy
+#: vinylelib/dialogs/setup_dialog.py:27
 msgid ""
 "To get started, install the Music Player Daemon (<tt>mpd</tt>) with your "
 "system package manager, and run the following commands to configure and "
@@ -349,101 +271,196 @@ msgstr ""
 "initialiser une instance basique locale. Ensuite, Vinyle devrait s'y "
 "connecter."
 
-#: src/vinylelib/dialogs/view_preferences.py:11
+#: vinylelib/dialogs/view_preferences.py:11
 msgid "View"
 msgstr "Vue"
 
-#: src/vinylelib/dialogs/view_preferences.py:13
+#: vinylelib/dialogs/view_preferences.py:13
 msgid "_Show Bit Rate"
 msgstr "Affiche le débit"
 
-#: src/vinylelib/player/playback_controls.py:24
-#: src/vinylelib/player/player_bar.py:42
+#: vinylelib/duration.py:22
+#, python-brace-format
+msgid "{days} day"
+msgid_plural "{days} days"
+msgstr[0] "{days} jour"
+msgstr[1] "{days} jours"
+
+#: vinylelib/lyrics.py:43
+msgid "No Lyrics"
+msgstr "Paroles introuvables"
+
+#: vinylelib/lyrics.py:46
+msgid "Connection Error"
+msgstr "Erreur de connexion"
+
+#: vinylelib/lyrics.py:46
+msgid "Check your network connection"
+msgstr "Vérifiez votre connexion réseau"
+
+#: vinylelib/lyrics.py:48
+msgid "Searching…"
+msgstr "Recherche…"
+
+#: vinylelib/lyrics.py:60
+msgid "Lyrics view"
+msgstr "Voir les paroles"
+
+#: vinylelib/main_window.py:28
+msgid "Database is being updated"
+msgstr "La base de données se met à jour"
+
+#: vinylelib/main_window.py:29
+msgid "Database updated"
+msgstr "Base de donnée mise à jour"
+
+#: vinylelib/main_window.py:67
+msgid "Connect to Your Music"
+msgstr "Connectez-vous à votre musique"
+
+#: vinylelib/main_window.py:68
+msgid ""
+"To use Vinyle, an instance of the Music Player Daemon needs to be set up and "
+"running on this device or another one on the network"
+msgstr ""
+"Pour utiliser Vinyle, une instance de Music Player Daemon doit configurée et "
+"exécutée sur ce périphérique ou sur un autre accessible par le réseau"
+
+#: vinylelib/main_window.py:72
+msgid "Connect _Manually"
+msgstr "Se connecter manuellement"
+
+#: vinylelib/main_window.py:174
+msgid "Playing music"
+msgstr "Jouer la musique"
+
+#: vinylelib/main_window.py:211
+msgid "Cleared A‐B loop"
+msgstr "Boucle A-B effacée"
+
+#: vinylelib/main_window.py:214
+#, python-brace-format
+msgid "Started A‐B loop at {start}"
+msgstr "Boucle A-B démarrée à {start}"
+
+#: vinylelib/main_window.py:216
+#, python-brace-format
+msgid "Activated A‐B loop from {start} to {end}"
+msgstr "Boucle A-B activée de {start} à {end}"
+
+#: vinylelib/media_buttons.py:15
+msgid "Pause"
+msgstr "Pause"
+
+#: vinylelib/media_buttons.py:24
+msgid "Previous"
+msgstr "Précédent"
+
+#: vinylelib/media_buttons.py:26
+msgid "Next"
+msgstr "Suivant"
+
+#: vinylelib/player/playback_controls.py:24 vinylelib/player/player_bar.py:41
 msgid "Progress bar"
 msgstr "Barre de progression"
 
-#: src/vinylelib/player/player.py:32
+#: vinylelib/player/player.py:34
 msgid "Playlist"
 msgstr "Liste de lecture"
 
-#: src/vinylelib/player/player.py:33
+#: vinylelib/player/player.py:35
 msgid "Lyrics"
 msgstr "Paroles"
 
-#: src/vinylelib/player/player.py:45
+#: vinylelib/player/player.py:47
 msgid "Player Menu"
 msgstr "Menu du lecteur"
 
-#: src/vinylelib/player/player_menu.py:23
+#: vinylelib/player/player_menu.py:23
 msgid "_Repeat Mode"
 msgstr "Mode _répétition"
 
-#: src/vinylelib/player/player_menu.py:24
+#: vinylelib/player/player_menu.py:24
 msgid "R_andom Mode"
 msgstr "Mode _aléatoire"
 
-#: src/vinylelib/player/player_menu.py:25
+#: vinylelib/player/player_menu.py:25
 msgid "_Single Mode"
 msgstr "Mode chanson _unique"
 
-#: src/vinylelib/player/player_menu.py:26
+#: vinylelib/player/player_menu.py:26
 msgid "_Pause After Song"
 msgstr "_Pause après le titre"
 
-#: src/vinylelib/player/player_menu.py:27
+#: vinylelib/player/player_menu.py:27
 msgid "_Consume Mode"
 msgstr "Mode _consommer"
 
-#: src/vinylelib/player/volume_control.py:14
+#: vinylelib/player/volume_control.py:14
 msgid "Volume control"
 msgstr "Volume"
 
-#: src/vinylelib/playlist/playlist_menu.py:12
-#: src/vinylelib/song/song_menu.py:11
+#: vinylelib/playlist/playlist_menu.py:12 vinylelib/song/song_menu.py:11
 msgid "Context menu"
 msgstr "Menu contextuel"
 
-#: src/vinylelib/playlist/playlist_menu.py:32
+#: vinylelib/playlist/playlist_menu.py:32
 msgid "_Remove"
 msgstr "_Supprimer"
 
-#: src/vinylelib/playlist/playlist_menu.py:33
-#: src/vinylelib/song/song_menu.py:38
+#: vinylelib/playlist/playlist_menu.py:33 vinylelib/song/song_menu.py:38
 msgid "Show Al_bum"
 msgstr "Montrer l'album"
 
-#: src/vinylelib/playlist/playlist_menu.py:34
-#: src/vinylelib/song/song_menu.py:39
+#: vinylelib/playlist/playlist_menu.py:34 vinylelib/song/song_menu.py:39
 msgid "Show _File"
 msgstr "Montre le fichier"
 
-#: src/vinylelib/playlist/playlist_menu.py:36
+#: vinylelib/playlist/playlist_menu.py:36
 msgid "_Enqueue Album"
 msgstr "_Ajouter l'album"
 
-#: src/vinylelib/playlist/playlist_menu.py:37
+#: vinylelib/playlist/playlist_menu.py:37
 msgid "_Tidy"
 msgstr "_Épurer"
 
-#: src/vinylelib/playlist/playlist_menu.py:38
+#: vinylelib/playlist/playlist_menu.py:38
 msgid "_Clear"
 msgstr "_Vider"
 
-#: src/vinylelib/playlist/playlist_window.py:21
+#: vinylelib/playlist/playlist_window.py:21
 msgid "Playlist is Empty"
 msgstr "Liste de lecture"
 
-#: src/vinylelib/playlist/playlist_window.py:27
+#: vinylelib/playlist/playlist_window.py:27
 msgid "Scroll to Current Song"
 msgstr "Défiler jusqu'à la chanson courante"
 
-#: src/vinylelib/song/song_menu.py:34
+#: vinylelib/search.py:83
+msgid "No Results"
+msgstr "Aucun résultat"
+
+#: vinylelib/search.py:83
+msgid "Try a different search"
+msgstr "Essayez une recherche différente"
+
+#: vinylelib/sidebar_list_view.py:24
+msgid "Unknown Artist"
+msgstr "Artiste inconnu"
+
+#: vinylelib/song/song_menu.py:34
 msgid "_Append"
 msgstr "_Ajouter"
 
-#: src/vinylelib/song/song_menu.py:35
+#: vinylelib/song/song_menu.py:35
 msgid "As _Next"
 msgstr "_Suivant"
+
+#~ msgid "artist"
+#~ msgstr "Artiste"
+
+#~ msgid "Browse by composer, (requires to restart the app)"
+#~ msgstr "Parcourir par compositeur, (requiert un redémarrage)"
 
 #~ msgid "_About Plattenalbum"
 #~ msgstr "À pr_opos de Plattenalbum"

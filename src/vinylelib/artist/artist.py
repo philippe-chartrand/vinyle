@@ -2,10 +2,18 @@ import gi
 
 gi.require_version("Gtk", "4.0")
 from gi.repository import GObject
+from gettext import gettext as _
 
 
 class Artist(GObject.Object):
-    ROLES=('albumartist','artist', 'composer', 'conductor', 'performer')
+    ROLES=(
+        ('albumartist',_("Albumartist")),
+        ('artist', _("Artist")),
+        ('composer', _("Composer")),
+        ('conductor', _("Conductor")),
+        ('performer', _("Performer")),
+    )
+
     def __init__(self, name, sort_key, role):
         GObject.Object.__init__(self)
         self.name=name

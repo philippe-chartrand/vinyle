@@ -39,7 +39,7 @@ class BehaviorPreferences(Adw.PreferencesGroup):
         if dropdown.props.selected_item is None:
             return
         old_value = self._settings["default-browsing-mode"]
-        new_value = dropdown.props.selected_item.props.string
+        new_value = dropdown.get_selected()
         if new_value is not None and new_value != old_value:
             dropdown.set_selected_by_position(new_value)
             self._settings["default-browsing-mode"] = new_value

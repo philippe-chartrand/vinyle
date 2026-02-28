@@ -110,7 +110,6 @@ class Browser(Gtk.Stack):
         self._artist_list = ArtistList(client, ArtistSelectionModel, self.artist_role)
         artist_window = Gtk.ScrolledWindow(child=self._artist_list)
         artist_toolbar_view = self._toolbar_view_setup(artist_window)
-        #artist_page = Adw.NavigationPage(child=artist_toolbar_view, title=_("Artists"), tag="artists")
         artist_page = Adw.NavigationPage(child=artist_toolbar_view, title="", tag="artists")
         return artist_page
 
@@ -136,9 +135,9 @@ class Browser(Gtk.Stack):
 
     def on_role_selected(self, dropdown, _pspec):
         # Selected Gtk.StringObject
-        selected = dropdown.props.selected_item
-        if self.artist_page is not None and selected is not None and selected.props.string != self.artist_role:
-            self._change_artist_list_according_to_new_role(selected.props.string)
+        selected = dropdown.get_selected()
+        if self.artist_page is not None and selected is not None and selected != self.artist_role:
+            self._change_artist_list_according_to_new_role(selected)
 
     def _on_artist_selected(self, model, position):
         self._navigation_split_view.set_show_content(True)
