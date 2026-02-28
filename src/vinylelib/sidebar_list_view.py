@@ -77,7 +77,7 @@ class SidebarListView(Gtk.ListView):
         if not database_is_empty:
             self.refresh()
             if (song:=self._client.currentsong()):
-                artist=song["albumartist"][0]
+                artist=song.albumartist
                 self.select(artist)
 
     def _on_updated_db(self, emitter, database_is_empty):

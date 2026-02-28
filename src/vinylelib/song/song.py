@@ -46,11 +46,91 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         else:
             return None
 
+    @property
+    def year(self):
+        return self.data['date'][0][0:4] if 'date' in self.data else None
+
+    @property
+    def date(self):
+        return self.data['date'][0] if 'date' in self.data else None
+
+    @property
+    def album(self):
+        return self.data['album'][0] if 'album' in self.data else None
+
+    @property
+    def title(self):
+        return self.data['title'][0] if 'title' in self.data else None
+
+    @property
+    def disc(self):
+        return self.data['disc'][0] if 'disc' in self.data else None
+
+    @property
+    def track(self):
+        return self.data['track'][0] if 'track' in self.data else None
+
+    @property
+    def file(self):
+        return self.data['file'] if 'file' in self.data else None
+
+    @property
+    def duration(self):
+        return self.data['duration'] if 'duration' in self.data else None
+
+    @property
+    def pos(self):
+        return self.data['pos'] if 'pos' in self.data else None
+
+    @property
+    def id(self):
+        return self.data['id'] if 'id' in self.data else None
+
+    @property
+    def albumartist(self):
+        return self.data['albumartist'][0] if 'albumartist' in self.data else None
+
+    @property
+    def artist(self):
+        return self.data['artist'][0] if 'artist' in self.data else None
+
+    @property
+    def composer(self):
+        return self.data['composer'][0] if 'composer' in self.data else None
+
+    @property
+    def conductor(self):
+        return self.data['conductor'][0] if 'conductor' in self.data else None
+
+    @property
+    def performer(self):
+        return self.data['performer'][0] if 'performer' in self.data else None
+
+    @property
+    def albumartists(self):
+        return self.data['albumartist'] if 'albumartist' in self.data else ()
+
+    @property
+    def artists(self):
+        return self.data['artist'] if 'artist' in self.data else ()
+
+    @property
+    def composers(self):
+        return self.data['composer'] if 'composer' in self.data else ()
+
+    @property
+    def conductors(self):
+        return self.data['conductor'] if 'conductor' in self.data else ()
+
+    @property
+    def performers(self):
+        return self.data['performer'] if 'performer' in self.data else ()
+
     def define_subtitle(self, artist_to_highlight=None, delim="\r"):
-        artist_subtitle = ", ".join(artist for artist in self["artist"])
-        composer_subtitle = ", ".join(composer for composer in self["composer"])
-        conductor_subtitle = ", ".join(conductor for conductor in self["conductor"])
-        performer_subtitle = ", ".join(performer for performer in self["performer"])
+        artist_subtitle = ", ".join(artist for artist in self.artists)
+        composer_subtitle = ", ".join(composer for composer in self.composers)
+        conductor_subtitle = ", ".join(conductor for conductor in self.conductors)
+        performer_subtitle = ", ".join(performer for performer in self.performers)
         subtitle = ""
         credits = []
         found_in_credits = False

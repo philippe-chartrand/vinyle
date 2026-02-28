@@ -11,21 +11,18 @@ class BrowserSongRow(Adw.ActionRow):
         self.song=song
 
         # populate
-        self.set_title(song["title"][0])
+        self.set_title(song.title)
         self.define_and_set_subtitle(artist_to_highlight, song)
-        length=Gtk.Label(label=str(song["duration"]), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
+        length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         self.add_suffix(length)
         if show_year:
-            year_from_date = song["date"][0][0:4]
-            year = Gtk.Label(label=str(year_from_date), xalign=1, single_line_mode=True, css_classes=["numeric"])
+            year = Gtk.Label(label=str(song.year), xalign=1, single_line_mode=True, css_classes=["numeric"])
             self.add_suffix(year)
         if show_track:
-            if show_disc and song["disc"] is not None:
-                disc = song['disc'][0]
-                track =  song['track'][0]
-                disc_and_track = f"{disc}-{track}"
+            if show_disc and song.disc is not None:
+                disc_and_track = f"{song.disc}-{song.track}"
             else:
-                disc_and_track = song["track"][0]
+                disc_and_track = song.track
 
             track=Gtk.Label(label=disc_and_track, xalign=1, single_line_mode=True, width_chars=3, css_classes=["numeric", "dimmed"])
             self.add_prefix(track)

@@ -117,7 +117,7 @@ class PlaylistView(SongList):
         else:
             songs=self._client.playlistinfo()
         for song in songs:
-            self.get_model().set(int(song["pos"]), song)
+            self.get_model().set(int(song.pos), song)
         self.get_model().clear(length)
         self._refresh_selection(songpos)
         if self._playlist_version is None and (selected:=self.get_model().get_selected()) is not None:  # always scroll to song on startup

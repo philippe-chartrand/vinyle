@@ -126,7 +126,7 @@ class Vinyle(Adw.Application):
 
     def _on_enqueue(self, action, param):
         song=self._client.currentsong()
-        self._client.album_to_playlist(song["albumartist"][0], song["album"][0], song["date"][0], "enqueue")
+        self._client.album_to_playlist(song.albumartist, song.album, song.date, "enqueue")
 
     def _on_clear(self, action, param):
         self._client.clear()
@@ -163,10 +163,10 @@ class Vinyle(Adw.Application):
             if self._settings.get_boolean("send-notify") and not self._window.is_active() and state == "play":
                 notify=Gio.Notification()
                 notify.set_title(_("Next Title is Playing"))
-                if artist:=song["artist"]:
-                    body=_("Now playing “{title}” by “{artist}”").format(title=song["title"][0], artist=str(artist))
+                if artist:=song.artist:
+                    body=_("Now playing “{title}” by “{artist}”").format(title=song.title, artist=str(artist))
                 else:
-                    body=_("Now playing “{title}”").format(title=song["title"][0])
+                    body=_("Now playing “{title}”").format(title=song.title)
                 notify.set_body(body)
                 notify.add_button(_("Skip"), "app.next")
                 self.send_notification("title-change", notify)

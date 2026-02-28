@@ -54,7 +54,7 @@ class ArtistAlbumPage(AlbumPage):
 
     def expand_songs_for_all_album(self, client, artist_album_songs):
         # for compilations and multiple cd albums, album title is not sufficient to find the songs
-        directories = { dirname(song["file"]) for song in artist_album_songs }
+        directories = { dirname(song.file) for song in artist_album_songs }
         songs = []
         for directory in sorted(directories):
             songs.extend(client.get_albums_songs_by_common_directory(directory))

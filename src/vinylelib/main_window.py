@@ -165,7 +165,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _on_song_changed(self, emitter, song, songpos, songid, state):
         if song:
-            self.set_title(song["title"][0])
+            self.set_title(song.title)
         else:
             self._clear_title()
 

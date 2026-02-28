@@ -66,7 +66,7 @@ class PlayerBar(Gtk.Overlay):
     def _on_song_changed(self, emitter, song, songpos, songid, state):
         if song:
             self._cover.set_visible(True)
-            self._title.set_text(song["title"][0])
+            self._title.set_text(song.title)
             subtitle, _ignore = song.define_subtitle(None, ' - ')
             self._subtitle.set_text(subtitle)
         else:

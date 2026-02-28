@@ -53,10 +53,10 @@ class BrowserSongList(Gtk.ListBox):
         point.x,point.y=x,y
         computed_point,point=self.compute_point(row, point)
         if computed_point:
-            self._menu.open(row.song["file"], point.x, point.y)
+            self._menu.open(row.song.file, point.x, point.y)
 
     def _on_row_activated(self, list_box, row):
-        self._client.file_to_playlist(row.song["file"], "play")
+        self._client.file_to_playlist(row.song.file, "play")
 
     def _on_keynav_failed(self, list_box, direction):
         if (root:=list_box.get_root()) is not None and direction == Gtk.DirectionType.UP:
@@ -65,7 +65,7 @@ class BrowserSongList(Gtk.ListBox):
     def _on_button_pressed(self, controller, n_press, x, y):
         if (row:=self.get_row_at_y(y)) is not None:
             if controller.get_current_button() == 2 and n_press == 1:
-                self._client.file_to_playlist(row.song["file"], "append")
+                self._client.file_to_playlist(row.song.file, "append")
             elif controller.get_current_button() == 3 and n_press == 1:
                 self._open_menu(row, x, y)
 
@@ -77,7 +77,7 @@ class BrowserSongList(Gtk.ListBox):
         row=self.get_focus_child()
         self._menu.unparent()
         self._menu.set_parent(row)
-        self._menu.open(row.song["file"], 0, 0)
+        self._menu.open(row.song.file, 0, 0)
 
     def _on_drag_prepare(self, drag_source, x, y):
         if (row:=self.get_row_at_y(y)) is not None:

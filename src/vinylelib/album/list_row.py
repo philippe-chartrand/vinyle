@@ -24,7 +24,7 @@ class AlbumListRow(Gtk.Box):
         else:
             self._title.set_markup(f'<i>{GLib.markup_escape_text(_("Unknown Album"))}</i>')
             self._cover.set_alternative_text(_("Album cover of an unknown album"))
-        self._date.set_text(album.date[0:4])
+        self._date.set_text(album.year)
 
         if album.cover is not None:
             self._cover.set_paintable(album.cover)
