@@ -5,9 +5,9 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio, GObject, Pango, GLib
 from gettext import gettext as _
 
-from .artist import ArtistList, ArtistSelectionModel, RoleDropDown
-from .artist_album import ArtistAlbumsPage, ArtistAlbumPage
-from .search import SearchView
+from ..artist import ArtistList, ArtistSelectionModel, RoleDropDown
+from ..artist_album import ArtistAlbumsPage, ArtistAlbumPage
+from ..search import SearchView
 
 
 class MainMenuButton(Gtk.MenuButton):
@@ -99,6 +99,7 @@ class Browser(Gtk.Stack):
         header_bar.pack_start(search_button)
         header_bar.pack_start(role_dropdown)
         role_dropdown.connect("notify::selected-item", self.on_role_selected)
+        self.role_dropdown = role_dropdown
         header_bar.pack_end(MainMenuButton())
         toolbar_view = Adw.ToolbarView(content=sidebar_window)
         toolbar_view.add_top_bar(header_bar)

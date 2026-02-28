@@ -3,7 +3,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Adw, GLib, Gtk, GObject, Pango
 
-from .album_cover import AlbumCover
+from .cover import AlbumCover
 from ..browsersong import BrowserSongList
 
 
@@ -59,6 +59,6 @@ class AlbumPage(Adw.NavigationPage):
         else:
             self.set_title(_("Unknown Album"))
             self.title.set_text(_("Unknown Album"))
-        self.subtitle.set_text(date)
+        self.subtitle.set_text(date[0:4])
         client.restrict_tagtypes("track", "title")
         client.tagtypes("all")

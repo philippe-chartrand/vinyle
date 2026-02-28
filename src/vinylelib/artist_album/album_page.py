@@ -27,7 +27,7 @@ class ArtistAlbumPage(AlbumPage):
 
         if len(dates) > 1:
             show_year = True
-        for song in songs:
+        for song in sorted(songs, key=lambda s:int(s['track'][0])):
             artist_to_highlight = self.artist_name_to_hilite(artist, artist_role, artists, song)
             row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
             self.song_list.append(row)

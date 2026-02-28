@@ -3,7 +3,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, GObject, Pango
 
-from .album_cover import AlbumCover
+from .cover import AlbumCover
 
 
 class AlbumListRow(Gtk.Box):
@@ -24,7 +24,7 @@ class AlbumListRow(Gtk.Box):
         else:
             self._title.set_markup(f'<i>{GLib.markup_escape_text(_("Unknown Album"))}</i>')
             self._cover.set_alternative_text(_("Album cover of an unknown album"))
-        self._date.set_text(album.date)
+        self._date.set_text(album.date[0:4])
 
         if album.cover is not None:
             self._cover.set_paintable(album.cover)

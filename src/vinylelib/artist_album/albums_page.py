@@ -24,7 +24,7 @@ class ArtistAlbumsPage(AlbumsPage):
         albums = {}
         for album in grouped_albums:
             if album['album'] in albums:
-                if album['date'] > albums[album['album']]['date']:
+                if album['date'][0:4] > albums[album['album']]['date'][0:4]:
                     albums[album['album']]['date'] = album['date']
             else:
                 albums[album['album']] = album
