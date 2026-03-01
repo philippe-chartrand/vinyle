@@ -181,16 +181,16 @@ class Browser(Gtk.Stack):
             (performer, 'performer')
         )
 
-        album_page = self.find_album_by_track_info_provided_when_artist_role_has_not_changed(cascade, album, date, file)
+        album_page = self.find_album_by_track_info_provided_when_artist_role_has_not_changed(cascade, album, date)
         if album_page is None:
-            album_page = self.find_album_by_track_info_provided_when_artist_role_has_changed(cascade, album, date, file)
+            album_page = self.find_album_by_track_info_provided_when_artist_role_has_changed(cascade, album, date)
 
         if album_page is not None:
             self._album_navigation_view.replace([self._albums_page, album_page])
             album_page.play_button.grab_focus()
         self.search_entry.emit("stop-search")
 
-    def find_album_by_track_info_provided_when_artist_role_has_not_changed(self, cascade, album, date, file):
+    def find_album_by_track_info_provided_when_artist_role_has_not_changed(self, cascade, album, date):
         """search by role value tuple provided corresponding to current browsing context"""
         album_page = None
         value = None
@@ -200,11 +200,11 @@ class Browser(Gtk.Stack):
                 break
         if value is not None:
             self._artist_list.select(value)
-            album_page = ArtistAlbumPage(self._client, self.artist_role, value, album, date, file)
+            album_page = ArtistAlbumPage(self._client, self.artist_role, value, album, date)
 
         return album_page
 
-    def find_album_by_track_info_provided_when_artist_role_has_changed(self, cascade, album, date, file):
+    def find_album_by_track_info_provided_when_artist_role_has_changed(self, cascade, album, date):
         """fallback to allow to show the album even if the browsing context changed"""
         album_page = None
         value = None
@@ -217,7 +217,7 @@ class Browser(Gtk.Stack):
 
         if bool(new_role and value):
             self._on_search_artist_selected(None, value, new_role)
-            album_page = ArtistAlbumPage(self._client, new_role, value, album, date, file)
+            album_page = ArtistAlbumPage(self._client, new_role, value, album, date)
         return album_page
 
 

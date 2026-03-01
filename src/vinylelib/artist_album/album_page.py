@@ -6,9 +6,9 @@ from ..duration import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, artist_role, artist, album, date, file):
+    def __init__(self, client, artist_role, artist, album, date):
         super().__init__(client, album, date)
-        tag_filter=(artist_role, artist, "album", album, "file", file)
+        tag_filter=(artist_role, artist, "album", album)
 
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
