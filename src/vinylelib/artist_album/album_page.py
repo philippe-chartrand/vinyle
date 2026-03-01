@@ -3,7 +3,7 @@ from os.path import dirname
 from ..album import AlbumPage
 from ..browsersong import BrowserSongRow
 from ..duration import Duration
-
+from gettext import gettext as _
 
 class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, artist_role, artist, album, date):
@@ -14,7 +14,7 @@ class ArtistAlbumPage(AlbumPage):
         self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
-        self.suptitle.set_text(f"{artist_role}: {artist}")
+        #self.suptitle.set_text(f"{artist_role}: {artist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
         client.restrict_tagtypes("track", "disc", "title", "albumartist", "artist", "composer", "conductor", "date")
         artist_album_songs=client.find(*tag_filter)
@@ -25,7 +25,20 @@ class ArtistAlbumPage(AlbumPage):
         self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
         show_year = False
         dates = self.roundup_dates_to_year(songs)
-        artists = self.list_album_artists(artist_role, songs)
+        artists = self.list_album_artists('artist', songs)
+        composers = self.list_album_artists('composer', songs)
+        conductors = self.list_album_artists('conductor', songs)
+        performers = self.list_album_artists('performer', songs)
+        credits = []
+        if len(artists) > 0 and len(artists[0]) > 0:
+            credits.append(_("Various artists") if len(artists) > 1 else artists[0])
+        if len(composers) > 0 and len(composers[0]) > 0:
+            credits.append(_("Various composers") if len(composers) > 1 else composers[0])
+        if len(conductors) > 0 and len(conductors[0]) > 0:
+            credits.append(_("Various conductors") if len(conductors) > 1 else conductors[0])
+        if len(performers) > 0 and len(performers[0]) > 0:
+            credits.append(_("Various performers") if len(performers) > 1 else performers[0])
+        self.suptitle.set_text(", ".join(credits))
         show_disc = self.check_for_multiple_discs(songs)
 
         if len(dates) > 1:
@@ -36,8 +49,8 @@ class ArtistAlbumPage(AlbumPage):
             self.song_list.append(row)
 
     def list_album_artists(self, artist_role, songs):
-        artists = {s[artist_role][0] for s in songs}
-        return artists
+        artists = {s[artist_role][0] for s in songs if s[artist_role[0]] != "" }
+        return list(artists)
 
     def  check_for_multiple_discs(self, songs):
         discs = max([s['disc'][0] for s in songs])

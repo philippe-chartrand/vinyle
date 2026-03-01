@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpdevil\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-01 13:32-0500\n"
-"PO-Revision-Date: 2026-03-01 13:34-0500\n"
+"POT-Creation-Date: 2026-03-01 14:14-0500\n"
+"PO-Revision-Date: 2026-03-01 14:15-0500\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -116,6 +116,22 @@ msgstr "Chef d'orchestre"
 #: vinylelib/artist/artist.py:14
 msgid "Performer"
 msgstr "Interprète"
+
+#: vinylelib/artist_album/album_page.py:34
+msgid "Various artists"
+msgstr "Plusieurs artistes"
+
+#: vinylelib/artist_album/album_page.py:36
+msgid "Various composers"
+msgstr "Plusieurs compositeurs"
+
+#: vinylelib/artist_album/album_page.py:38
+msgid "Various conductors"
+msgstr "Plusieurs chefs d'orchestre"
+
+#: vinylelib/artist_album/album_page.py:40
+msgid "Various performers"
+msgstr "Plusieurs interprètes"
 
 #: vinylelib/artist_album/albums_page.py:15
 msgid "Select an artist"

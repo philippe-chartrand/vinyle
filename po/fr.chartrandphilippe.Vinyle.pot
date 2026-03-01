@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-01 13:32-0500\n"
+"POT-Creation-Date: 2026-03-01 14:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,22 @@ msgstr ""
 
 #: vinylelib/artist/artist.py:14
 msgid "Performer"
+msgstr ""
+
+#: vinylelib/artist_album/album_page.py:34
+msgid "Various artists"
+msgstr ""
+
+#: vinylelib/artist_album/album_page.py:36
+msgid "Various composers"
+msgstr ""
+
+#: vinylelib/artist_album/album_page.py:38
+msgid "Various conductors"
+msgstr ""
+
+#: vinylelib/artist_album/album_page.py:40
+msgid "Various performers"
 msgstr ""
 
 #: vinylelib/artist_album/albums_page.py:15
