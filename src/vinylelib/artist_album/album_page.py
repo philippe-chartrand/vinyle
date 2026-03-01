@@ -6,17 +6,19 @@ from ..duration import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, artist_role, artist, album, date):
+    def __init__(self, client, artist_role, artist, album, date, file):
         super().__init__(client, album, date)
-        tag_filter=(artist_role, artist, "album", album)
+        tag_filter=(artist_role, artist, "album", album, "file", file)
 
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
         self.suptitle.set_text(f"{artist_role}: {artist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
-        client.restrict_tagtypes("track", "disc", "title", "artist", "composer", "conductor", "date")
+        client.restrict_tagtypes("track", "disc", "title", "albumartist", "artist", "composer", "conductor", "date")
         artist_album_songs=client.find(*tag_filter)
+        if len(artist_album_songs) == 0:
+            return
         songs = self.expand_songs_for_all_album(client, artist_album_songs)
         client.tagtypes("all")
         self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
@@ -43,8 +45,8 @@ class ArtistAlbumPage(AlbumPage):
         return True if int(discs) > 1 else False
 
     def roundup_dates_to_year(self, songs):
-        dates = {s['date'][0][0:3] for s in songs}
-        return dates
+        years = {s.year for s in songs if s.year is not None}
+        return years
 
     def artist_name_to_hilite(self, albumartist, artist_role, artists, song):
         artist_to_highlight = ""

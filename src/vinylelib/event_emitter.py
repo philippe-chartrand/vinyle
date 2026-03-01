@@ -24,5 +24,5 @@ class EventEmitter(GObject.Object):
         "consume": (GObject.SignalFlags.RUN_FIRST, None, (bool,)),
         "bitrate": (GObject.SignalFlags.RUN_FIRST, None, (str,)),
         "a-b-loop": (GObject.SignalFlags.RUN_FIRST, None, (float,float)),
-        "show-album": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str)),
+        "show-album": (GObject.SignalFlags.RUN_FIRST, None, (str, str, str, str, str, str, str, str)),
     }

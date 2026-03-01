@@ -158,7 +158,7 @@ class Browser(Gtk.Stack):
         if role != self.artist_role:
             self._change_artist_list_according_to_new_role(role)
             for no, known_role in enumerate(ArtistSelectionModel().do_get_item_type().ROLES):
-                if role == known_role:
+                if role == known_role or role == known_role[0]:
                     self.role_dropdown.set_selected(no)
         self._artist_list.select(artist)
         self.search_entry.emit("stop-search")
@@ -172,12 +172,55 @@ class Browser(Gtk.Stack):
         self.artist_page.props.child.props.content.props.child = self._artist_list
         self.artist_role = role
 
-    def _show_album(self, album, artist, date):
-        self._artist_list.select(artist)
-        album_page = ArtistAlbumPage(self._client, '', artist,  album, date)
-        self._album_navigation_view.replace([self._albums_page, album_page])
+    def _show_album(self, album, date, file, albumartist, artist, composer, conductor, performer):
+        cascade = (
+            (albumartist, 'albumartist'),
+            (artist, 'artist'),
+            (composer, 'composer'),
+            (conductor, 'conductor'),
+            (performer, 'performer')
+        )
+
+        album_page = self.find_album_by_track_info_provided_when_artist_role_has_not_changed(cascade, album, date, file)
+        if album_page is None:
+            album_page = self.find_album_by_track_info_provided_when_artist_role_has_changed(cascade, album, date, file)
+
+        if album_page is not None:
+            self._album_navigation_view.replace([self._albums_page, album_page])
+            album_page.play_button.grab_focus()
         self.search_entry.emit("stop-search")
-        album_page.play_button.grab_focus()
+
+    def find_album_by_track_info_provided_when_artist_role_has_not_changed(self, cascade, album, date, file):
+        """search by role value tuple provided corresponding to current browsing context"""
+        album_page = None
+        value = None
+        for option in cascade:
+            if option[1] == self.artist_role:
+                value = option[0]
+                break
+        if value is not None:
+            self._artist_list.select(value)
+            album_page = ArtistAlbumPage(self._client, self.artist_role, value, album, date, file)
+
+        return album_page
+
+    def find_album_by_track_info_provided_when_artist_role_has_changed(self, cascade, album, date, file):
+        """fallback to allow to show the album even if the browsing context changed"""
+        album_page = None
+        value = None
+        new_role = None
+        for option in cascade:
+            if option[0]:
+                value = option[0]
+                new_role = option[1]
+                break
+
+        if bool(new_role and value):
+            self._on_search_artist_selected(None, value, new_role)
+            album_page = ArtistAlbumPage(self._client, new_role, value, album, date, file)
+        return album_page
+
+
 
     def _on_disconnected(self, *args):
         self._album_navigation_view.pop_to_tag("album_list")

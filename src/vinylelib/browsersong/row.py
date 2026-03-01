@@ -16,7 +16,7 @@ class BrowserSongRow(Adw.ActionRow):
         length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         self.add_suffix(length)
         if show_year:
-            year = Gtk.Label(label=str(song.year), xalign=1, single_line_mode=True, css_classes=["numeric"])
+            year = Gtk.Label(label=str(song.year if song.year is not None else "[----]"), xalign=1, single_line_mode=True, css_classes=["numeric"])
             self.add_suffix(year)
         if show_track:
             if show_disc and song.disc is not None:
