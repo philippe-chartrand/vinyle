@@ -8,5 +8,6 @@
 	<gresource prefix="/fr/chartrandphilippe/Vinyle/icons/scalable/actions">
 		<file>view-lyrics-symbolic.svg</file>
 		<file>view-playlist-symbolic.svg</file>
+		<file>list-add-double-symbolic.svg</file>
 	</gresource>
 </gresources>

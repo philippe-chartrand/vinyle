@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpdevil\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-28 13:33-0500\n"
-"PO-Revision-Date: 2026-02-28 13:37-0500\n"
+"POT-Creation-Date: 2026-03-01 13:32-0500\n"
+"PO-Revision-Date: 2026-03-01 13:34-0500\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Album cover of {album}"
 msgstr "Pochette de l'album {album}"
 
-#: vinylelib/album/list_row.py:25 vinylelib/album/page.py:60
-#: vinylelib/album/page.py:61
+#: vinylelib/album/list_row.py:25 vinylelib/album/page.py:64
+#: vinylelib/album/page.py:65
 msgid "Unknown Album"
 msgstr "Album inconnu"
 
@@ -32,14 +32,21 @@ msgstr "Album inconnu"
 msgid "Album cover of an unknown album"
 msgstr "Pochette d'un album inconnu"
 
-#: vinylelib/album/page.py:20 vinylelib/media_buttons.py:9
-#: vinylelib/media_buttons.py:18
-msgid "Play"
-msgstr "Jouer"
+#: vinylelib/album/page.py:20
+msgid "Play selection"
+msgstr "Jouer la sélection"
 
 #: vinylelib/album/page.py:21
-msgid "Append"
-msgstr "Ajouter"
+msgid "Append selection"
+msgstr "Ajouter la sélection"
+
+#: vinylelib/album/page.py:22
+msgid "Play All"
+msgstr "Tout jouer"
+
+#: vinylelib/album/page.py:23
+msgid "Append All"
+msgstr "Tout ajouter"
 
 #: vinylelib/album/pages.py:11 vinylelib/album/pages.py:64
 #: vinylelib/browser/browser.py:50 vinylelib/dialogs/server_info.py:24
@@ -347,6 +354,10 @@ msgstr "Boucle A-B démarrée à {start}"
 #, python-brace-format
 msgid "Activated A‐B loop from {start} to {end}"
 msgstr "Boucle A-B activée de {start} à {end}"
+
+#: vinylelib/media_buttons.py:9 vinylelib/media_buttons.py:18
+msgid "Play"
+msgstr "Jouer"
 
 #: vinylelib/media_buttons.py:15
 msgid "Pause"

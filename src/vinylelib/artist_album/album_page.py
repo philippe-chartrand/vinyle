@@ -9,8 +9,9 @@ class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, artist_role, artist, album, date):
         super().__init__(client, album, date)
         tag_filter=(artist_role, artist, "album", album)
-
+        self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "play"))
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
+        self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
         self.suptitle.set_text(f"{artist_role}: {artist}")

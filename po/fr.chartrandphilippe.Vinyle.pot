@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-28 13:33-0500\n"
+"POT-Creation-Date: 2026-03-01 13:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgstr ""
 msgid "Album cover of {album}"
 msgstr ""
 
-#: vinylelib/album/list_row.py:25 vinylelib/album/page.py:60
-#: vinylelib/album/page.py:61
+#: vinylelib/album/list_row.py:25 vinylelib/album/page.py:64
+#: vinylelib/album/page.py:65
 msgid "Unknown Album"
 msgstr ""
 
@@ -34,13 +34,20 @@ msgstr ""
 msgid "Album cover of an unknown album"
 msgstr ""
 
-#: vinylelib/album/page.py:20 vinylelib/media_buttons.py:9
-#: vinylelib/media_buttons.py:18
-msgid "Play"
+#: vinylelib/album/page.py:20
+msgid "Play selection"
 msgstr ""
 
 #: vinylelib/album/page.py:21
-msgid "Append"
+msgid "Append selection"
+msgstr ""
+
+#: vinylelib/album/page.py:22
+msgid "Play All"
+msgstr ""
+
+#: vinylelib/album/page.py:23
+msgid "Append All"
 msgstr ""
 
 #: vinylelib/album/pages.py:11 vinylelib/album/pages.py:64
@@ -342,6 +349,10 @@ msgstr ""
 #: vinylelib/main_window.py:216
 #, python-brace-format
 msgid "Activated A‐B loop from {start} to {end}"
+msgstr ""
+
+#: vinylelib/media_buttons.py:9 vinylelib/media_buttons.py:18
+msgid "Play"
 msgstr ""
 
 #: vinylelib/media_buttons.py:15

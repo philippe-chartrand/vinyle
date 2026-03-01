@@ -17,11 +17,15 @@ class AlbumPage(Adw.NavigationPage):
         self.song_list.add_css_class("boxed-list")
 
         # buttons
-        self.play_button=Gtk.Button(icon_name="media-playback-start-symbolic", tooltip_text=_("Play"))
-        self.append_button=Gtk.Button(icon_name="list-add-symbolic", tooltip_text=_("Append"))
+        self.play_button = Gtk.Button(icon_name="arrow-right-symbolic", tooltip_text=_("Play selection"),  css_classes=["flat"])
+        self.append_button = Gtk.Button(icon_name="list-add-symbolic", tooltip_text=_("Append selection"), css_classes=["flat"])
+        self.play_all_button = Gtk.Button(icon_name="arrow-right-double-symbolic", tooltip_text=_("Play All"),  css_classes=["raised"])
+        self.append_all_button = Gtk.Button(icon_name="list-add-double-symbolic", tooltip_text=_("Append All"), css_classes=[ "raised"])
 
         # header bar
         self.header_bar=Adw.HeaderBar(show_title=False)
+        self.header_bar.pack_end(self.play_all_button)
+        self.header_bar.pack_end(self.append_all_button)
         self.header_bar.pack_end(self.play_button)
         self.header_bar.pack_end(self.append_button)
 
