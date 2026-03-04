@@ -35,25 +35,31 @@ class ArtistAlbumPage(AlbumPage):
             self.song_list.append(row)
 
     def _define_supertitle(self, songs):
-        albumartists = self.list_album_artists('albumartist', songs)
-        artists = self.list_album_artists('artist', songs)
-        composers = self.list_album_artists('composer', songs)
-        conductors = self.list_album_artists('conductor', songs)
-        performers = self.list_album_artists('performer', songs)
+        albumartists = self.list_album_artists_as_a_set('albumartist', songs)
+        artists = self.list_album_artists_as_a_set('artist', songs)
+        composers = self.list_album_artists_as_a_set('composer', songs)
+        conductors = self.list_album_artists_as_a_set('conductor', songs)
+        performers = self.list_album_artists_as_a_set('performer', songs)
         credits = []
         if len(albumartists) > 0 and len(albumartists[0]) > 0:
-            credits.append(_("Various album artists") if len(albumartists) > 1 else albumartists[0])
+            if len(albumartists) > 1 or (len(albumartists) == 1 and albumartists[0] == 'Various Artists'):
+                credits.append(_("Various artists"))
+            else:
+                credits.append(albumartists[0])
         if len(artists) > 0 and len(artists[0]) > 0:
-            credits.append(_("Various artists") if len(artists) > 1 else artists[0])
+            if len(artists) > 1 or (len(artists) == 1 and artists[0] == 'Various Artists'):
+                credits.append(_("Various artists"))
+            else:
+                credits.append(artists[0])
         if len(composers) > 0 and len(composers[0]) > 0:
             credits.append(_("Various composers") if len(composers) > 1 else composers[0])
         if len(conductors) > 0 and len(conductors[0]) > 0:
             credits.append(_("Various conductors") if len(conductors) > 1 else conductors[0])
         if len(performers) > 0 and len(performers[0]) > 0:
             credits.append(_("Various performers") if len(performers) > 1 else performers[0])
-        return ", ".join(credits)
+        return ", ".join(list(dict.fromkeys(credits)))
 
-    def list_album_artists(self, artist_role, songs):
+    def list_album_artists_as_a_set(self, artist_role, songs):
         artists = {s[artist_role][0] for s in songs if s[artist_role[0]] != "" }
         return list(artists)
 
