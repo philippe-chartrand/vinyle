@@ -8,11 +8,16 @@ class ArtistAlbumRow(Adw.ActionRow):
     def __init__(self, album):
         super().__init__(use_markup=False, activatable=True, css_classes=["property"])
         self.album = album["album"]
-        self.artist = album["albumartist"]
-        self.date = album["date"]
+        self.albumartist = album["albumartist"]
+        self.date = album.get("date", "")
+        # the next fields are optional, they are used to set the sidebar and the role dropdown at the right position when the user asks to show the album from the playlist
+        self.artist = album.get("artist", "")
+        self.composer = album.get("composer", "")
+        self.conductor = album.get("conductor", "")
+        self.performer = album.get("performer", "")
 
         # fill
-        self.set_title(self.artist)
+        self.set_title(self.albumartist)
         self.set_subtitle(self.album)
         date = Gtk.Label(xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         date.set_text(self.date)

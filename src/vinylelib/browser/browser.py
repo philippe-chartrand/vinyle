@@ -172,13 +172,13 @@ class Browser(Gtk.Stack):
         self.artist_page.props.child.props.content.props.child = self._artist_list
         self.artist_role = role
 
-    def _show_album(self, album, date, file, albumartist, artist, composer, conductor, performer):
+    def _show_album(self, album, date, albumartist, artist, composer, conductor, performer):
         cascade = (
-            (albumartist, 'albumartist'),
-            (artist, 'artist'),
-            (composer, 'composer'),
+            (performer, 'performer'),
             (conductor, 'conductor'),
-            (performer, 'performer')
+            (composer, 'composer'),
+            (artist, 'artist'),
+            (albumartist, 'albumartist')
         )
 
         album_page = self.find_album_by_track_info_provided_when_artist_role_has_not_changed(cascade, album, date)
@@ -219,8 +219,6 @@ class Browser(Gtk.Stack):
             self._on_search_artist_selected(None, value, new_role)
             album_page = ArtistAlbumPage(self._client, new_role, value, album, date)
         return album_page
-
-
 
     def _on_disconnected(self, *args):
         self._album_navigation_view.pop_to_tag("album_list")

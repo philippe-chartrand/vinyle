@@ -17,7 +17,7 @@ class SearchView(Gtk.Stack):
         "composer-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
         "conductor-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str, )),
         "performer-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
-        "album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,))
+        "album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,str,str,str,str,))
     }
 
     def __init__(self, client):
@@ -141,7 +141,7 @@ class SearchView(Gtk.Stack):
                 self._song_list.append(row)
             self._song_box.set_visible(self._song_list.get_first_child() is not None)
 
-            albums=self._client.list("album", self._client.get_search_expression(self._album_tags, keywords), "group", "date", "group", "albumartist", "group", "composer")
+            albums=self._client.list("album", self._client.get_search_expression(self._album_tags, keywords), "group", "date", "group", "albumartist", "group", "artist", "group", "composer","group", "conductor")
             for album in itertools.islice(albums, self.RESULTS_COUNT_ALBUM):
                 album_row = ArtistAlbumRow(album)
                 self._album_list.append(album_row)
@@ -204,7 +204,7 @@ class SearchView(Gtk.Stack):
         self.emit("artist-selected", row.get_title(), 'performer')
 
     def _on_album_activate(self, list_box, row):
-        self.emit("album-selected", row.album, row.artist, row.date)
+        self.emit("album-selected", row.album, row.date, row.albumartist, row.artist, row.composer, row.conductor, row.performer)
 
     def _on_keynav_failed(self, list_box, direction):
         if (root:=list_box.get_root()) is not None:

@@ -14,7 +14,6 @@ class ArtistAlbumPage(AlbumPage):
         self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
-        #self.suptitle.set_text(f"{artist_role}: {artist}")
         self.length.set_text(str(Duration(client.count(*tag_filter)["playtime"])))
         client.restrict_tagtypes("track", "disc", "title", "albumartist", "artist", "composer", "conductor", "date")
         artist_album_songs=client.find(*tag_filter)
@@ -25,11 +24,25 @@ class ArtistAlbumPage(AlbumPage):
         self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
         show_year = False
         dates = self.roundup_dates_to_year(songs)
+        self.suptitle.set_text(self._define_supertitle(songs))
+        show_disc = self.check_for_multiple_discs(songs)
+
+        if len(dates) > 1:
+            show_year = True
+        for song in sorted(songs, key=lambda s:int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)):
+            artist_to_highlight = self.artist_name_to_hilite(artist, artist_role, song.all_artists, song)
+            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
+            self.song_list.append(row)
+
+    def _define_supertitle(self, songs):
+        albumartists = self.list_album_artists('albumartist', songs)
         artists = self.list_album_artists('artist', songs)
         composers = self.list_album_artists('composer', songs)
         conductors = self.list_album_artists('conductor', songs)
         performers = self.list_album_artists('performer', songs)
         credits = []
+        if len(albumartists) > 0 and len(albumartists[0]) > 0:
+            credits.append(_("Various album artists") if len(albumartists) > 1 else albumartists[0])
         if len(artists) > 0 and len(artists[0]) > 0:
             credits.append(_("Various artists") if len(artists) > 1 else artists[0])
         if len(composers) > 0 and len(composers[0]) > 0:
@@ -38,15 +51,7 @@ class ArtistAlbumPage(AlbumPage):
             credits.append(_("Various conductors") if len(conductors) > 1 else conductors[0])
         if len(performers) > 0 and len(performers[0]) > 0:
             credits.append(_("Various performers") if len(performers) > 1 else performers[0])
-        self.suptitle.set_text(", ".join(credits))
-        show_disc = self.check_for_multiple_discs(songs)
-
-        if len(dates) > 1:
-            show_year = True
-        for song in sorted(songs, key=lambda s:int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)):
-            artist_to_highlight = self.artist_name_to_hilite(artist, artist_role, artists, song)
-            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
-            self.song_list.append(row)
+        return ", ".join(credits)
 
     def list_album_artists(self, artist_role, songs):
         artists = {s[artist_role][0] for s in songs if s[artist_role[0]] != "" }
