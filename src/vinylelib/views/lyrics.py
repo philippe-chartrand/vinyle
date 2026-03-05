@@ -13,7 +13,8 @@ from ..song import Song
 
 
 def idle_add(*args, **kwargs):
-    GLib.idle_add(*args, priority=GLib.PRIORITY_DEFAULT, **kwargs)
+    kwargs['priority'] = GLib.PRIORITY_DEFAULT
+    GLib.idle_add(*args, **kwargs)
 
 
 class LetrasParser(HTMLParser):

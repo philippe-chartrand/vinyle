@@ -92,6 +92,7 @@ class Browser(Gtk.Stack):
 
     def _toolbar_view_setup(self, sidebar_window):
         header_bar = Adw.HeaderBar()
+        header_bar.set_show_title(False)
         search_button = Gtk.Button(icon_name="system-search-symbolic", tooltip_text=_("Search"))
         search_button.connect("clicked", lambda *args: self.search())
         role_dropdown = RoleDropDown(ArtistSelectionModel().do_get_item_type().ROLES, self.artist_role)
@@ -109,7 +110,7 @@ class Browser(Gtk.Stack):
         self._artist_list = ArtistList(client, ArtistSelectionModel, self.artist_role)
         artist_window = Gtk.ScrolledWindow(child=self._artist_list)
         artist_toolbar_view = self._toolbar_view_setup(artist_window)
-        artist_page = Adw.NavigationPage(child=artist_toolbar_view, title="", tag="artists")
+        artist_page = Adw.NavigationPage(child=artist_toolbar_view, title=_("Artists"), tag="artists")
         return artist_page
 
     def _artist_list_connect(self):
@@ -167,8 +168,7 @@ class Browser(Gtk.Stack):
         self._artist_list = ArtistList(self._client, ArtistSelectionModel, role)
         self._artist_list_connect()
         self._artist_list.refresh()
-        # print(len(self._artist_list.selection_model.data))
-        self.artist_page.props.child.props.content.props.child = self._artist_list
+        self.artist_page.get_child().get_content().set_child(self._artist_list)
         self.artist_role = role
 
     def _show_album(self, album, date, albumartist, artist, composer, conductor, performer):

@@ -1,7 +1,7 @@
 import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Adw, Gdk, Gio, Gtk
+from gi.repository import Gdk, Gio, Gtk
 
 from ..playlist import PlaylistMenu
 from ..song import Song

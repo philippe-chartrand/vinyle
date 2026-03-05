@@ -115,7 +115,7 @@ class PlaybackControls(Gtk.Box):
         computed_point,point=self._scale.compute_point(self, point)
         if computed_point:
             rect=Gdk.Rectangle()
-            rect.x,rect.y=point.x,0
+            rect.x,rect.y=int(point.x),0
             self._popover.set_pointing_to(rect)
             self._popover.popup()
 

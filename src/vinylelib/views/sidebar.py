@@ -2,7 +2,7 @@ import itertools
 import gi
 from gettext import gettext as _
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk, GObject, Pango, GLib
+from gi.repository import Gtk, Pango, GLib
 
 
 class SidebarListView(Gtk.ListView):

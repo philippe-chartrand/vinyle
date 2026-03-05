@@ -66,7 +66,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         # status page
         status_page=Adw.StatusPage(icon_name="fr.chartrandphilippe.Vinyle", title=_("Connect to Your Music"))
-        status_page.set_description(_("To use Vinyle, an instance of the Music Player Daemon "\
+        status_page.set_description(_("To use Vinyle, an instance of the Music Player Daemon "
             "needs to be set up and running on this device or another one on the network"))
         connect_button=Gtk.Button(label=_("_Connect"), use_underline=True, action_name="app.connect", action_target=GLib.Variant("b", False))
         connect_button.set_css_classes(["suggested-action", "pill"])
@@ -181,11 +181,11 @@ class MainWindow(Adw.ApplicationWindow):
         if (dialog:=self.get_visible_dialog()) is not None:
             dialog.close()
         self._status_page_stack.set_visible_child_name("content")
-        self.lookup_action("server-info").set_enabled(True)
+        self.lookup_action("server-info").set_enabled(True) if self.lookup_action("server-info") else None
 
     def _on_disconnected(self, *args):
         self._clear_title()
-        self.lookup_action("server-info").set_enabled(False)
+        self.lookup_action("server-info").set_enabled(False) if self.lookup_action("server-info") else None
         self._updating_toast.dismiss()
         if self._suspend_inhibit:
             self.get_application().uninhibit(self._suspend_inhibit)
