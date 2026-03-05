@@ -6,8 +6,8 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, GObject
 from gettext import gettext as _
 
-from .browsersong import BrowserSongList, BrowserSongRow
-from .artist_album import ArtistAlbumRow
+from ..browsersong import BrowserSongList, BrowserSongRow
+from ..artist_album import ArtistAlbumRow
 
 
 class SearchView(Gtk.Stack):

@@ -1,11 +1,8 @@
 import itertools
 import gi
-from gettext import gettext as _
-
-from ..sidebar_list_view import SidebarListView
-
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk, GObject, Pango, GLib
+
+from .sidebar import SidebarListView
 
 
 class ArtistList(SidebarListView):

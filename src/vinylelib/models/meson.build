@@ -1,6 +1,6 @@
 # FIXME: find a way to include all python files from this directory
 install_headers(
 '__init__.py',
-'artist_album.py', 'list_row.py', 'row.py',
-install_dir: 'bin/vinylelib/artist_album'
+'_list.py', 'selection.py',
+ install_dir: 'bin/vinylelib/models'
 )

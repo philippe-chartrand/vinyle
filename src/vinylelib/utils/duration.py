@@ -1,7 +1,7 @@
 from gettext import ngettext
 
 
-class Duration():
+class Duration(object):
     def __init__(self, seconds=None):
         if seconds is None:
             self._fallback=True

@@ -1,5 +1,5 @@
-from ..models import SelectionModel
 from .artist import Artist
+from ..models import SelectionModel
 
 
 class ArtistSelectionModel(SelectionModel):

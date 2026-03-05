@@ -4,15 +4,16 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, GObject
 
-from ..duration import Duration
-from ..multitag import MultiTag
+from ..utils import Duration
+from .multitag import MultiTag
 
 class SongMetaclass(type(GObject.Object), type(collections.UserDict)):
     pass
 
 
 class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
-    widget=GObject.Property(type=Gtk.Widget, default=None)  # current widget representing the song in the UI
+    """ created when an item is added to the playlist, either by the user or by querying the mpd server queue """
+    widget=GObject.Property(type=Gtk.Widget, default=None)
     def __init__(self, data):
         collections.UserDict.__init__(self, data)
         GObject.Object.__init__(self)

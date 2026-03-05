@@ -3,10 +3,9 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import Gdk, Gtk, Graphene
 from gettext import gettext as _
 
-from ..bitrate import BitRate
-from ..duration import Duration
-from ..progress import PlaylistProgress
-from ..media_buttons import MediaButtons
+from ..utils import Duration
+from .progress import PlaylistProgress
+from ..widgets import BitRate, MediaButtons
 
 
 class PlaybackControls(Gtk.Box):

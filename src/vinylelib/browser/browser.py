@@ -1,13 +1,12 @@
 import gi
-
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk, Adw, Gio, GObject, Pango, GLib
+from gi.repository import Gtk, Adw, Gio
 from gettext import gettext as _
 
-from ..artist import ArtistList, ArtistSelectionModel, RoleDropDown
-from ..artist_album import ArtistAlbumsPage, ArtistAlbumPage
-from ..search import SearchView
+from ..artist import ArtistSelectionModel, RoleDropDown
+from ..views import ArtistList, SearchView
+from ..pages import ArtistAlbumsPage, ArtistAlbumPage
 
 
 class MainMenuButton(Gtk.MenuButton):

@@ -1,9 +1,10 @@
 from os.path import dirname
-
-from ..album import AlbumPage
-from ..browsersong import BrowserSongRow
-from ..duration import Duration
 from gettext import gettext as _
+
+from ..views import AlbumPage
+from ..browsersong import BrowserSongRow
+from ..utils import Duration
+
 
 class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, artist_role, artist, album, date):

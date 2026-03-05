@@ -4,12 +4,17 @@ subdir('artist')
 subdir('artist_album')
 subdir('browser')
 subdir('browsersong')
+subdir('client')
 subdir('dialogs')
+subdir('models')
+subdir('MPRIS')
+subdir('pages')
 subdir('player')
 subdir('playlist')
 subdir('song')
+subdir('utils')
+subdir('views')
+subdir('widgets')
 install_headers(
-'__init__.py', 'application.py', 'bitrate.py', 'client.py', 'cover.py', 'duration.py', 'event_emitter.py',
-'functions.py', 'lyrics.py', 'main_window.py', 'media_buttons.py', 'models.py', 'mpris.py', 'multitag.py',
-'progress.py', 'search.py', 'settings.py', 'sidebar_list_view.py',
+'__init__.py', 'application.py', 'event_emitter.py', 'main_window.py', 'memory_usage.py', 'settings.py',
 install_dir: 'bin/vinylelib')

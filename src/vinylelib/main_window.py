@@ -4,11 +4,12 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio, GObject, GLib
 from gettext import gettext as _
 
-from .mpris import MPRISInterface
-from .duration import Duration
+from .MPRIS import MPRISInterface
+from .utils import Duration
 from .dialogs import ConnectDialog, ManualConnectDialog, PreferencesDialog, SetupDialog, ServerInfo
 from .browser import Browser
-from .player import Player, PlayerBar
+from .player import Player
+from .widgets import PlayerBar
 
 
 class MainWindow(Adw.ApplicationWindow):

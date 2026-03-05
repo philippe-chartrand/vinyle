@@ -4,7 +4,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, GLib
 from gettext import gettext as _
-from ..duration import Duration
+from ..utils import Duration
 
 class ServerInfo(Adw.Dialog):
     def __init__(self, client, settings):

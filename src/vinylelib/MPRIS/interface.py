@@ -3,7 +3,8 @@ import gi
 
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gio
-from .cover import FileCover
+from ..client import FileCover
+
 
 class MPRISInterface:  # TODO emit Seeked if needed
     """

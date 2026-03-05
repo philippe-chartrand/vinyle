@@ -1,15 +1,19 @@
 import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Adw, GObject, Gtk
-from gettext import gettext as _
-from html.parser import HTMLParser
+from gi.repository import Adw, GObject, GLib, Gtk
+import threading
 import urllib.request
 import urllib.parse
 import urllib.error
-import threading
-from .functions import idle_add
-from .song import Song
+from gettext import gettext as _
+from html.parser import HTMLParser
+
+from ..song import Song
+
+
+def idle_add(*args, **kwargs):
+    GLib.idle_add(*args, priority=GLib.PRIORITY_DEFAULT, **kwargs)
 
 
 class LetrasParser(HTMLParser):

@@ -5,8 +5,8 @@ from gi.repository import Adw, Gtk
 from gettext import gettext as _
 
 from ..playlist import PlaylistWindow
-from ..lyrics import LyricsWindow
-from ..cover import FALLBACK_COVER
+from ..views import LyricsWindow
+from ..client import FALLBACK_COVER
 from .playback_controls import PlaybackControls
 from .player_menu import PlayerMenu
 

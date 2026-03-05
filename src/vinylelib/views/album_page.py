@@ -1,9 +1,9 @@
 from gettext import gettext as _
 import gi
 gi.require_version("Gtk", "4.0")
-from gi.repository import Adw, GLib, Gtk, GObject, Pango
+from gi.repository import Adw, Gtk, Pango
 
-from .cover import AlbumCover
+from ..album import AlbumCover
 from ..browsersong import BrowserSongList
 
 

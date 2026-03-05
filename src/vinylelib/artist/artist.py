@@ -1,11 +1,13 @@
 import gi
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import GObject
 from gettext import gettext as _
 
 
 class Artist(GObject.Object):
+    """
+    Created when the sidebar list is populated, one for every name in the list provided by mpd
+    """
     ROLES=(
         ('albumartist',_("Albumartist")),
         ('artist', _("Artist")),

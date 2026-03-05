@@ -20,7 +20,7 @@
 import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk, Adw, Gio, GObject, GLib
+from gi.repository import Gio, GLib
 
 import sys
 import signal
@@ -37,11 +37,23 @@ bindtextdomain("fr.chartrandphilippe.Vinyle", localedir="@LOCALE_DIR@")
 textdomain("fr.chartrandphilippe.Vinyle")
 Gio.Resource._register(Gio.resource_load(GLib.build_filenamev(["@RESOURCES_DIR@", "fr.chartrandphilippe.Vinyle.gresource"])))
 
+from collections import Counter
+import tracemalloc
 
 from vinylelib.application import Vinyle
+from vinylelib.memory_usage import display_top
+
+CHECK_MEMORY_USAGE = True
+
 
 if __name__ == "__main__":
+    if CHECK_MEMORY_USAGE:
+        tracemalloc.start()
+        counts = Counter()
     app=Vinyle()
     signal.signal(signal.SIGINT, signal.SIG_DFL)  # allow using ctrl-c to terminate
     app.run(sys.argv)
+    if CHECK_MEMORY_USAGE:
+        snapshot = tracemalloc.take_snapshot()
+        display_top(snapshot, limit=10)
 

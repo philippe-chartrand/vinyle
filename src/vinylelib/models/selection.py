@@ -1,46 +1,47 @@
-from gi.repository import Gtk, GObject, Gio
+import datetime
+
+from gi.repository import Gtk, GObject
 import locale
+from ._list import ListModel
 
-
-class ListModel(GObject.Object, Gio.ListModel):
-    def __init__(self, item_type):
-        super().__init__()
-        self.data=[]
-        self._item_type=item_type
-
-    def do_get_item(self, position):
-        try:
-            return self.data[position]
-        except IndexError:
-            return None
-
-    def do_get_item_type(self):
-        return self._item_type
-
-    def do_get_n_items(self):
-        return len(self.data)
 
 class SelectionModel(ListModel, Gtk.SelectionModel):
+    """
+    Used to represent a list of objects that is selectable,
+    such as an artist name in the sidebar, a selection of albums for a given artist,
+    a song in the playlist, or an album in the artist albums page.
+    An item in the collection is identified by his index.
+    """
     __gsignals__={"selected": (GObject.SignalFlags.RUN_FIRST, None, (int,)),
             "reselected": (GObject.SignalFlags.RUN_FIRST, None, ()),
             "clear": (GObject.SignalFlags.RUN_FIRST, None, ())}
+
+    __print_usage_to_stdout = None  # For debug purposes. Set to True if you want to monitor creation and destruction
+
     def __init__(self, item_type):
         super().__init__(item_type)
         self._selected=None
 
+    def _log_usage(self, message):
+        if self.__print_usage_to_stdout:
+            print(datetime.datetime.now(), message,": ", self._item_type, len(self.data))
+
     def clear(self, position=0):
+        self._log_usage('suppression avant')
         n=self.get_n_items()-position
         self.data=self.data[:position]
         if self._selected is not None:
             if self._selected >= self.get_n_items():
                 self._selected=None
         self.items_changed(position, n, 0)
+        self._log_usage('suppression après')
         if position == 0:
             self.emit("clear")
 
     def append(self, data):
         n=self.get_n_items()
         self.data.extend(data)
+        self._log_usage('ajout')
         self.items_changed(n, 0, self.get_n_items())
 
     def get_selected(self):
@@ -86,6 +87,7 @@ class SelectionModel(ListModel, Gtk.SelectionModel):
     def set_list(self, items):
         self.clear()
         self.append((self.do_get_item_type()(item[0], item[1], item[2]) for item in sorted(items, key=lambda item: locale.strxfrm(item[1]))))
+        self._log_usage('creation')
 
     def select_item(self, name):
         for i, item in enumerate(self.data):

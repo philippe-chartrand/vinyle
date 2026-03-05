@@ -1,12 +1,13 @@
 import re
 import gi
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gio, GLib
 from mpd import MPDClient, CommandError, ConnectionError
-from .event_emitter import EventEmitter
-from .cover import FallbackCover, FileCover, BinaryCover
-from .song import Song
+
+from ..event_emitter import EventEmitter
+from .cover import BinaryCover, FileCover, FallbackCover
+from ..song import Song
+
 
 class Client(MPDClient):
     def __init__(self, settings):

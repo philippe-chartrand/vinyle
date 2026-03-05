@@ -3,9 +3,11 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gdk, Gio, Gtk
 
-from ..functions import lookup_icon
 from ..playlist import PlaylistMenu
-from ..song import Song, SongList
+from ..song import Song
+from ..views import SongList
+from ..widgets import lookup_icon
+
 
 class PlaylistView(SongList):
     def __init__(self, client):

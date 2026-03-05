@@ -4,7 +4,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gdk, Gio, Gtk, Graphene
 from ..song import SongMenu
-from ..functions import lookup_icon
+from ..widgets import lookup_icon
 
 
 class BrowserSongList(Gtk.ListBox):

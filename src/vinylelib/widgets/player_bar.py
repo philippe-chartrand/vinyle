@@ -5,8 +5,8 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk, Pango
 from gettext import gettext as _
 
-from ..cover import FALLBACK_COVER
-from ..media_buttons import MediaButtons
+from ..client import FALLBACK_COVER
+from .media_buttons import MediaButtons
 
 
 class ProgressBar(Gtk.ProgressBar):

@@ -1,10 +1,10 @@
 import gi
 
 gi.require_version("Gtk", "4.0")
-from gi.repository import Adw, GObject, Gtk
+from gi.repository import GObject
 from gettext import gettext as _
 
-from ..album import AlbumsPage
+from ..views import AlbumsPage
 from ..artist_album import ArtistAlbum
 from ..artist_album import ArtistAlbumListRow
 

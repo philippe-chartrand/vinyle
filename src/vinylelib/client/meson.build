@@ -1,6 +1,8 @@
 # FIXME: find a way to include all python files from this directory
+subdir('cover')
+
 install_headers(
 '__init__.py',
-'artist_album.py', 'list_row.py', 'row.py',
-install_dir: 'bin/vinylelib/artist_album'
+'client.py',
+install_dir: 'bin/vinylelib/client'
 )

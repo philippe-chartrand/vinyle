@@ -1,11 +1,11 @@
 import gi
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, Graphene
 
 from ..models import SelectionModel
-from .song import Song
-from .song_list_row import SongListRow
+from ..song import Song
+from ..song import SongListRow
+
 
 class SongList(Gtk.ListView):
     def __init__(self):

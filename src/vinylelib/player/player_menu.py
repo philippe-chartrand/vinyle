@@ -3,7 +3,7 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import Gio, GLib, Gtk
 from gettext import gettext as _
 
-from .volume_control import VolumeControl
+from ..widgets.volume_control import VolumeControl
 
 
 class PlayerMenu(Gtk.PopoverMenu):
