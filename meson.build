@@ -1,4 +1,4 @@
-project('vinyle', version: '2.5.1')
+project('vinyle', version: '2.5.2')
 
 i18n = import('i18n')
 gnome = import('gnome')

@@ -41,6 +41,17 @@
     </screenshot>
   </screenshots>
   <releases>
+  <release version="2.5.2" date="2026-03-09">
+      <description translate="no">
+        <ul>
+           <li>Add/Replace all album actions. Usefull when browsing a compilation of different artists.</li>
+           <li>Restore browsing context when displaying album from playlist.</li>
+           <li>Improved credit presentation, more details, less redundancy.</li>
+           <li>Added properties interface for song class, no need to use internal dict keys and multitag constructs outside of the mpd client package.</li>
+           <li>More code refactoring into packages</li>
+        </ul>
+      </description>
+    </release>
   <release version="2.5.1" date="2026-02-28">
       <description translate="no">
         <ul>
