@@ -28,7 +28,7 @@ class BrowserSongRow(Adw.ActionRow):
             self.add_prefix(track)
 
     def define_and_set_subtitle(self, artist_to_highlight, song):
-        subtitle, found_in_credit = song.define_subtitle(artist_to_highlight)
+        subtitle, found_in_credit = song.define_subtitle(artist_to_highlight, show_various_artists=False)
         if subtitle:
             if found_in_credit:
                 self.set_property('css_classes', ['activatable', 'heading'])

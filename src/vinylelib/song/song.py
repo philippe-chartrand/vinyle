@@ -138,7 +138,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         all.extend(self.performers)
         return all
 
-    def define_subtitle(self, artist_to_highlight=None, delim="\r"):
+    def define_subtitle(self, artist_to_highlight=None, delim="\r", show_various_artists=True):
         albumartist_subtitle = ", ".join(albumartist for albumartist in self.albumartists)
         artist_subtitle = ", ".join(artist for artist in self.artists)
         composer_subtitle = ", ".join(composer for composer in self.composers)
@@ -147,7 +147,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         subtitle = ""
         credits = []
         found_in_credits = False
-        if albumartist_subtitle:
+        if albumartist_subtitle and (show_various_artists or artist_subtitle is None) :
             credits.append(albumartist_subtitle)
         if artist_subtitle:
             credits.append(artist_subtitle)
