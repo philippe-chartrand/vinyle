@@ -34,14 +34,18 @@ class SearchView(Gtk.Stack):
         self._composer_tags=("composer", "composer")
         self._conductor_tags=("conductor", "conductor")
         self._performer_tags=("performer", "performer")
+        self._genre_tags=("genre", "genre")
+        self._year_tags=("date", "date")
         self._album_tags=("album", "albumartist", "albumartistsort", "date")
 
-        # artist list
+        # role lists
         self._album_artist_list = self._init_list_box()
         self._artist_list = self._init_list_box()
         self._composer_list = self._init_list_box()
         self._conductor_list = self._init_list_box()
         self._performer_list = self._init_list_box()
+        self._genre_list = self._init_list_box()
+        self._year_list = self._init_list_box()
 
         # album list
         self._album_list = self._init_list_box()
@@ -56,6 +60,8 @@ class SearchView(Gtk.Stack):
         self._composer_box = self._init_box(_("Composers"), self._composer_list)
         self._conductor_box = self._init_box(_("Conductors"), self._conductor_list)
         self._performer_box = self._init_box(_("Performers"), self._performer_list)
+        self._genre_box = self._init_box(_("Genres"), self._genre_list)
+        self._year_box = self._init_box(_("Years"), self._year_list)
 
         self._album_box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._album_box.append(Gtk.Label(label=_("Albums"), xalign=0, css_classes=["heading"]))
@@ -71,6 +77,8 @@ class SearchView(Gtk.Stack):
         box.append(self._composer_box)
         box.append(self._conductor_box)
         box.append(self._performer_box)
+        box.append(self._genre_box)
+        box.append(self._year_box)
         box.append(self._album_box)
         box.append(self._song_box)
         self.box = box
@@ -88,12 +96,16 @@ class SearchView(Gtk.Stack):
         self._composer_list.connect("row-activated", self._on_composer_activate)
         self._conductor_list.connect("row-activated", self._on_conductor_activate)
         self._performer_list.connect("row-activated", self._on_performer_activate)
+        self._genre_list.connect("row-activated", self._on_genre_activate)
+        self._year_list.connect("row-activated", self._on_year_activate)
 
         self._album_artist_list.connect("keynav-failed", self._on_keynav_failed)
         self._artist_list.connect("keynav-failed", self._on_keynav_failed)
         self._composer_list.connect("keynav-failed", self._on_keynav_failed)
         self._conductor_list.connect("keynav-failed", self._on_keynav_failed)
         self._performer_list.connect("keynav-failed", self._on_keynav_failed)
+        self._genre_list.connect("keynav-failed", self._on_keynav_failed)
+        self._year_list.connect("keynav-failed", self._on_keynav_failed)
 
         self._album_list.connect("row-activated", self._on_album_activate)
         self._album_list.connect("keynav-failed", self._on_keynav_failed)
@@ -122,6 +134,8 @@ class SearchView(Gtk.Stack):
         self._composer_list.remove_all()
         self._conductor_list.remove_all()
         self._performer_list.remove_all()
+        self._genre_list.remove_all()
+        self._year_list.remove_all()
         self._album_list.remove_all()
         self._song_list.remove_all()
         self._adj.set_value(0.0)
@@ -153,14 +167,19 @@ class SearchView(Gtk.Stack):
             self.list_by_composer(keywords)
             self.list_by_conductor(keywords)
             self.list_by_performer(keywords)
+            self.list_by_genre(keywords)
+            self.list_by_year(keywords)
 
         if (self._song_box.get_visible()
-                or self._album_artist_box.get_visible()
-                or self._album_box.get_visible()
-                or self._artist_box.get_visible()
-                or self._composer_box.get_visible()
-                or self._conductor_box.get_visible()
-                or self._performer_box.get_visible()):
+            or self._album_artist_box.get_visible()
+            or self._album_box.get_visible()
+            or self._artist_box.get_visible()
+            or self._composer_box.get_visible()
+            or self._conductor_box.get_visible()
+            or self._performer_box.get_visible()
+            or self._genre_box.get_visible()
+            or self._year_box.get_visible()
+        ):
             self.set_visible_child_name("results")
 
     def _list_by(self, tag, keywords, tags, list_, box):
@@ -188,6 +207,12 @@ class SearchView(Gtk.Stack):
     def list_by_performer(self, keywords):
         self._performer_list, self._performer_box = self._list_by("performer", keywords, self._performer_tags, self._performer_list, self._performer_box)
 
+    def list_by_genre(self, keywords):
+        self._genre_list, self._genre_box = self._list_by("genre", keywords, self._genre_tags, self._genre_list, self._genre_box)
+
+    def list_by_year(self, keywords):
+        self._year_list, self._year_box = self._list_by("date", keywords, self._year_tags, self._year_list, self._year_box)
+
     def _on_album_artist_activate(self, list_box, row):
         self.emit("sidebar-item-selected", row.get_title(), 'albumartist')
 
@@ -202,6 +227,12 @@ class SearchView(Gtk.Stack):
 
     def _on_performer_activate(self, list_box, row):
         self.emit("sidebar-item-selected", row.get_title(), 'performer')
+
+    def _on_genre_activate(self, list_box, row):
+        self.emit("sidebar-item-selected", row.get_title(), 'genre')
+
+    def _on_year_activate(self, list_box, row):
+        self.emit("sidebar-item-selected", row.get_title(), 'date')
 
     def _on_album_activate(self, list_box, row):
         self.emit("album-selected", row.album, row.date, row.albumartist, row.artist, row.composer, row.conductor, row.performer)

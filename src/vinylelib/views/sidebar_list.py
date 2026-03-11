@@ -22,7 +22,7 @@ class SidebarList(SidebarListView):
         # expects a list of dicts where the key is the tag name, and the associated value for the tag
         # date tags are treated as years
         return itertools.groupby(
-            ((item[self.tag_name][0:4] if self.tag_name == 'date' else item[self.tag_name]) for item in
+            ((item[self.tag_name][0:4] if self.tag_name == 'year' else item[self.tag_name]) for item in
              items),
             key=lambda x: x)
 
@@ -42,7 +42,7 @@ class SidebarList(SidebarListView):
 
     def refresh(self):
         # TODO: grouping and iterator logic does not seem necessary
-        items = self._client.list(self.tag_name)
+        items = self._client.list('date' if self.tag_name == 'year' else self.tag_name)
         items_iterator = self._create_iterator_from_list(items)
         filtered_items = self._filter_from_iterator(items_iterator)
         self.selection_model.set_list(filtered_items)
