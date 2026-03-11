@@ -8,38 +8,50 @@ from .sidebar import SidebarListView
 class ArtistList(SidebarListView):
     def __init__(self, client, SelectionModel, artist_role):
         super().__init__(client, SelectionModel)
-        self.artist_role = artist_role
+        self.tag_name = artist_role
 
     @staticmethod
-    def move_initial_article(artist):
+    def move_initial_article(item):
         moveable_articles = ('The ', 'Les ')
-        if artist[0:4] in moveable_articles:
-             return f"{artist[4:]}, {artist[0:2]}"
+        if item[0:4] in moveable_articles:
+             return f"{item[4:]}, {item[0:2]}"
         else:
-            return artist
+            return item
+
+    def _create_iterator_from_list(self, items):
+        # expects a list of dicts where the key is the tag name, and the associated value for the tag
+        # date tags are treated as years
+
+        return itertools.groupby(
+            ((item[self.tag_name][0:4] if self.tag_name == 'date' else item[self.tag_name]) for item in
+             items),
+            key=lambda x: x)
+
+    def _filter_from_iterator(self, iterator):
+        filtered_items = []
+        for name, grouper in iterator:
+            if name == "":
+                next(grouper)
+                continue
+            value = next(grouper)
+            value_with_sort_key_and_role = [value, self.move_initial_article(name), self.tag_name]
+            filtered_items.append(value_with_sort_key_and_role)
+            # ignore multiple albumartistsort values
+            if next(grouper, None) is not None:
+                filtered_items[-1] = (name, name, self.tag_name)
+        return filtered_items
 
     def refresh(self):
         # TODO: simplify me
         # grouping and iterator logic does not seem necessary
-        artists = self._client.list(self.artist_role)
-        artist_iterator = itertools.groupby( ((artist[self.artist_role]) for artist in artists ),
-                                                key=lambda x: x)
-        filtered_artists=[]
-        for name, artist in artist_iterator:
-            if name == "":
-                next(artist)
-                continue
-            value = next(artist)
-            artist_with_role= [value, self.move_initial_article(name), self.artist_role]
-            filtered_artists.append(artist_with_role)
-            # ignore multiple albumartistsort values
-            if next(artist, None) is not None:
-                filtered_artists[-1]=(name, name, self.artist_role)
-        self.selection_model.set_list(filtered_artists)
+        items = self._client.list(self.tag_name)
+        items_iterator = self._create_iterator_from_list(items)
+        filtered_items = self._filter_from_iterator(items_iterator)
+        self.selection_model.set_list(filtered_items)
 
     def _on_connected(self, emitter, database_is_empty):
         if not database_is_empty:
             self.refresh()
             if (song:=self._client.currentsong()):
-                artist=song[self.artist_role][0]
-                self.select(artist)
+                item=song[self.tag_name][0]
+                self.select(item)

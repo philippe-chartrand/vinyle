@@ -56,6 +56,7 @@ class SidebarListView(Gtk.ListView):
             self.scroll_to(selected, Gtk.ListScrollFlags.FOCUS, None)
 
     def refresh(self):
+        # overriden by artist list
         artists=self._client.list("albumartistsort", "group", "albumartist")
         filtered_artists=[]
         for name, artist in itertools.groupby(((artist["albumartist"], artist["albumartistsort"]) for artist in artists), key=lambda x: x[0]):

@@ -14,6 +14,9 @@ class Artist(GObject.Object):
         ('composer', _("Composer")),
         ('conductor', _("Conductor")),
         ('performer', _("Performer")),
+        ('album', _("Album")),
+        ('genre', _("Genre")),
+        ('date', _("Year"))
     )
 
     def __init__(self, name, sort_key, role):

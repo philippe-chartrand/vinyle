@@ -53,6 +53,9 @@
 				<choice value="composer" />
 				<choice value="conductor" />
 				<choice value="performer" />
+				<choice value="album" />
+				<choice value="genre" />
+				<choice value="date" />
 			</choices>
 			<default>"artist"</default>
 			<summary>To suit your definition of artist</summary>
