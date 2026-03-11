@@ -6,7 +6,8 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk, Gio
 from gettext import gettext as _
 
-from ..artist import Artist, RoleDropDown
+from ..role import Role
+from ..widgets import RoleDropDown
 
 
 class BehaviorPreferences(Adw.PreferencesGroup):
@@ -30,7 +31,7 @@ class BehaviorPreferences(Adw.PreferencesGroup):
 
         for title, key, subtitle in choice_data:
             row=Adw.ActionRow(title=title, subtitle=subtitle, use_underline=True)
-            role_dropdown = RoleDropDown(Artist.ROLES, self._settings["default-browsing-mode"])
+            role_dropdown = RoleDropDown(Role.ROLES, self._settings["default-browsing-mode"])
             row.add_suffix(role_dropdown)
             role_dropdown.connect("notify::selected-item", self.on_role_selected)
             self.add(row)

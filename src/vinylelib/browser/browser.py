@@ -4,9 +4,10 @@ gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, Gio
 from gettext import gettext as _
 
-from ..artist import ArtistSelectionModel, RoleDropDown
-from ..views import ArtistList, SearchView
+from ..role import RoleSelectionModel
 from ..pages import ArtistAlbumsPage, ArtistAlbumPage
+from ..views import SidebarList, SearchView
+from ..widgets import RoleDropDown
 
 
 class MainMenuButton(Gtk.MenuButton):
@@ -28,8 +29,8 @@ class Browser(Gtk.Stack):
     def __init__(self, client, settings):
         super().__init__()
         self._client=client
-        self.artist_role=settings['default-browsing-mode']
-        self.artist_page=None
+        self.sidebar_role=settings['default-browsing-mode']
+        self.sidebar_page=None
         # search
         self._search_view=SearchView(client)
         self.search_entry=Gtk.SearchEntry(placeholder_text=_("Search collection"), max_width_chars=25)
@@ -39,8 +40,7 @@ class Browser(Gtk.Stack):
         search_toolbar_view.add_top_bar(search_header_bar)
         search_toolbar_view.add_css_class("content-pane")
 
-        self.artist_page = self._artist_page_setup(client)
-
+        self.sidebar_page = self._sidebar_page_setup(client)
         self._albums_page = ArtistAlbumsPage(client, settings)
 
         # navigation view
@@ -49,7 +49,7 @@ class Browser(Gtk.Stack):
         album_navigation_view_page=Adw.NavigationPage(child=self._album_navigation_view, title=_("Albums"), tag="albums")
 
         # split view
-        self._navigation_split_view=Adw.NavigationSplitView(sidebar=self.artist_page, content=album_navigation_view_page)
+        self._navigation_split_view=Adw.NavigationSplitView(sidebar=self.sidebar_page, content=album_navigation_view_page)
 
         # breakpoint bin
         breakpoint_bin=Adw.BreakpointBin(width_request=320, height_request=200)
@@ -75,8 +75,8 @@ class Browser(Gtk.Stack):
 
         # connect
         self._albums_page.connect("album-selected", self._on_album_selected)
-        self._artist_list_connect()
-        self._search_view.connect("artist-selected", self._on_search_artist_selected)
+        self._sidebar_list_connect()
+        self._search_view.connect("sidebar-item-selected", self._on_search_item_selected)
         self._search_view.connect("album-selected", lambda widget, *args: self._show_album(*args))
         self.search_entry.connect("search-changed", self._on_search_changed)
         self.search_entry.connect("stop-search", self._on_search_stopped)
@@ -95,7 +95,7 @@ class Browser(Gtk.Stack):
         header_bar.set_show_title(False)
         search_button = Gtk.Button(icon_name="system-search-symbolic", tooltip_text=_("Search"))
         search_button.connect("clicked", lambda *args: self.search())
-        role_dropdown = RoleDropDown(ArtistSelectionModel().do_get_item_type().ROLES, self.artist_role)
+        role_dropdown = RoleDropDown(RoleSelectionModel().do_get_item_type().ROLES, self.sidebar_role)
         header_bar.pack_start(search_button)
         header_bar.pack_start(role_dropdown)
         role_dropdown.connect("notify::selected-item", self.on_role_selected)
@@ -105,18 +105,17 @@ class Browser(Gtk.Stack):
         toolbar_view.add_top_bar(header_bar)
         return toolbar_view
 
-    def _artist_page_setup(self, client):
-        # artist list
-        self._artist_list = ArtistList(client, ArtistSelectionModel, self.artist_role)
-        artist_window = Gtk.ScrolledWindow(child=self._artist_list)
-        artist_toolbar_view = self._toolbar_view_setup(artist_window)
-        artist_page = Adw.NavigationPage(child=artist_toolbar_view, title=_("Artists"), tag="artists")
-        return artist_page
+    def _sidebar_page_setup(self, client):
+        self._sidebar_list = SidebarList(client, RoleSelectionModel, self.sidebar_role)
+        sidebar_window = Gtk.ScrolledWindow(child=self._sidebar_list)
+        sidebar_toolbar_view = self._toolbar_view_setup(sidebar_window)
+        sidebar_page = Adw.NavigationPage(child=sidebar_toolbar_view, title=_("Artists"), tag="artists")
+        return sidebar_page
 
-    def _artist_list_connect(self):
-        self._artist_list.selection_model.connect("selected", self._on_artist_selected)
-        self._artist_list.selection_model.connect("reselected", self._on_artist_reselected)
-        self._artist_list.selection_model.connect("clear", self._albums_page.clear)
+    def _sidebar_list_connect(self):
+        self._sidebar_list.selection_model.connect("selected", self._on_sidebar_item_selected)
+        self._sidebar_list.selection_model.connect("reselected", self._on_sidebar_item_reselected)
+        self._sidebar_list.selection_model.connect("clear", self._albums_page.clear)
 
     def search(self):
         if self._navigation_view.get_visible_page_tag() != "search":
@@ -136,16 +135,16 @@ class Browser(Gtk.Stack):
     def on_role_selected(self, dropdown, _pspec):
         # Selected Gtk.StringObject
         selected = dropdown.get_selected()
-        if self.artist_page is not None and selected is not None and selected != self.artist_role:
-            self._change_artist_list_according_to_new_role(selected)
+        if self.sidebar_page is not None and selected is not None and selected != self.sidebar_role:
+            self._change_sidebar_list_according_to_new_role(selected)
 
-    def _on_artist_selected(self, model, position):
+    def _on_sidebar_item_selected(self, model, position):
         self._navigation_split_view.set_show_content(True)
         self._album_navigation_view.replace_with_tags(["album_list"])
-        artist=model.get_item_name(position)
-        self._albums_page.display(artist, self.artist_role)
+        item=model.get_item_name(position)
+        self._albums_page.display(item, self.sidebar_role)
 
-    def _on_artist_reselected(self, model):
+    def _on_sidebar_item_reselected(self, model):
         self._navigation_split_view.set_show_content(True)
         self._album_navigation_view.pop_to_tag("album_list")
 
@@ -154,22 +153,22 @@ class Browser(Gtk.Stack):
         self._album_navigation_view.push(album_page)
         album_page.play_button.grab_focus()
 
-    def _on_search_artist_selected(self, widget, artist, role):
-        if role != self.artist_role:
-            self._change_artist_list_according_to_new_role(role)
-            for no, known_role in enumerate(ArtistSelectionModel().do_get_item_type().ROLES):
+    def _on_search_item_selected(self, widget, item, role):
+        if role != self.sidebar_role:
+            self._change_sidebar_list_according_to_new_role(role)
+            for no, known_role in enumerate(RoleSelectionModel().do_get_item_type().ROLES):
                 if role == known_role or role == known_role[0]:
                     self.role_dropdown.set_selected(no)
-        self._artist_list.select(artist)
+        self._sidebar_list.select(item)
         self.search_entry.emit("stop-search")
         self._albums_page.grid_view.grab_focus()
 
-    def _change_artist_list_according_to_new_role(self, role):
-        self._artist_list = ArtistList(self._client, ArtistSelectionModel, role)
-        self._artist_list_connect()
-        self._artist_list.refresh()
-        self.artist_page.get_child().get_content().set_child(self._artist_list)
-        self.artist_role = role
+    def _change_sidebar_list_according_to_new_role(self, role):
+        self._sidebar_list = SidebarList(self._client, RoleSelectionModel, role)
+        self._sidebar_list_connect()
+        self._sidebar_list.refresh()
+        self.sidebar_page.get_child().get_content().set_child(self._sidebar_list)
+        self.sidebar_role = role
 
     def _show_album(self, album, date, albumartist, artist, composer, conductor, performer):
         cascade = (
@@ -180,30 +179,30 @@ class Browser(Gtk.Stack):
             (albumartist, 'albumartist')
         )
 
-        album_page = self.find_album_by_track_info_provided_when_artist_role_has_not_changed(cascade, album, date)
+        album_page = self.find_album_by_track_info_provided_when_sidebar_role_has_not_changed(cascade, album, date)
         if album_page is None:
-            album_page = self.find_album_by_track_info_provided_when_artist_role_has_changed(cascade, album, date)
+            album_page = self.find_album_by_track_info_provided_when_sidebar_role_has_changed(cascade, album, date)
 
         if album_page is not None:
             self._album_navigation_view.replace([self._albums_page, album_page])
             album_page.play_button.grab_focus()
         self.search_entry.emit("stop-search")
 
-    def find_album_by_track_info_provided_when_artist_role_has_not_changed(self, cascade, album, date):
+    def find_album_by_track_info_provided_when_sidebar_role_has_not_changed(self, cascade, album, date):
         """search by role value tuple provided corresponding to current browsing context"""
         album_page = None
         value = None
         for option in cascade:
-            if option[1] == self.artist_role:
+            if option[1] == self.sidebar_role:
                 value = option[0]
                 break
         if value is not None:
-            self._artist_list.select(value)
-            album_page = ArtistAlbumPage(self._client, self.artist_role, value, album, date)
+            self._sidebar_list.select(value)
+            album_page = ArtistAlbumPage(self._client, self.sidebar_role, value, album, date)
 
         return album_page
 
-    def find_album_by_track_info_provided_when_artist_role_has_changed(self, cascade, album, date):
+    def find_album_by_track_info_provided_when_sidebar_role_has_changed(self, cascade, album, date):
         """fallback to allow to show the album even if the browsing context changed"""
         album_page = None
         value = None
@@ -215,7 +214,7 @@ class Browser(Gtk.Stack):
                 break
 
         if bool(new_role and value):
-            self._on_search_artist_selected(None, value, new_role)
+            self._on_search_item_selected(None, value, new_role)
             album_page = ArtistAlbumPage(self._client, new_role, value, album, date)
         return album_page
 

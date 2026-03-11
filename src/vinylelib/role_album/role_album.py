@@ -1,7 +1,7 @@
 from ..album import Album
 
 
-class ArtistAlbum(Album):
+class RoleAlbum(Album):
     """
     Created when user chooses a name in the sidebar, or clicks on a search result,
     one for every album associated with the artist.

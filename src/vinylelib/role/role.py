@@ -4,7 +4,7 @@ from gi.repository import GObject
 from gettext import gettext as _
 
 
-class Artist(GObject.Object):
+class Role(GObject.Object):
     """
     Created when the sidebar list is populated, one for every name in the list provided by mpd
     """

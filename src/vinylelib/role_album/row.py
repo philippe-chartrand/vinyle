@@ -3,7 +3,7 @@ gi.require_version("Gtk", "4.0")
 from gi.repository import Adw, Gtk
 
 
-class ArtistAlbumRow(Adw.ActionRow):
+class RoleAlbumRow(Adw.ActionRow):
     def __init__(self, album):
         super().__init__(use_markup=False, activatable=True, css_classes=["property"])
         self.album = album["album"]

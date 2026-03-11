@@ -1,4 +1,5 @@
-import itertools
+from typing import override
+
 import gi
 from gettext import gettext as _
 gi.require_version("Gtk", "4.0")
@@ -55,16 +56,9 @@ class SidebarListView(Gtk.ListView):
         else:
             self.scroll_to(selected, Gtk.ListScrollFlags.FOCUS, None)
 
+    @override
     def refresh(self):
-        # overriden by artist list
-        artists=self._client.list("albumartistsort", "group", "albumartist")
-        filtered_artists=[]
-        for name, artist in itertools.groupby(((artist["albumartist"], artist["albumartistsort"]) for artist in artists), key=lambda x: x[0]):
-            filtered_artists.append(next(artist))
-            # ignore multiple albumartistsort values
-            if next(artist, None) is not None:
-                filtered_artists[-1]=(name, name)
-        self.selection_model.set_list(filtered_artists)
+        pass
 
     def _on_activate(self, widget, pos):
         self.selection_model.select(pos)
@@ -72,12 +66,9 @@ class SidebarListView(Gtk.ListView):
     def _on_disconnected(self, *args):
         self.selection_model.clear()
 
+    @override
     def _on_connected(self, emitter, database_is_empty):
-        if not database_is_empty:
-            self.refresh()
-            if (song:=self._client.currentsong()):
-                artist=song.albumartist
-                self.select(artist)
+        pass
 
     def _on_updated_db(self, emitter, database_is_empty):
         if database_is_empty:

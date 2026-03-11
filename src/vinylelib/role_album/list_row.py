@@ -1,7 +1,7 @@
 from ..album import AlbumListRow
 
 
-class ArtistAlbumListRow(AlbumListRow):
+class RoleAlbumListRow(AlbumListRow):
     def __init__(self, client):
         super().__init__(client)
 

@@ -5,21 +5,21 @@ from gi.repository import GObject
 from gettext import gettext as _
 
 from ..views import AlbumsPage
-from ..artist_album import ArtistAlbum
-from ..artist_album import ArtistAlbumListRow
+from ..role_album import RoleAlbum
+from ..role_album import RoleAlbumListRow
 
 
 class ArtistAlbumsPage(AlbumsPage):
     __gsignals__={"album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,str,))}
     def __init__(self, client, settings):
-        super().__init__(client, settings, ArtistAlbum, ArtistAlbumListRow, _("Select an artist"))
+        super().__init__(client, settings, RoleAlbum, RoleAlbumListRow, _("Select an artist"))
 
     def _get_albums(self, artist, role):
 
         grouped_albums=self._client.list("album", role, artist, "group", "date")
         albums = self.group_albums_dates(grouped_albums)
         for album in albums.values():
-            yield ArtistAlbum(artist, role, album["album"], album["date"])
+            yield RoleAlbum(artist, role, album["album"], album["date"])
 
     def group_albums_dates(self, grouped_albums):
         albums = {}

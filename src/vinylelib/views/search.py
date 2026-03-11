@@ -7,13 +7,13 @@ from gi.repository import Gtk, Adw, GObject
 from gettext import gettext as _
 
 from ..browsersong import BrowserSongList, BrowserSongRow
-from ..artist_album import ArtistAlbumRow
+from ..role_album import RoleAlbumRow
 
 
 class SearchView(Gtk.Stack):
     __gsignals__={
         "album-artist-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
-        "artist-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
+        "sidebar-item-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
         "composer-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
         "conductor-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str, )),
         "performer-selected": (GObject.SignalFlags.RUN_FIRST, None, (str, str,)),
@@ -143,7 +143,7 @@ class SearchView(Gtk.Stack):
 
             albums=self._client.list("album", self._client.get_search_expression(self._album_tags, keywords), "group", "date", "group", "albumartist", "group", "artist", "group", "composer","group", "conductor")
             for album in itertools.islice(albums, self.RESULTS_COUNT_ALBUM):
-                album_row = ArtistAlbumRow(album)
+                album_row = RoleAlbumRow(album)
                 self._album_list.append(album_row)
 
             self._album_box.set_visible(self._album_list.get_first_child() is not None)
@@ -189,19 +189,19 @@ class SearchView(Gtk.Stack):
         self._performer_list, self._performer_box = self._list_by("performer", keywords, self._performer_tags, self._performer_list, self._performer_box)
 
     def _on_album_artist_activate(self, list_box, row):
-        self.emit("artist-selected", row.get_title(), 'albumartist')
+        self.emit("sidebar-item-selected", row.get_title(), 'albumartist')
 
     def _on_artist_activate(self, list_box, row):
-        self.emit("artist-selected", row.get_title(), 'artist')
+        self.emit("sidebar-item-selected", row.get_title(), 'artist')
 
     def _on_composer_activate(self, list_box, row):
-        self.emit("artist-selected", row.get_title(), 'composer')
+        self.emit("sidebar-item-selected", row.get_title(), 'composer')
 
     def _on_conductor_activate(self, list_box, row):
-        self.emit("artist-selected", row.get_title(), 'conductor')
+        self.emit("sidebar-item-selected", row.get_title(), 'conductor')
 
     def _on_performer_activate(self, list_box, row):
-        self.emit("artist-selected", row.get_title(), 'performer')
+        self.emit("sidebar-item-selected", row.get_title(), 'performer')
 
     def _on_album_activate(self, list_box, row):
         self.emit("album-selected", row.album, row.date, row.albumartist, row.artist, row.composer, row.conductor, row.performer)
