@@ -7,6 +7,7 @@ from gettext import gettext as _
 class Role(GObject.Object):
     """
     Created when the sidebar list is populated, one for every name in the list provided by mpd
+    year is derived from the first 4 chars of the date, so the query will be by date
     """
     ROLES=(
         ('albumartist',_("Albumartist")),

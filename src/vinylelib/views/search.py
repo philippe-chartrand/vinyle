@@ -1,5 +1,4 @@
 import itertools
-
 import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
@@ -8,6 +7,7 @@ from gettext import gettext as _
 
 from ..browsersong import BrowserSongList, BrowserSongRow
 from ..role_album import RoleAlbumRow
+from ..utils import group_dates_by_year
 
 
 class SearchView(Gtk.Stack):
@@ -184,12 +184,14 @@ class SearchView(Gtk.Stack):
 
     def _list_by(self, tag, keywords, tags, list_, box):
         items = self._client.list(tag, self._client.get_search_expression(tags, keywords))
+        if tag == 'date':
+            items = group_dates_by_year(items)
         for item in itertools.islice(items, self.RESULTS_COUNT):
             row = Adw.ActionRow(title=item[tag], use_markup=False, activatable=True)
             row.add_suffix(Gtk.Image(icon_name="go-next-symbolic", accessible_role=Gtk.AccessibleRole.PRESENTATION))
             list_.append(row)
-        found = list_.get_first_child() is not None
-        box.set_visible(list_.get_first_child() is not None)
+        found = bool(list_.get_first_child() is not None)
+        box.set_visible(found)
         return list_, box
 
     def list_by_album_artist(self, keywords):

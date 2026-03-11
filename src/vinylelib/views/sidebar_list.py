@@ -3,6 +3,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 
 from .sidebar import SidebarListView
+from ..utils import group_dates_by_year
 
 
 class SidebarList(SidebarListView):
@@ -20,10 +21,8 @@ class SidebarList(SidebarListView):
 
     def _create_iterator_from_list(self, items):
         # expects a list of dicts where the key is the tag name, and the associated value for the tag
-        # date tags are treated as years
         return itertools.groupby(
-            ((item[self.tag_name][0:4] if self.tag_name == 'year' else item[self.tag_name]) for item in
-             items),
+            ((item[self.tag_name]) for item in items),
             key=lambda x: x)
 
     def _filter_from_iterator(self, iterator):
@@ -41,8 +40,10 @@ class SidebarList(SidebarListView):
         return filtered_items
 
     def refresh(self):
-        # TODO: grouping and iterator logic does not seem necessary
-        items = self._client.list('date' if self.tag_name == 'year' else self.tag_name)
+        if self.tag_name == 'date':
+            items = group_dates_by_year(self._client.list(self.tag_name))
+        else:
+            items = self._client.list(self.tag_name)
         items_iterator = self._create_iterator_from_list(items)
         filtered_items = self._filter_from_iterator(items_iterator)
         self.selection_model.set_list(filtered_items)
