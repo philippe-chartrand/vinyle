@@ -86,7 +86,9 @@ class SelectionModel(ListModel, Gtk.SelectionModel):
 
     def set_list(self, items):
         self.clear()
-        self.append((self.do_get_item_type()(item[0], item[1], item[2]) for item in sorted(items, key=lambda item: locale.strxfrm(item[1]))))
+        reverse = True if len(items) and items[0][2] == 'date' else False
+        self.append((self.do_get_item_type()(item[0], item[1], item[2])
+                     for item in sorted(items, key=lambda item: locale.strxfrm(item[1]), reverse=reverse)))
         self._log_usage('creation')
 
     def select_item(self, name):
