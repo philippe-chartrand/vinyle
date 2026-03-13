@@ -60,5 +60,10 @@
 			<default>"artist"</default>
 			<summary>To suit your definition of artist</summary>
 		</key>
+		<key type="i" name="albums-page-columns">
+			<range min="3" max="8"/>
+			<default>4</default>
+			<summary>Max number of columns in the albums view</summary>
+		</key>
 	</schema>
 </schemalist>

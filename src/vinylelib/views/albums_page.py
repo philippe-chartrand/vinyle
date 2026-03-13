@@ -32,7 +32,9 @@ class AlbumsPage(Adw.NavigationPage):
         self.grid_view.set_factory(self.factory)
         # breakpoint bin
         self.breakpoint_bin=Adw.BreakpointBin(width_request=320, height_request=200)
-        for width, columns in ((500,3), (850,4), (1200,5), (1500,6)):
+        # for width, columns in ((500,3), (850,4), (1200,5), (1500,6)):
+        breakpoint_cols = self._calc_breakpoint_cols(settings["albums-page-columns"])
+        for width, columns in breakpoint_cols:
             break_point=Adw.Breakpoint()
             break_point.set_condition(Adw.BreakpointCondition.parse(f"min-width: {width}sp"))
             break_point.add_setter(self.grid_view, "max-columns", columns)
@@ -58,6 +60,34 @@ class AlbumsPage(Adw.NavigationPage):
         self._stack.add_named(self.breakpoint_bin, "albums")
         self._stack.add_named(status_page, "status-page")
         self.set_child(self.toolbar_view)
+
+    def _calc_breakpoint_cols(self, nb_columns):
+        # allows to adjust the number of columns in the albums page from 3 to 8
+        # original values were 4 columns with a width of 350 for the first 3 and of 300 for the fourth
+        # ((500,3), (850,4), (1200,5), (1500,6))
+
+        START_WIDTH = 500
+        START_COL = 3
+        match nb_columns:
+            case 3:
+                column_width = 650
+            case 4:
+                column_width = 450
+            case 5:
+                column_width = 300
+            case 6:
+                column_width = 200
+            case 7:
+                column_width = 150
+            case 8:
+                column_width = 120
+            case _:
+                column_width = 350
+
+        breakpoint_cols = []
+        for i in range(nb_columns):
+            breakpoint_cols.append((START_WIDTH + i * column_width, START_COL + i))
+        return breakpoint_cols
 
     def clear(self, *args):
         self._selection_model.clear()
