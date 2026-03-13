@@ -8,7 +8,7 @@ from ..browsersong import BrowserSongList
 
 
 class AlbumPage(Adw.NavigationPage):
-    def __init__(self, client, album, date):
+    def __init__(self, client, album, date, **kwargs):
         super().__init__()
         tag_filter=("album", album, "date", date)
 
@@ -47,7 +47,8 @@ class AlbumPage(Adw.NavigationPage):
 
         # packing
         box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, margin_start=12, margin_end=12, margin_top=6, margin_bottom=24)
-        box.append(Adw.Clamp(child=self.album_cover, maximum_size=200))
+        maximum_size = self.determine_cover_size(kwargs)
+        box.append(Adw.Clamp(child=self.album_cover, maximum_size=maximum_size))
         box.append(label_box)
         box.append(Adw.Clamp(child=self.song_list))
         self._scroll=Gtk.ScrolledWindow(child=box)
@@ -66,3 +67,18 @@ class AlbumPage(Adw.NavigationPage):
         if date:
             self.subtitle.set_text(date[0:4])
         client.tagtypes("all")
+
+    def determine_cover_size(self, kwargs):
+        if 'cover_size' in kwargs:
+            match kwargs['cover_size']:
+                case 'small':
+                    maximum_size = 150
+                case 'medium':
+                    maximum_size = 200
+                case 'large':
+                    maximum_size = 300
+                case _:
+                    maximum_size = 200
+        else:
+            maximum_size = 200
+        return maximum_size

@@ -65,5 +65,14 @@
 			<default>4</default>
 			<summary>Max number of columns in the albums view</summary>
 		</key>
+		<key type="s" name="album-cover-size">
+			<choices>
+				<choice value="small" />
+				<choice value="medium" />
+				<choice value="large" />
+			</choices>
+			<default>"medium"</default>
+			<summary>Size of cover on album page</summary>
+		</key>
 	</schema>
 </schemalist>

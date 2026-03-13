@@ -29,7 +29,8 @@ class Browser(Gtk.Stack):
     def __init__(self, client, settings):
         super().__init__()
         self._client=client
-        self.sidebar_role=settings['default-browsing-mode']
+        self.sidebar_role = settings['default-browsing-mode']
+        self.abum_cover_size = settings["album-cover-size"]
         self.sidebar_page=None
         # search
         self._search_view=SearchView(client)
@@ -149,7 +150,7 @@ class Browser(Gtk.Stack):
         self._album_navigation_view.pop_to_tag("album_list")
 
     def _on_album_selected(self, widget, *tags):
-        album_page = ArtistAlbumPage(self._client, *tags)
+        album_page = ArtistAlbumPage(self._client, *tags, cover_size=self.abum_cover_size)
         self._album_navigation_view.push(album_page)
         album_page.play_button.grab_focus()
 
@@ -198,7 +199,7 @@ class Browser(Gtk.Stack):
                 break
         if value is not None:
             self._sidebar_list.select(value)
-            album_page = ArtistAlbumPage(self._client, self.sidebar_role, value, album, date)
+            album_page = ArtistAlbumPage(self._client, self.sidebar_role, value, album, date, cover_size=self.abum_cover_size)
 
         return album_page
 
@@ -215,7 +216,7 @@ class Browser(Gtk.Stack):
 
         if bool(new_role and value):
             self._on_search_item_selected(None, value, new_role)
-            album_page = ArtistAlbumPage(self._client, new_role, value, album, date)
+            album_page = ArtistAlbumPage(self._client, new_role, value, album, date, cover_size=self.abum_cover_size)
         return album_page
 
     def _on_disconnected(self, *args):
