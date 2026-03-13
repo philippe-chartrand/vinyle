@@ -7,10 +7,11 @@ from ..models import SelectionModel
 
 
 class AlbumsPage(Adw.NavigationPage):
-    def __init__(self, client, settings, AlbumType, ListRow, prompt_string):
+    def __init__(self, client, cache, settings, AlbumType, ListRow, prompt_string):
         super().__init__(title=_("Albums"), tag="album_list")
-        self._settings=settings
         self._client=client
+        self._cache=cache
+        self._settings=settings
 
         # grid view
         self.grid_view=Gtk.GridView(tab_behavior=Gtk.ListTabBehavior.ITEM, single_click_activate=True, vexpand=True, max_columns=2)
@@ -25,7 +26,7 @@ class AlbumsPage(Adw.NavigationPage):
 
         # factory
         def setup(factory, item):
-            row = ListRow(self._client)
+            row = ListRow(self._client, cache)
             item.set_child(row)
 
         self.factory.connect("setup", setup)

@@ -7,7 +7,7 @@ from ..utils import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, artist_role, artist, album, date, **kwargs):
+    def __init__(self, client, cache, artist_role, artist, album, date, **kwargs):
         super().__init__(client, album, date, **kwargs)
         tag_filter=(artist_role, artist, "album", album)
         self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "play"))
@@ -22,7 +22,7 @@ class ArtistAlbumPage(AlbumPage):
             return
         songs = self.expand_songs_for_all_album(client, artist_album_songs)
         client.tagtypes("all")
-        self.album_cover.set_paintable(client.get_cover(songs[0]["file"]).get_paintable())
+        self.album_cover.set_paintable(cache.get_cover(songs[0]["file"]).get_paintable())
         show_year = False
         dates = self.roundup_dates_to_year(songs)
         self.suptitle.set_text(self._define_supertitle(songs))

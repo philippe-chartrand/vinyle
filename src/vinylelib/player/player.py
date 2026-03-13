@@ -4,11 +4,11 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk
 from gettext import gettext as _
 
+from ..cover import FALLBACK_COVER
 from ..playlist import PlaylistWindow
-from ..views import LyricsWindow
-from ..client import FALLBACK_COVER
 from .playback_controls import PlaybackControls
 from .player_menu import PlayerMenu
+from ..views import LyricsWindow
 
 
 class Player(Adw.Bin):

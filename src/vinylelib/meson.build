@@ -2,6 +2,7 @@
 subdir('album')
 subdir('browser')
 subdir('browsersong')
+subdir('cover')
 subdir('client')
 subdir('dialogs')
 subdir('models')

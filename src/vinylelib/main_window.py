@@ -13,10 +13,11 @@ from .widgets import PlayerBar
 
 
 class MainWindow(Adw.ApplicationWindow):
-    def __init__(self, client, settings, **kwargs):
+    def __init__(self, client, cache, settings, **kwargs):
         super().__init__(title="Vinyle", icon_name="fr.chartrandphilippe.Vinyle", height_request=294, width_request=360, **kwargs)
         self.set_default_icon_name("fr.chartrandphilippe.Vinyle")
         self._client=client
+        self._cache=cache
         self._settings=settings
         self._suspend_inhibit=0
 
@@ -24,7 +25,7 @@ class MainWindow(Adw.ApplicationWindow):
         MPRISInterface(self, self._client, self._settings)
 
         # widgets
-        self._browser=Browser(self._client, self._settings)
+        self._browser=Browser(self._client, self._cache, self._settings)
         player=Player(self._client, self._settings)
         self._updating_toast=Adw.Toast(title=_("Database is being updated"), timeout=0)
         self._updated_toast=Adw.Toast(title=_("Database updated"))

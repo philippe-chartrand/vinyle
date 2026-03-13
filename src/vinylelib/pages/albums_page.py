@@ -11,8 +11,8 @@ from ..role_album import RoleAlbumListRow
 
 class ArtistAlbumsPage(AlbumsPage):
     __gsignals__={"album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,str,))}
-    def __init__(self, client, settings):
-        super().__init__(client, settings, RoleAlbum, RoleAlbumListRow, _("Select an artist"))
+    def __init__(self, client, cache, settings):
+        super().__init__(client, cache, settings, RoleAlbum, RoleAlbumListRow, _("Select an artist"))
 
     def _get_albums(self, artist, role):
 

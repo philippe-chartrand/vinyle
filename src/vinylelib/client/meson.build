@@ -1,5 +1,4 @@
 # FIXME: find a way to include all python files from this directory
-subdir('cover')
 
 install_headers(
 '__init__.py',

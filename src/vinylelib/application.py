@@ -1,10 +1,13 @@
 import gi
+
+
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, GLib
 from gettext import gettext as _
 
 from .client import Client
+from .cover import CoverCache
 from .settings import Settings
 from .main_window import MainWindow
 
@@ -15,6 +18,7 @@ class Vinyle(Adw.Application):
         self.add_main_option("debug", ord("d"), GLib.OptionFlags.NONE, GLib.OptionArg.NONE, _("Debug mode"), None)
         self._settings=Settings()
         self._client=Client(self._settings)
+        self._cache=CoverCache(self._client)
         self._window=None
 
         # actions
@@ -68,7 +72,7 @@ class Vinyle(Adw.Application):
 
     def do_activate(self):
         if self._window is None:
-            self._window=MainWindow(self._client, self._settings, application=self)
+            self._window=MainWindow(self._client, self._cache, self._settings, application=self)
             self._window.connect("close-request", self._on_quit)
             self._window.open()
         else:
