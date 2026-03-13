@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-13 08:42-0400\n"
-"PO-Revision-Date: 2026-03-13 08:44-0400\n"
+"POT-Creation-Date: 2026-03-13 09:31-0400\n"
+"PO-Revision-Date: 2026-03-13 09:51-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Album cover of {album}"
 msgstr "Pochette de l'album {album}"
 
-#: vinylelib/album/list_row.py:25 vinylelib/views/album_page.py:65
-#: vinylelib/views/album_page.py:66
+#: vinylelib/album/list_row.py:25 vinylelib/views/album_page.py:66
+#: vinylelib/views/album_page.py:67
 msgid "Unknown Album"
 msgstr "Album inconnu"
 
@@ -235,7 +235,7 @@ msgstr "Affiche le débit"
 
 #: vinylelib/dialogs/view_preferences.py:22
 msgid "Covers per row"
-msgstr "Couvertures par rangée"
+msgstr "Pochettes par rangée"
 
 #: vinylelib/dialogs/view_preferences.py:23
 #: vinylelib/dialogs/view_preferences.py:27
@@ -244,7 +244,7 @@ msgstr "Redémarrage requis"
 
 #: vinylelib/dialogs/view_preferences.py:27
 msgid "Album cover size"
-msgstr "Taille de la couverture d'album"
+msgstr "Taille de la pochette de l'album"
 
 #: vinylelib/main_window.py:29
 msgid "Database is being updated"
@@ -524,6 +524,10 @@ msgstr "Moyen"
 #: vinylelib/widgets/cover_size_dropdown.py:11
 msgid "Large"
 msgstr "Grand"
+
+#: vinylelib/widgets/cover_size_dropdown.py:12
+msgid "No cover"
+msgstr "Pas de pochette"
 
 #: vinylelib/widgets/media_buttons.py:11
 msgid "Previous"

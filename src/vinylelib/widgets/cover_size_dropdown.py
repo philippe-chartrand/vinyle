@@ -8,7 +8,8 @@ class CoverSizeDropDown(Gtk.DropDown):
     VALUES = (
         ('small', _("Small")),
         ('medium', _("Medium")),
-        ('large', _("Large"))
+        ('large', _("Large")),
+        ('no-cover', _("No cover"))
     )
 
     def __init__(self, initial_value):

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-13 08:42-0400\n"
-"PO-Revision-Date: 2026-03-13 08:48-0400\n"
+"POT-Creation-Date: 2026-03-13 09:31-0400\n"
+"PO-Revision-Date: 2026-03-13 09:34-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Album cover of {album}"
 msgstr "Albumcover von {album}"
 
-#: vinylelib/album/list_row.py:25 vinylelib/views/album_page.py:65
-#: vinylelib/views/album_page.py:66
+#: vinylelib/album/list_row.py:25 vinylelib/views/album_page.py:66
+#: vinylelib/views/album_page.py:67
 msgid "Unknown Album"
 msgstr "Unbekanntes Album"
 
@@ -524,6 +524,10 @@ msgstr "Medium"
 #: vinylelib/widgets/cover_size_dropdown.py:11
 msgid "Large"
 msgstr "Groß"
+
+#: vinylelib/widgets/cover_size_dropdown.py:12
+msgid "No cover"
+msgstr "Kein Albumcover"
 
 #: vinylelib/widgets/media_buttons.py:11
 msgid "Previous"

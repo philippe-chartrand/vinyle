@@ -70,6 +70,7 @@
 				<choice value="small" />
 				<choice value="medium" />
 				<choice value="large" />
+				<choice value="no-cover" />
 			</choices>
 			<default>"medium"</default>
 			<summary>Size of cover on album page</summary>

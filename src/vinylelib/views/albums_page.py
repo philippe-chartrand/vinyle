@@ -20,7 +20,7 @@ class AlbumsPage(Adw.NavigationPage):
         self.factory = Gtk.SignalListItemFactory()
         def bind(factory, item):
             row=item.get_child()
-            row.set_album(item.get_item())
+            row.set_album(item.get_item(), album_cover_size=settings['album-cover-size'])
         self.factory.connect("bind", bind)
 
         # factory

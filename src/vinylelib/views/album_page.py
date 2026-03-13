@@ -48,7 +48,8 @@ class AlbumPage(Adw.NavigationPage):
         # packing
         box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, margin_start=12, margin_end=12, margin_top=6, margin_bottom=24)
         maximum_size = self.determine_cover_size(kwargs)
-        box.append(Adw.Clamp(child=self.album_cover, maximum_size=maximum_size))
+        if maximum_size:
+            box.append(Adw.Clamp(child=self.album_cover, maximum_size=maximum_size))
         box.append(label_box)
         box.append(Adw.Clamp(child=self.song_list))
         self._scroll=Gtk.ScrolledWindow(child=box)
@@ -79,6 +80,8 @@ class AlbumPage(Adw.NavigationPage):
                     maximum_size = 220
                 case 'large':
                     maximum_size = 400
+                case 'no-cover':
+                    maximum_size = None
                 case _:
                     maximum_size = default
         else:
