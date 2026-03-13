@@ -69,16 +69,18 @@ class AlbumPage(Adw.NavigationPage):
         client.tagtypes("all")
 
     def determine_cover_size(self, kwargs):
+
+        default = 200
         if 'cover_size' in kwargs:
             match kwargs['cover_size']:
                 case 'small':
                     maximum_size = 150
                 case 'medium':
-                    maximum_size = 200
+                    maximum_size = 220
                 case 'large':
-                    maximum_size = 300
+                    maximum_size = 400
                 case _:
-                    maximum_size = 200
+                    maximum_size = default
         else:
-            maximum_size = 200
+            maximum_size = default
         return maximum_size
