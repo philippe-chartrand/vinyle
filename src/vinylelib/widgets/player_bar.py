@@ -5,7 +5,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk, Pango
 from gettext import gettext as _
 
-from ..cover import FALLBACK_COVER
+from ..cover import FallbackCover
 from .media_buttons import MediaButtons
 
 
@@ -76,5 +76,5 @@ class PlayerBar(Gtk.Overlay):
 
     def _on_disconnected(self, *args):
         self._clear_title()
-        self._cover.set_paintable(FALLBACK_COVER)
+        self._cover.set_paintable(FallbackCover().get_paintable())
         self._cover.set_visible(False)

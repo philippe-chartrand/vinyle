@@ -212,7 +212,7 @@ class Client(MPDClient):
         elif (cover_binary:=self.get_cover_binary(uri)) is not None:
             return BinaryCover(cover_binary)
         else:
-            return FallbackCover()
+            return None
 
     def get_absolute_path(self, uri):
         stripped_uri=re.sub(r"(.*\.cue)\/track\d+$", r"\1", uri, flags=re.IGNORECASE)

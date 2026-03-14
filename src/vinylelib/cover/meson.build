@@ -2,6 +2,6 @@
 
 install_headers(
 '__init__.py',
-'binary.py', 'cache.py', 'fallback.py','fallback_cover.py','file.py',
+'binary.py', 'cache.py', 'fallback.py','file.py',
 install_dir: 'bin/vinylelib/cover'
 )

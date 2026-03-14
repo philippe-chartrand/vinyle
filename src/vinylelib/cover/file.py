@@ -2,7 +2,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gdk, GLib
 
-from .fallback_cover import FALLBACK_COVER
+from .fallback import FallbackCover
 
 
 class FileCover(str):
@@ -10,5 +10,5 @@ class FileCover(str):
         try:
             paintable=Gdk.Texture.new_from_filename(self)
         except gi.repository.GLib.Error:  # load fallback if cover can't be loaded
-            paintable=FALLBACK_COVER
+            paintable=FallbackCover().get_paintable()
         return paintable

@@ -1,9 +1,10 @@
 import gi
 gi.require_version("Gtk", "4.0")
-from .fallback_cover import FALLBACK_COVER
-
+from gi.repository import Gdk
 
 class FallbackCover(object):
+    FALLBACK_COVER = Gdk.Paintable.new_empty(1, 1)
+
     def get_paintable(self):
-        return FALLBACK_COVER
+        return self.FALLBACK_COVER
 

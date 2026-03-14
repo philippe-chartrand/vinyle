@@ -4,7 +4,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gtk
 from gettext import gettext as _
 
-from ..cover import FALLBACK_COVER
+from ..cover import FallbackCover
 from ..playlist import PlaylistWindow
 from .playback_controls import PlaybackControls
 from .player_menu import PlayerMenu
@@ -83,7 +83,7 @@ class Player(Adw.Bin):
             self._playlist_page.set_needs_attention(True)
 
     def _on_disconnected(self, *args):
-        self._cover.set_paintable(FALLBACK_COVER)
+        self._cover.set_paintable(FallbackCover().get_paintable())
         self._cover.set_visible(False)
         self._lyrics_window.set_property("song", None)
         self._stack.set_visible_child_name("playlist")
