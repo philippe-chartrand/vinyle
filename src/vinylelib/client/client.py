@@ -310,7 +310,7 @@ class Client(MPDClient):
                 self.emitter.emit("playlist", int(diff["playlist"]), int(status["playlistlength"]), status.get("song"))
             if "songid" in diff:
                 song=self.currentsong()
-                self.current_cover=self.get_cover(song.file)
+                self.current_cover=self.get_cover(song.file) if self.get_cover(song.file) else FallbackCover()
                 self.emitter.emit("current-song", song, status["song"], status["songid"], status["state"])
                 self._clear_marks()
             if "elapsed" in diff:
