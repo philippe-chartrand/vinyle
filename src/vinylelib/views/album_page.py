@@ -19,8 +19,8 @@ class AlbumPage(Adw.NavigationPage):
         # buttons
         self.play_button = Gtk.Button(icon_name="arrow-right-symbolic", tooltip_text=_("Play selection"),  css_classes=["flat"])
         self.append_button = Gtk.Button(icon_name="list-add-symbolic", tooltip_text=_("Append selection"), css_classes=["flat"])
-        self.play_all_button = Gtk.Button(icon_name="arrow-right-double-symbolic", tooltip_text=_("Play All"),  css_classes=["raised"])
-        self.append_all_button = Gtk.Button(icon_name="list-add-double-symbolic", tooltip_text=_("Append All"), css_classes=[ "raised"])
+        self.play_all_button = Gtk.Button(icon_name="arrow-right-double-symbolic", tooltip_text=_("Play All"),  css_classes=["flat"])
+        self.append_all_button = Gtk.Button(icon_name="list-add-double-symbolic", tooltip_text=_("Append All"), css_classes=[ "flat"])
 
         # header bar
         self.header_bar=Adw.HeaderBar(show_title=False)
