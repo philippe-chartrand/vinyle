@@ -67,7 +67,7 @@ class PlayerBar(Gtk.Overlay):
         if song:
             self._cover.set_visible(True)
             self._title.set_text(song.title)
-            subtitle, _ignore = song.define_subtitle(None, ' - ')
+            subtitle, _ignore = song.song_credits(None, ' - ')
             self._subtitle.set_text(subtitle)
         else:
             self._cover.set_visible(False)

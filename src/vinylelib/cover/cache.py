@@ -2,7 +2,7 @@ import datetime
 from .fallback import FallbackCover
 
 class CoverCache(object):
-    __print_usage_to_stdout = True  # For debug purposes. Set to True if you want to monitor creation and destruction
+    __print_usage_to_stdout = False  # For debug purposes. Set to True if you want to monitor creation and destruction
 
     def __init__(self, client):
         super().__init__()

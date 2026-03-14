@@ -18,65 +18,11 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         collections.UserDict.__init__(self, data)
         GObject.Object.__init__(self)
 
-    @property
-    def year(self):
-        return self.data['date'][0][0:4] if 'date' in self.data else None
+    # properties returning lists
 
     @property
-    def date(self):
-        return self.data['date'][0] if 'date' in self.data else None
-
-    @property
-    def album(self):
-        return self.data['album'][0] if 'album' in self.data else None
-
-    @property
-    def title(self):
-        return self.data['title'][0] if 'title' in self.data else None
-
-    @property
-    def disc(self):
-        return self.data['disc'][0] if 'disc' in self.data else None
-
-    @property
-    def track(self):
-        return self.data['track'][0] if 'track' in self.data else None
-
-    @property
-    def file(self):
-        return self.data['file'] if 'file' in self.data else None
-
-    @property
-    def duration(self):
-        return self.data['duration'] if 'duration' in self.data else None
-
-    @property
-    def pos(self):
-        return self.data['pos'] if 'pos' in self.data else None
-
-    @property
-    def id(self):
-        return self.data['id'] if 'id' in self.data else None
-
-    @property
-    def albumartist(self):
-        return self.data['albumartist'][0] if 'albumartist' in self.data else None
-
-    @property
-    def artist(self):
-        return self.data['artist'][0] if 'artist' in self.data else None
-
-    @property
-    def composer(self):
-        return self.data['composer'][0] if 'composer' in self.data else None
-
-    @property
-    def conductor(self):
-        return self.data['conductor'][0] if 'conductor' in self.data else None
-
-    @property
-    def performer(self):
-        return self.data['performer'][0] if 'performer' in self.data else None
+    def albums(self):
+        return self.data['album'] if 'album' in self.data else None
 
     @property
     def albumartists(self):
@@ -95,8 +41,94 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         return self.data['conductor'] if 'conductor' in self.data else ()
 
     @property
+    def dates(self):
+        return self.data['date'] if 'date' in self.data else None
+
+    @property
+    def discs(self):
+        return self.data['disc'] if 'disc' in self.data else None
+
+    @property
     def performers(self):
         return self.data['performer'] if 'performer' in self.data else ()
+
+    @property
+    def titles(self):
+        return self.data['title'] if 'title' in self.data else None
+
+    @property
+    def tracks(self):
+        return self.data['track'] if 'track' in self.data else None
+
+    @property
+    def years(self):
+        return [ date[0:4] for date in self.data['date'] ] if 'date' in self.data else None
+
+    # properties returning scalars
+
+    @property
+    def album(self):
+        return self.albums[0] if 'album' in self.data else None
+
+    @property
+    def albumartist(self):
+        return self.albumartists[0] if 'albumartist' in self.data else None
+
+    @property
+    def artist(self):
+        return self.artists[0] if 'artist' in self.data else None
+
+    @property
+    def composer(self):
+        return self.composers[0] if 'composer' in self.data else None
+
+    @property
+    def conductor(self):
+        return self.conductors[0] if 'conductor' in self.data else None
+
+    @property
+    def date(self):
+        return self.dates[0] if 'date' in self.data else None
+
+    @property
+    def duration(self):
+        # scalar only
+        return self.data['duration'] if 'duration' in self.data else None
+
+    @property
+    def disc(self):
+        return self.discs[0] if 'disc' in self.data else None
+
+    @property
+    def file(self):
+        # scalar only
+        return self.data['file'] if 'file' in self.data else None
+
+    @property
+    def id(self):
+        # scalar only
+        return self.data['id'] if 'id' in self.data else None
+
+    @property
+    def performer(self):
+        return self.performers[0] if 'performer' in self.data else None
+
+    @property
+    def pos(self):
+        # scalar only
+        return self.data['pos'] if 'pos' in self.data else None
+
+    @property
+    def title(self):
+        return self.titles[0] if 'title' in self.data else None
+
+    @property
+    def track(self):
+        return self.tracks[0] if 'track' in self.data else None
+
+    @property
+    def year(self):
+        return self.years[0] if 'date' in self.data else None
 
     def __setitem__(self, key, value):
         if key == "time":  # time is deprecated https://mpd.readthedocs.io/en/latest/protocol.html#other-metadata
@@ -138,7 +170,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         all.extend(self.performers)
         return all
 
-    def define_subtitle(self, artist_to_highlight=None, delim="\r", show_various_artists=True):
+    def song_credits(self, artist_to_highlight=None, delim="\r", show_various_artists=True):
         albumartist_subtitle = ", ".join(albumartist for albumartist in self.albumartists)
         artist_subtitle = ", ".join(artist for artist in self.artists)
         composer_subtitle = ", ".join(composer for composer in self.composers)
