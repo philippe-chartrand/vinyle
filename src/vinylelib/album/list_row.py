@@ -12,6 +12,7 @@ class AlbumListRow(Gtk.Box):
         self._client=client
         self._cover=AlbumCover()
         self._title=Gtk.Label(single_line_mode=True, ellipsize=Pango.EllipsizeMode.END, margin_top=3)
+        self._genre=Gtk.Label(single_line_mode=True, margin_top=3)
         self._date=Gtk.Label(single_line_mode=True, css_classes=["dimmed", "caption"])
         self.append(self._cover)
         self.append(self._title)

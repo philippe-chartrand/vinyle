@@ -1,6 +1,6 @@
 import collections
+from os.path import basename
 import gi
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, GObject
 
@@ -47,6 +47,10 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
     @property
     def discs(self):
         return self.data['disc'] if 'disc' in self.data else None
+
+    @property
+    def genres(self):
+        return self.data['genre'] if 'genre' in self.data else None
 
     @property
     def performers(self):
@@ -105,6 +109,10 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         return self.data['file'] if 'file' in self.data else None
 
     @property
+    def genre(self):
+        return self.genres[0] if 'genre' in self.data else None
+
+    @property
     def id(self):
         # scalar only
         return self.data['id'] if 'id' in self.data else None
@@ -120,7 +128,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
 
     @property
     def title(self):
-        return self.titles[0] if 'title' in self.data else None
+        return self.titles[0] if 'title' in self.data else basename(self.file)
 
     @property
     def track(self):

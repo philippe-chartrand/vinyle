@@ -33,6 +33,7 @@ class AlbumPage(Adw.NavigationPage):
         self.suptitle=Gtk.Label(single_line_mode=True, ellipsize=Pango.EllipsizeMode.END, css_classes=["dimmed", "caption"])
         self.title=Gtk.Label(wrap=True, justify=Gtk.Justification.CENTER, css_classes=["title-4"])
         self.subtitle=Gtk.Label(single_line_mode=True, ellipsize=Pango.EllipsizeMode.END, visible=bool(date))
+        self.genre=Gtk.Label(single_line_mode=True, ellipsize=Pango.EllipsizeMode.END, css_classes=["caption"])
         self.length=Gtk.Label(single_line_mode=True, css_classes=["numeric", "dimmed", "caption"])
 
         # label box
@@ -40,6 +41,7 @@ class AlbumPage(Adw.NavigationPage):
         label_box.append(self.suptitle)
         label_box.append(self.title)
         label_box.append(self.subtitle)
+        label_box.append(self.genre)
         label_box.append(self.length)
 
         # cover
@@ -70,7 +72,6 @@ class AlbumPage(Adw.NavigationPage):
         client.tagtypes("all")
 
     def determine_cover_size(self, kwargs):
-
         default = 200
         if 'cover_size' in kwargs:
             match kwargs['cover_size']:
