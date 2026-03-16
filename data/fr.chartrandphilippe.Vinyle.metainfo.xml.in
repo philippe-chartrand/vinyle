@@ -39,8 +39,34 @@
       <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small_cover.png</image>
       <caption>Small window with cover</caption>
     </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/choices_dropdown.png</image>
+      <caption>Browsing mode Dropdown</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/preferences.png</image>
+      <caption>More view options</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/smaller_covers.png</image>
+      <caption>Smaller covers in albums view if desired</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/large_album_cover.png</image>
+      <caption>Larger album cover in album view if desired</caption>
+    </screenshot>
   </screenshots>
   <releases>
+  <release version="2.6.0" date="2026-03-16">
+      <description translate="no">
+        <ul>
+          <li>Allow searching and browsing by genre or year</li>
+          <li>Genre is displayed in the album page</i>
+          <li>User can change cover size, number of covers per row in the albums list, or skip cover display in the albums and album view.</li>
+          <li>Covers are kept in memory cache to speedup repeated display</li>
+        </ul>
+      </description>
+    </release>
   <release version="2.5.2" date="2026-03-09">
       <description translate="no">
         <ul>
