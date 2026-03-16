@@ -61,7 +61,7 @@
       <description translate="no">
         <ul>
           <li>Allow searching and browsing by genre or year</li>
-          <li>Genre is displayed in the album page</i>
+          <li>Genre is displayed in the album page</li>
           <li>User can change cover size, number of covers per row in the albums list, or skip cover display in the albums and album view.</li>
           <li>Covers are kept in memory cache to speedup repeated display</li>
         </ul>
