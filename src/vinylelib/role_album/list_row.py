@@ -11,7 +11,10 @@ class RoleAlbumListRow(AlbumListRow):
         super().set_album(album)
         if album.cover is None:
             self._client.tagtypes("clear")
-            song=self._client.find(album.role, album.artist, "album", album.name, "date", album.date, "window", "0:1")[0]
+            songs = self._client.find(album.role, album.artist, "album", album.name,"date", album.date, "window", "0:1")
+            if len(songs) == 0:
+                return
+            song = songs[0]
             self._client.tagtypes("all")
             if 'album_cover_size' in kwargs and kwargs['album_cover_size'] == 'no-cover':
                 album.cover=FallbackCover().get_paintable()

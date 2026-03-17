@@ -248,7 +248,7 @@ class Client(MPDClient):
         self.restrict_tagtypes("album", "albumartist", "artist", "date", "composer", "conductor", "performer")
         song=self.lsinfo(uri)[0]
         self.tagtypes("all")
-        self.emitter.emit("show-album", song.album, song.date, song.albumartist, song.artist, song.composer, song.conductor, song.performer)
+        self.emitter.emit("show-album", song.album, song.date, song.albumartist, song.artist, song.composer, song.conductor, song.performer, song.folder)
 
     def toggle_play(self):
         status=self.status()

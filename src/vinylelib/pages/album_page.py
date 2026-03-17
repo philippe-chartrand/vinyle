@@ -6,15 +6,20 @@ from ..utils import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, cache, artist_role, artist, album, date, **kwargs):
-        super().__init__(client, album, date, **kwargs)
-        tag_filter=(artist_role, artist, "album", album)
+    def __init__(self, client, cache, artist_role, artist, album, date, folder=None, **kwargs):
+        super().__init__(client, album, date,  **kwargs)
+        tag_filter = (artist_role, artist, "album", album, "date", date)
         self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "play"))
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
 
-        artist_album_songs=client.find(*tag_filter)
+        if folder is None:
+            artist_album_songs=client.find(*tag_filter)
+        else:
+            tag_filter=(artist_role, artist, "album", album, "file", folder)
+            artist_album_songs = client.search(*tag_filter)
+
         selection_length = Duration(sum(s.duration._seconds for s in artist_album_songs))
         if len(artist_album_songs) == 0:
             return
