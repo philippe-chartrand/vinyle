@@ -27,6 +27,9 @@ class SongMenu(Gtk.PopoverMenu):
         self._show_file_action=Gio.SimpleAction.new("show-file", None)
         self._show_file_action.connect("activate", lambda *args: self._client.show_file(self._file))
         action_group.add_action(self._show_file_action)
+        self._copy_path_action = Gio.SimpleAction.new("copy-path", None)
+        self._copy_path_action.connect("activate", lambda *args: self.copy_path(self._file))
+        action_group.add_action(self._copy_path_action)
         self.insert_action_group("menu", action_group)
 
         # menu model
@@ -37,6 +40,7 @@ class SongMenu(Gtk.PopoverMenu):
         if show_album:
             subsection.append(_("Show Al_bum"), "menu.show-album")
         subsection.append(_("Show _File"), "menu.show-file")
+        subsection.append(_("Copy Path to clipboard"), "menu.copy-path")
         menu.append_section(None, subsection)
         self.set_menu_model(menu)
 
@@ -47,3 +51,7 @@ class SongMenu(Gtk.PopoverMenu):
         self.set_pointing_to(rect)
         self._show_file_action.set_enabled(self._client.can_show_file(file))
         self.popup()
+
+    def copy_path(self, file):
+        clipboard = Gdk.Display.get_default().get_clipboard()
+        clipboard.set(file)
