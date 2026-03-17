@@ -287,8 +287,8 @@ class Client(MPDClient):
     def get_search_expression(self, tags, keywords):
         return "("+(" AND ".join("(!("+(" AND ".join(f"({tag} !contains_ci '{keyword}')" for tag in tags))+"))" for keyword in keywords))+")"
 
-    def get_albums_songs_by_common_directory(self, directory):
-        expr = f"((file starts_with \"{directory}\"))"
+    def get_albums_songs_by_common_folder(self, folder):
+        expr = f"((file starts_with \"{folder}\"))"
         return [Song(song) for song in super().search(expr)]
 
     def _clear_marks(self):

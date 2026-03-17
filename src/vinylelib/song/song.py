@@ -1,5 +1,5 @@
 import collections
-from os.path import basename
+from os.path import basename, dirname
 import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import GLib, Gtk, GObject
@@ -107,6 +107,10 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
     def file(self):
         # scalar only
         return self.data['file'] if 'file' in self.data else None
+
+    @property
+    def folder(self):
+        return dirname(self.file)
 
     @property
     def genre(self):

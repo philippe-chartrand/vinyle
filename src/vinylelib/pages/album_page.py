@@ -1,4 +1,3 @@
-from os.path import dirname
 from gettext import gettext as _
 
 from ..views import AlbumPage
@@ -101,8 +100,10 @@ class ArtistAlbumPage(AlbumPage):
 
     def expand_songs_for_all_album(self, client, artist_album_songs):
         # for compilations and multiple cd albums, album title is not sufficient to find the songs
-        directories = { dirname(song.file) for song in artist_album_songs }
+        # we need to find all songs in the same album / folder
+
+        folders = { song.folder for song in artist_album_songs }
         songs = []
-        for directory in sorted(directories):
-            songs.extend(client.get_albums_songs_by_common_directory(directory))
+        for folder in sorted(folders):
+            songs.extend(client.get_albums_songs_by_common_folder(folder))
         return songs
