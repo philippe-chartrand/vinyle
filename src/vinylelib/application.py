@@ -1,6 +1,5 @@
 import gi
 
-
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, GLib
@@ -16,6 +15,8 @@ class Vinyle(Adw.Application):
     def __init__(self):
         super().__init__(application_id="fr.chartrandphilippe.Vinyle", flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
         self.add_main_option("debug", ord("d"), GLib.OptionFlags.NONE, GLib.OptionArg.NONE, _("Debug mode"), None)
+        self.add_main_option("loglevel", ord("l"), GLib.OptionFlags.NONE, GLib.OptionArg.STRING, _("Log level"), None)
+
         self._settings=Settings()
         self._client=Client(self._settings)
         self._cache=CoverCache(self._client)
@@ -86,12 +87,35 @@ class Vinyle(Adw.Application):
 
     def do_command_line(self, command_line):
         # convert GVariantDict -> GVariant -> dict
-        options=command_line.get_options_dict().end().unpack()
-        if "debug" in options:
+        if command_line.get_options_dict().contains('debug'):
+            command_line.get_options_dict().remove('debug')
+            self._cache.log = True
             import logging
-            logging.basicConfig(level=logging.DEBUG)
+            if command_line.get_options_dict().contains('loglevel'):
+                loglevel = command_line.get_options_dict().lookup_value('loglevel')
+                command_line.get_options_dict().remove('loglevel')
+                self.set_loglevel(logging, loglevel.get_string())
+            else:
+                logging.basicConfig(level=logging.DEBUG)
+
+
         self.activate()
         return 0
+
+    def set_loglevel(self, logging, loglevel):
+        match loglevel.lower():
+            case 'debug':
+                logging.basicConfig(level=logging.DEBUG)
+            case 'info':
+                logging.basicConfig(level=logging.INFO)
+            case 'warn':
+                logging.basicConfig(level=logging.WARNING)
+            case 'warning':
+                logging.basicConfig(level=logging.WARNING)
+            case 'error':
+                logging.basicConfig(level=logging.ERROR)
+            case _:
+                logging.basicConfig(level=logging.INFO)
 
     def _on_about(self, *args):
         dialog=Adw.AboutDialog.new_from_appdata("/fr/chartrandphilippe/Vinyle/fr.chartrandphilippe.Vinyle.metainfo.xml")

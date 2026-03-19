@@ -42,6 +42,7 @@ import tracemalloc
 
 from vinylelib.application import Vinyle
 from vinylelib.memory_usage import display_top
+from vinylelib.utils.total_size_of import total_size
 
 CHECK_MEMORY_USAGE = True
 
@@ -51,9 +52,10 @@ if __name__ == "__main__":
         tracemalloc.start()
         counts = Counter()
     app=Vinyle()
+    ref_to_cache = app._cache
     signal.signal(signal.SIGINT, signal.SIG_DFL)  # allow using ctrl-c to terminate
     app.run(sys.argv)
     if CHECK_MEMORY_USAGE:
         snapshot = tracemalloc.take_snapshot()
         display_top(snapshot, limit=10)
-
+        print(f"cache items:{len(ref_to_cache._cache)} size: {total_size(ref_to_cache._cache):,d}")

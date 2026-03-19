@@ -1,5 +1,5 @@
 import datetime
-
+import logging
 from gi.repository import Gtk, GObject
 import locale
 from ._list import ListModel
@@ -16,32 +16,38 @@ class SelectionModel(ListModel, Gtk.SelectionModel):
             "reselected": (GObject.SignalFlags.RUN_FIRST, None, ()),
             "clear": (GObject.SignalFlags.RUN_FIRST, None, ())}
 
-    __print_usage_to_stdout = None  # For debug purposes. Set to True if you want to monitor creation and destruction
-
-    def __init__(self, item_type):
+    def __init__(self, item_type, log=False):
         super().__init__(item_type)
         self._selected=None
+        self.log = True
+        self.logger = logging.getLogger(__name__)
 
-    def _log_usage(self, message):
-        if self.__print_usage_to_stdout:
-            print(datetime.datetime.now(), message,": ", self._item_type, len(self.data))
+    def _log_debug(self, message):
+        if self.log:
+            self.logger.debug("%s, %s, class:%s, size:%s", datetime.datetime.now(), message,
+                              str(self._item_type), len(self.data))
+
+    def _log_info(self, message):
+        if self.log:
+            self.logger.info("%s, %s, class:%s, size:%s", datetime.datetime.now(), message,
+                              str(self._item_type), len(self.data))
 
     def clear(self, position=0):
-        self._log_usage('suppression avant')
+        self._log_debug('items before clear')
         n=self.get_n_items()-position
         self.data=self.data[:position]
         if self._selected is not None:
             if self._selected >= self.get_n_items():
                 self._selected=None
         self.items_changed(position, n, 0)
-        self._log_usage('suppression après')
+        self._log_debug('items after clear')
         if position == 0:
             self.emit("clear")
 
     def append(self, data):
         n=self.get_n_items()
         self.data.extend(data)
-        self._log_usage('ajout')
+        self._log_info('appending')
         self.items_changed(n, 0, self.get_n_items())
 
     def get_selected(self):
@@ -89,7 +95,6 @@ class SelectionModel(ListModel, Gtk.SelectionModel):
         reverse = True if len(items) and items[0][2] == 'date' else False
         self.append((self.do_get_item_type()(item[0], item[1], item[2])
                      for item in sorted(items, key=lambda item: locale.strxfrm(item[1]), reverse=reverse)))
-        self._log_usage('creation')
 
     def select_item(self, name):
         for i, item in enumerate(self.data):
