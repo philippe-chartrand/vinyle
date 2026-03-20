@@ -12,10 +12,16 @@ class SidebarList(SidebarListView):
         self.tag_name = sidebar_role
 
     @staticmethod
-    def move_initial_article(item):
-        moveable_articles = ('The ', 'Les ')
-        if item[0:4] in moveable_articles:
-             return f"{item[4:]}, {item[0:2]}"
+    def move_initial_article(tag_name, item):
+        if tag_name in ('artist', 'albumartist', 'composer', 'conductor', 'performer', 'album'):
+            moveable_articles_4 = ('The ', 'Les ')
+            moveable_articles_3 = ('An ', 'Le ', 'La ')
+            if item[0:4] in moveable_articles_4:
+                 return f"{item[4:]}, {item[0:3]}"
+            elif item[0:3] in moveable_articles_3:
+                 return f"{item[3:]}, {item[0:2]}"
+            else:
+                return item
         else:
             return item
 
@@ -32,7 +38,7 @@ class SidebarList(SidebarListView):
                 next(grouper)
                 continue
             value = next(grouper)
-            value_with_sort_key_and_role = [value, self.move_initial_article(name), self.tag_name]
+            value_with_sort_key_and_role = [value, self.move_initial_article(self.tag_name, name), self.tag_name]
             filtered_items.append(value_with_sort_key_and_role)
             # ignore multiple albumartistsort values
             if next(grouper, None) is not None:
