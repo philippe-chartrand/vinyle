@@ -1,3 +1,4 @@
+import logging
 import gi
 
 gi.require_version("Gtk", "4.0")
@@ -13,10 +14,18 @@ class ArtistAlbumsPage(AlbumsPage):
     __gsignals__={"album-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,str,str,str,))}
     def __init__(self, client, cache, settings):
         super().__init__(client, cache, settings, RoleAlbum, RoleAlbumListRow, _("Select an artist"))
+        self.logger = logging.getLogger(__name__)
 
     def _get_albums(self, artist, role):
         grouped_albums=self._client.list("album", role, artist, "group", "date")
         albums = self.make_sure_albums_are_different(grouped_albums)
+        if len(albums) == 0:
+            # example case: an album without a name:
+            # grouped_albums will be [{'album': '', 'date': ''}]
+            # albums will therefore be []
+            self.logger.warn("no albums found for %s «%s»", role, artist)
+            return
+
         for album in albums:
             yield RoleAlbum(artist, role, album["album"], album["date"])
 
