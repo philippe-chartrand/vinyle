@@ -284,7 +284,22 @@ class Client(MPDClient):
         else:
             self._clear_marks()
 
+    @staticmethod
+    def sanitize_keywords(keywords):
+        """
+        Single quotes in keywords break queries. Splitting by ' bypasses the problem and preserves the query
+        """
+        sanitized = []
+        for kw in keywords:
+            if "'" in kw:
+                for part in kw.split("'"):
+                    sanitized.append(part)
+            else:
+                sanitized.append(kw)
+        return sanitized
+
     def get_search_expression(self, tags, keywords):
+        keywords = self.sanitize_keywords(keywords)
         return "("+(" AND ".join("(!("+(" AND ".join(f"({tag} !contains_ci '{keyword}')" for tag in tags))+"))" for keyword in keywords))+")"
 
     def get_albums_songs_by_common_folder(self, folder):
