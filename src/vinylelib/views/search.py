@@ -1,5 +1,7 @@
 import itertools
 import gi
+import logging
+
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gtk, Adw, GObject
@@ -23,7 +25,6 @@ class SearchView(Gtk.Stack):
     def __init__(self, client):
         super().__init__()
         self._client=client
-
         self.RESULTS_COUNT = 5
         self.RESULTS_COUNT_ALBUM = 10
         self.RESULTS_COUNT_SONG = 20
@@ -37,6 +38,7 @@ class SearchView(Gtk.Stack):
         self._genre_tags=("genre", "genre")
         self._year_tags=("date", "date")
         self._album_tags=("album", "albumartist", "albumartistsort", "date")
+        self.logger = logging.getLogger(__name__)
 
         # role lists
         self._album_artist_list = self._init_list_box()
@@ -148,7 +150,11 @@ class SearchView(Gtk.Stack):
         if len(search_text) >= self.MIN_CHARS_FOR_SEARCH and (keywords:=search_text.split()):
             self.box.set_visible(True)
             self._client.restrict_tagtypes(*self._song_tags)
-            songs=self._client.search(self._client.get_search_expression(self._song_tags, keywords), "window", f"0:{self.RESULTS_COUNT_SONG}")
+            try:
+                songs=self._client.search(self._client.get_search_expression(self._song_tags, keywords), "window", f"0:{self.RESULTS_COUNT_SONG}")
+            except Exception as e:
+                logging.warn("%s %s", str(e), keywords)
+                return
             self._client.tagtypes("all")
             for song in songs:
                 row=BrowserSongRow(song, show_track=False)
