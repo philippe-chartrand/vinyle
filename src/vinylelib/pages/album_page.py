@@ -1,3 +1,4 @@
+import logging
 from gettext import gettext as _
 
 from ..views import AlbumPage
@@ -13,6 +14,7 @@ class ArtistAlbumPage(AlbumPage):
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
+        self.logger = logging.getLogger(__name__)
 
         if folder is None:
             artist_album_songs=client.find(*tag_filter)
@@ -22,6 +24,7 @@ class ArtistAlbumPage(AlbumPage):
 
         selection_length = Duration(sum(s.duration._seconds for s in artist_album_songs))
         if len(artist_album_songs) == 0:
+            self.logger.info("no songs found for %s %s %s %s", artist_role, artist, album, date)
             return
         client.tagtypes("all")
         songs = self.expand_songs_for_all_album(client, artist_album_songs)
