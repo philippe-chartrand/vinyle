@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-19 16:43-0400\n"
-"PO-Revision-Date: 2026-03-19 16:44-0400\n"
+"POT-Creation-Date: 2026-03-21 16:07-0400\n"
+"PO-Revision-Date: 2026-03-21 16:08-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \"Philippe Chartrand\"<philippe.chartrand@videotron.ca>\n"
 "Language: fr\n"
@@ -104,7 +104,7 @@ msgstr "Rechercher une collection"
 
 #: vinylelib/browser/browser.py:51 vinylelib/dialogs/server_info.py:24
 #: vinylelib/views/albums_page.py:11 vinylelib/views/albums_page.py:95
-#: vinylelib/views/search.py:67
+#: vinylelib/views/search.py:69
 msgid "Albums"
 msgstr "Albums"
 
@@ -121,7 +121,7 @@ msgid "Search"
 msgstr "Rechercher"
 
 #: vinylelib/browser/browser.py:114 vinylelib/dialogs/server_info.py:23
-#: vinylelib/views/search.py:59
+#: vinylelib/views/search.py:61
 msgid "Artists"
 msgstr "Artistes"
 
@@ -201,7 +201,7 @@ msgstr "Durée d’activité"
 msgid "Playtime"
 msgstr "Durée de lecture"
 
-#: vinylelib/dialogs/server_info.py:25 vinylelib/views/search.py:71
+#: vinylelib/dialogs/server_info.py:25 vinylelib/views/search.py:73
 msgid "Songs"
 msgstr "Titres"
 
@@ -249,6 +249,14 @@ msgstr "Redémarrage requis"
 #: vinylelib/dialogs/view_preferences.py:27
 msgid "Album cover size"
 msgstr "Taille de la pochette de l'album"
+
+#: vinylelib/dialogs/view_preferences.py:34
+msgid "Albums order"
+msgstr "Ordre des albums"
+
+#: vinylelib/dialogs/view_preferences.py:34
+msgid "Choose the display order or the albums"
+msgstr "Choisissez l'ordre de présentation des albums"
 
 #: vinylelib/main_window.py:30
 msgid "Database is being updated"
@@ -459,7 +467,7 @@ msgstr "Tout ajouter"
 msgid "No Albums"
 msgstr "Pas d'albums"
 
-#: vinylelib/views/albums_page.py:107
+#: vinylelib/views/albums_page.py:118
 #, python-brace-format
 msgid "Albums of {item}"
 msgstr "Albums de {item}"
@@ -484,41 +492,53 @@ msgstr "Recherche…"
 msgid "Lyrics view"
 msgstr "Voir les paroles"
 
-#: vinylelib/views/search.py:58
+#: vinylelib/views/search.py:60
 msgid "Album Artists"
 msgstr "Artistes de l'album"
 
-#: vinylelib/views/search.py:60
+#: vinylelib/views/search.py:62
 msgid "Composers"
 msgstr "Compositeurs"
 
-#: vinylelib/views/search.py:61
+#: vinylelib/views/search.py:63
 msgid "Conductors"
 msgstr "Chefs d'orchestre"
 
-#: vinylelib/views/search.py:62
+#: vinylelib/views/search.py:64
 msgid "Performers"
 msgstr "Interprètes"
 
-#: vinylelib/views/search.py:63
+#: vinylelib/views/search.py:65
 msgid "Genres"
 msgstr "Genres"
 
-#: vinylelib/views/search.py:64
+#: vinylelib/views/search.py:66
 msgid "Years"
 msgstr "Années"
 
-#: vinylelib/views/search.py:91
+#: vinylelib/views/search.py:93
 msgid "No Results"
 msgstr "Aucun résultat"
 
-#: vinylelib/views/search.py:91
+#: vinylelib/views/search.py:93
 msgid "Try a different search"
 msgstr "Essayez une recherche différente"
 
 #: vinylelib/views/sidebar.py:23
 msgid "Unknown Artist"
 msgstr "Artiste inconnu"
+
+#: vinylelib/widgets/albums_order_dropdown.py:9
+msgid "In Alphabetical order"
+msgstr "Alphabétique"
+
+#: vinylelib/widgets/albums_order_dropdown.py:10
+msgid "Oldest First"
+msgstr "Chronologique"
+
+#: vinylelib/widgets/albums_order_dropdown.py:11
+msgid "Most Recent First"
+msgstr "Plus récents en premier"
 
 #: vinylelib/widgets/bitrate.py:12
 #, python-brace-format

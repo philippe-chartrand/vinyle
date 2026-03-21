@@ -104,8 +104,19 @@ class AlbumsPage(Adw.NavigationPage):
         main=GLib.main_context_default()
         while main.pending():
             main.iteration()
+
+        match self._settings['albums-order']:
+            case 'most-recent-first':
+                order_by = lambda x: (-x.year_as_int, x.name)
+            case 'oldest-first':
+                order_by = lambda x: (x.year_as_int, x.name)
+            case 'alphabetical':
+                order_by = lambda x: x.name
+            case _:
+                order_by = lambda x: (x.year_as_int, x.name)
+
         self.update_property([Gtk.AccessibleProperty.LABEL], [_("Albums of {item}").format(item=item)])
-        self._selection_model.append(sorted(self._get_albums(item, role), key=lambda item: item.date))
+        self._selection_model.append(sorted(self._get_albums(item, role), key=order_by)) # most recent first TODO: user preference fo sort order
         self._settings.set_property("cursor-watch", False)
 
     def _on_activate(self, widget, pos):

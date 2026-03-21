@@ -75,5 +75,14 @@
 			<default>"medium"</default>
 			<summary>Size of cover on album page</summary>
 		</key>
+		<key type="s" name="albums-order">
+			<choices>
+				<choice value="alphabetical" />
+				<choice value="chronological" />
+				<choice value="most-recent-first" />
+			</choices>
+			<default>"chronological"</default>
+			<summary>Ordering of covers on the albums page</summary>
+		</key>
 	</schema>
 </schemalist>

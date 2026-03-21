@@ -13,3 +13,7 @@ class Album(GObject.Object):
     @property
     def year(self):
          return self.date[0:4] if len(self.date) > 3 else ""
+
+    @property
+    def year_as_int(self):
+        return int(self.year) if self.year != "" else 0

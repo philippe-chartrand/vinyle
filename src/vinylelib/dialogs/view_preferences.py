@@ -4,7 +4,7 @@ gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio
 from gettext import gettext as _
 
-from ..widgets import CoverSizeDropDown
+from ..widgets import CoverSizeDropDown, AlbumsOrderDropDown
 
 
 class ViewPreferences(Adw.PreferencesGroup):
@@ -31,6 +31,13 @@ class ViewPreferences(Adw.PreferencesGroup):
         cover_size_dropdown.connect("notify::selected-item", self.on_cover_size_selected)
         self.add(cover_row)
 
+        cover_row = Adw.ActionRow(title=_("Albums order"), subtitle=_("Choose the display order or the albums"))
+        albums_order_dropdown = AlbumsOrderDropDown(settings["albums-order"])
+        cover_row.add_suffix(albums_order_dropdown)
+        self._settings = settings
+        albums_order_dropdown.connect("notify::selected-item", self.on_albums_order_selected)
+        self.add(cover_row)
+
     def on_cover_size_selected(self, dropdown, _pspec):
         if dropdown.props.selected_item is None:
             return
@@ -39,4 +46,14 @@ class ViewPreferences(Adw.PreferencesGroup):
         if new_value is not None and new_value != old_value:
             dropdown.set_selected_by_position(new_value)
             self._settings["album-cover-size"] = new_value
+            self._settings.apply()
+
+    def on_albums_order_selected(self, dropdown, _pspec):
+        if dropdown.props.selected_item is None:
+            return
+        old_value = self._settings["albums-order"]
+        new_value = dropdown.get_selected()
+        if new_value is not None and new_value != old_value:
+            dropdown.set_selected_by_position(new_value)
+            self._settings["albums-order"] = new_value
             self._settings.apply()
