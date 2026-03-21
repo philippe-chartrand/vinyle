@@ -111,7 +111,7 @@ class AlbumsPage(Adw.NavigationPage):
             case 'oldest-first':
                 order_by = lambda x: (x.year_as_int, x.name)
             case 'alphabetical':
-                order_by = lambda x: x.name
+                order_by = lambda x: (x.name, x.year_as_int)
             case _:
                 order_by = lambda x: (x.year_as_int, x.name)
 
