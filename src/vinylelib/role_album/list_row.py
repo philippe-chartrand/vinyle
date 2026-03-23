@@ -1,11 +1,12 @@
 from ..album import AlbumListRow
 from ..cover import FallbackCover
-
+import logging
 
 class RoleAlbumListRow(AlbumListRow):
     def __init__(self, client, cache):
         super().__init__(client)
         self._cache = cache
+        self.logger = logging.getLogger(__name__)
 
     def set_album(self, album, **kwargs):
         super().set_album(album)
@@ -13,6 +14,10 @@ class RoleAlbumListRow(AlbumListRow):
             self._client.tagtypes("clear")
             songs = self._client.find(album.role, album.artist, "album", album.name,"date", album.date, "window", "0:1")
             if len(songs) == 0:
+                # issue with differing dates in same album
+                songs = self._client.find(album.role, album.artist, "album", album.name, "window", "0:1")
+            if len(songs) == 0:
+                self.logger.warn("no song found for album %s, %s %s ?", album.name, album.role, album.artist)
                 return
             song = songs[0]
             self._client.tagtypes("all")
