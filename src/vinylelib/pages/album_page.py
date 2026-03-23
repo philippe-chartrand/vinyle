@@ -18,6 +18,11 @@ class ArtistAlbumPage(AlbumPage):
 
         if folder is None:
             artist_album_songs=client.find(*tag_filter)
+            if len(artist_album_songs) == 0:
+                # The code assumes all tracks of an album have the same date, which is not always true.
+                # If the date associated with the album (often the max date) does not match with the date
+                # associated with the role, relax the query criteria by ignoring the date
+                artist_album_songs = client.find(*(artist_role, artist, "album", album))
         else:
             tag_filter=(artist_role, artist, "album", album, "file", folder)
             artist_album_songs = client.search(*tag_filter)
