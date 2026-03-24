@@ -182,7 +182,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         all.extend(self.performers)
         return all
 
-    def song_credits(self, artist_to_highlight=None, delim="\r", show_various_artists=True):
+    def song_credits(self, delim="\r", show_various_artists=True):
         albumartist_subtitle = ", ".join(albumartist for albumartist in self.albumartists)
         artist_subtitle = ", ".join(artist for artist in self.artists)
         composer_subtitle = ", ".join(composer for composer in self.composers)
@@ -203,6 +203,4 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
             credits.append(performer_subtitle)
         if bool(credits):
             subtitle = delim.join(list(dict.fromkeys(credits))) #remove duplicates but keep ordering
-            if artist_to_highlight in credits:
-                found_in_credits = True
-        return subtitle, found_in_credits
+        return subtitle

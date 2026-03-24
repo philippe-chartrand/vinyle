@@ -23,8 +23,7 @@ class SongListRow(Gtk.Box):
         self.append(self._length)
 
     def set_song(self, song):
-        #subtitle=str(song.artist)
-        subtitle, _ignore = song.song_credits(None, ' - ')
+        subtitle = song.song_credits(' - ')
         self._title.set_text(song.title)
         self._subtitle.set_visible(bool(subtitle))
         self._subtitle.set_text(subtitle)

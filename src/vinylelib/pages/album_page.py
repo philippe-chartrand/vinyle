@@ -42,11 +42,12 @@ class ArtistAlbumPage(AlbumPage):
         dates = self.roundup_dates_to_year(songs)
         show_disc = self.check_for_multiple_discs(songs)
         show_year = True if len(dates) > 1 else False
-
+        credit_common_to_all_songs = all((self.credit_found_in_song(artist_role, artist, s) for s in songs))
         # songs
         for song in sorted(songs, key=lambda s:int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)):
-            artist_to_highlight = self.artist_name_to_hilite(artist, artist_role, song.all_artists, song)
-            row=BrowserSongRow(song, artist_to_highlight=artist_to_highlight, show_year=show_year, show_disc=show_disc)
+            row=BrowserSongRow(song, show_year=show_year, show_disc=show_disc)
+            if not credit_common_to_all_songs and self.credit_found_in_song(artist_role, artist, song):
+                row.set_property('css_classes', ['activatable', 'heading'])
             self.song_list.append(row)
 
     def set_genre_if_unique(self, songs):
@@ -105,11 +106,15 @@ class ArtistAlbumPage(AlbumPage):
         years = {s.year for s in songs if s.year is not None}
         return years
 
-    def artist_name_to_hilite(self, albumartist, artist_role, artists, song):
-        artist_to_highlight = ""
-        if song[artist_role][0] == albumartist and len(artists) > 0:
-            artist_to_highlight = albumartist
-        return artist_to_highlight
+    def credit_found_in_song(self, role, value, song):
+        credit_found = False
+        if song[role][0] == value:
+            credit_found = True
+        elif role == 'genre' and song.genre == value:
+            credit_found = True
+        elif role == 'year' and song.year == value:
+            credit_found = True
+        return credit_found
 
     def expand_songs_for_all_album(self, client, artist_album_songs):
         # for compilations and multiple cd albums, album title is not sufficient to find the songs

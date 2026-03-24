@@ -12,11 +12,11 @@ class BrowserSongRow(Adw.ActionRow):
 
         # populate
         self.set_title(song.title)
-        self.define_and_set_subtitle(artist_to_highlight, song)
+        self.define_and_set_subtitle(song)
         length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
         self.add_suffix(length)
         if show_year:
-            year = Gtk.Label(label=str(song.year if song.year is not None else "[----]"), xalign=1, single_line_mode=True, css_classes=["numeric"])
+            year = Gtk.Label(label=str(song.year if song.year is not None else "[----]"), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
             self.add_suffix(year)
         if show_track:
             if show_disc and song.disc is not None:
@@ -27,9 +27,7 @@ class BrowserSongRow(Adw.ActionRow):
             track=Gtk.Label(label=disc_and_track, xalign=1, single_line_mode=True, width_chars=3, css_classes=["numeric", "dimmed"])
             self.add_prefix(track)
 
-    def define_and_set_subtitle(self, artist_to_highlight, song):
-        subtitle, found_in_credit = song.song_credits(artist_to_highlight, show_various_artists=False)
+    def define_and_set_subtitle(self, song):
+        subtitle = song.song_credits(show_various_artists=False)
         if subtitle:
-            if found_in_credit:
-                self.set_property('css_classes', ['activatable', 'heading'])
             self.set_subtitle(subtitle)
