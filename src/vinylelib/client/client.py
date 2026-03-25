@@ -245,10 +245,14 @@ class Client(MPDClient):
         return bool(songs)
 
     def show_album(self, uri):
-        self.restrict_tagtypes("album", "albumartist", "artist", "date", "composer", "conductor", "performer")
+        self.restrict_tagtypes("album", "albumartist", "artist", "date", "composer", "conductor", "performer", "genre", "date")
         song=self.lsinfo(uri)[0]
         self.tagtypes("all")
-        self.emitter.emit("show-album", song.album, song.date, song.albumartist, song.artist, song.composer, song.conductor, song.performer, song.folder)
+        args = (
+            song.album, song.date, song.albumartist, song.artist, song.composer, song.conductor, song.performer,
+            song.genre, song.year, song.folder
+        )
+        self.emitter.emit("show-album", *args)
 
     def toggle_play(self):
         status=self.status()

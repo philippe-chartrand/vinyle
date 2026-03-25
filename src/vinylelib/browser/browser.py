@@ -172,11 +172,14 @@ class Browser(Gtk.Stack):
         self.sidebar_page.get_child().get_content().set_child(self._sidebar_list)
         self.sidebar_role = role
 
-    def _show_album(self, album, date, albumartist, artist, composer, conductor, performer, folder=None):
+    def _show_album(self, album, date, albumartist, artist, composer, conductor, performer, genre, year, folder=None):
         cascade = (
             (performer, 'performer'),
             (conductor, 'conductor'),
             (composer, 'composer'),
+            (year, 'date'),
+            (genre, 'genre'),
+            (album, 'album'),
             (artist, 'artist'),
             (albumartist, 'albumartist')
         )
@@ -205,7 +208,7 @@ class Browser(Gtk.Stack):
         return album_page
 
     def find_album_by_track_info_provided_when_sidebar_role_has_changed(self, cascade, album, date, folder):
-        """fallback to allow to show the album even if the browsing context changed"""
+        """fallback to show the album even if the browsing context changed or the criteria corresponding to the current context is not provided"""
         album_page = None
         value = None
         new_role = None
