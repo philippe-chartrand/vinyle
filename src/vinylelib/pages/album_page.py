@@ -1,127 +1,115 @@
 import logging
 from gettext import gettext as _
 
+from ..album import Album
 from ..views import AlbumPage
 from ..browsersong import BrowserSongRow
-from ..utils import Duration
 
 
 class ArtistAlbumPage(AlbumPage):
-    def __init__(self, client, cache, artist_role, artist, album, date, folder=None, **kwargs):
-        super().__init__(client, album, date,  **kwargs)
-        tag_filter = (artist_role, artist, "album", album, "date", date)
-        self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "play"))
+    def __init__(self, client, cache, artist_role, artist, album_name, date, folder=None, **kwargs):
+        super().__init__(client, album_name, date,  **kwargs)
+        tag_filter = (artist_role, artist, "album", album_name, "date", date)
+        self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album_name), "play"))
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
-        self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album), "append"))
+        self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album_name), "append"))
         self.append_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "append"))
         self.logger = logging.getLogger(__name__)
 
-        if folder is None:
-            artist_album_songs=client.find(*tag_filter)
-            if len(artist_album_songs) == 0:
-                # The code assumes all tracks of an album have the same date, which is not always true.
-                # If the date associated with the album (often the max date) does not match with the date
-                # associated with the role, relax the query criteria by ignoring the date
-                artist_album_songs = client.find(*(artist_role, artist, "album", album))
-        else:
-            tag_filter=(artist_role, artist, "album", album, "file", folder)
-            artist_album_songs = client.search(*tag_filter)
-
-        selection_length = Duration(sum(s.duration._seconds for s in artist_album_songs))
-        if len(artist_album_songs) == 0:
-            self.logger.info("no songs found for %s %s %s %s", artist_role, artist, album, date)
+        album = Album(album_name, date)
+        album.set_selection(client, artist_role, artist, album_name, folder, tag_filter)
+        if len(album.selection) == 0:
+            self.logger.info("no songs found for %s %s %s %s", artist_role, artist, album_name, date)
             return
-        client.tagtypes("all")
-        songs = self.expand_songs_for_all_album(client, artist_album_songs)
-        total_length = Duration(sum(s.duration._seconds for s in songs))
-        self.album_cover.set_paintable(cache.get_cover(songs[0].file).get_paintable())
-        self.length.set_text(str(total_length)) if total_length._seconds == selection_length._seconds \
-            else self.length.set_text(f"{selection_length} / {total_length}")
-        self.set_genre_if_unique(songs)
-        self.suptitle.set_text(self._define_artist_credits_supertitle(songs))
-        dates = self.roundup_dates_to_year(songs)
-        show_disc = self.check_for_multiple_discs(songs)
-        show_year = True if len(dates) > 1 else False
-        credit_common_to_all_songs = all((self.credit_found_in_song(artist_role, artist, s) for s in songs))
-        # songs
-        for song in sorted(songs, key=lambda s:int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)):
-            row=BrowserSongRow(song, show_year=show_year, show_disc=show_disc)
-            if not credit_common_to_all_songs and self.credit_found_in_song(artist_role, artist, song):
-                row.set_property('css_classes', ['activatable', 'heading'])
-            self.song_list.append(row)
+        album.expand_selection_to_all_album(client)
+        self.album_cover.set_paintable(album.get_cover(cache).get_paintable())
+        self.suptitle.set_text(self.get_album_credits(album))
+        self.hilite_album_year_in_date_browsing_context(artist_role, artist)
+        self.set_genre_if_unique(album, artist_role)
+        self.set_length_label(album.get_selection_length(), album.get_total_length())
 
-    def set_genre_if_unique(self, songs):
-        album_genre = self.get_album_genre(songs)
+        self.add_song_rows(artist, artist_role, album)
+
+    def set_length_label(self, selection_length, total_length):
+        length_text =  str(total_length) \
+            if total_length._seconds == selection_length._seconds \
+            else f"{selection_length} / {total_length}"
+        self.length.set_text(length_text)
+
+    def set_genre_if_unique(self, album, artist_role):
+        album_genre = self.get_album_genre(album)
         if not album_genre or album_genre == _("Multiple genres"):
             self.genre.set_visible(False)
         else:
             self.genre.set_text(album_genre)
+            self.genre.set_property('css_classes', ['heading']) if artist_role == 'genre' else None
+
+    def hilite_album_year_in_date_browsing_context(self, tag_name, tag_value):
+        if tag_name == 'date' and tag_value == self.subtitle.get_text():
+            self.subtitle.set_property('css_classes', ['heading'])
+
+    def add_song_rows(self, artist, artist_role, album):
+        show_year = self.check_for_multiple_years(album)
+        show_disc = self.check_for_multiple_discs(album)
+        credit_common_to_all_songs = all((self.credit_found_in_song(artist_role, artist, s) for s in album.songs))
+        track_sorting = lambda s: int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)
+        for song in sorted(album.songs, key=track_sorting):
+            row = BrowserSongRow(song, show_year=show_year, show_disc=show_disc)
+            if not credit_common_to_all_songs and self.credit_found_in_song(artist_role, artist, song):
+                row.set_property('css_classes', ['activatable', 'heading'])
+            self.song_list.append(row)
 
     @staticmethod
-    def get_album_genre(songs):
-        genres = { s.genre for s in songs }
-        if len(genres) == 0:
+    def get_album_genre(album):
+        if len(album.genres) == 0:
             return ""
-        elif len(genres) == 1:
-            return list(genres)[0]
+        elif len(album.genres) == 1:
+            return list(album.genres)[0]
         else:
             return _("Multiple genres")
 
-    def _define_artist_credits_supertitle(self, songs):
-        albumartists = self.list_album_artists_as_a_set('albumartist', songs)
-        artists = self.list_album_artists_as_a_set('artist', songs)
-        composers = self.list_album_artists_as_a_set('composer', songs)
-        conductors = self.list_album_artists_as_a_set('conductor', songs)
-        performers = self.list_album_artists_as_a_set('performer', songs)
+    @staticmethod
+    def get_album_credits(album):
         credits = []
-        if len(albumartists) > 0 and len(albumartists[0]) > 0:
-            if len(albumartists) > 1 or (len(albumartists) == 1 and albumartists[0] == 'Various Artists'):
+        if len(album.albumartists) > 0:
+            if len(album.albumartists) > 1 or (len(album.albumartists) == 1 and list(album.albumartists)[0] == 'Various Artists'):
                 credits.append(_("Various artists"))
             else:
-                credits.append(albumartists[0])
-        if len(artists) > 0 and len(artists[0]) > 0:
-            if len(artists) > 1 or (len(artists) == 1 and artists[0] == 'Various Artists'):
+                credits.append(list(album.albumartists)[0])
+        if len(album.artists) > 0:
+            if len(album.artists) > 1 or (len(album.artists) == 1 and list(album.artists)[0] == 'Various Artists'):
                 credits.append(_("Various artists"))
             else:
-                credits.append(artists[0])
-        if len(composers) > 0 and len(composers[0]) > 0:
-            credits.append(_("Various composers") if len(composers) > 1 else composers[0])
-        if len(conductors) > 0 and len(conductors[0]) > 0:
-            credits.append(_("Various conductors") if len(conductors) > 1 else conductors[0])
-        if len(performers) > 0 and len(performers[0]) > 0:
-            credits.append(_("Various performers") if len(performers) > 1 else performers[0])
+                credits.append(list(album.artists)[0])
+        if len(album.composers) > 0:
+            credits.append(_("Various composers") if len(album.composers) > 1 else list(album.composers)[0])
+        if len(album.conductors) > 0:
+            credits.append(_("Various conductors") if len(album.conductors) > 1 else list(album.conductors)[0])
+        if len(album.performers) > 0:
+            credits.append(_("Various performers") if len(album.performers) > 1 else list(album.performers)[0])
         return ", ".join(list(dict.fromkeys(credits)))
 
-    def list_album_artists_as_a_set(self, artist_role, songs):
-        artists = {s[artist_role][0] for s in songs if s[artist_role[0]] != "" }
-        return list(artists)
-
-    def  check_for_multiple_discs(self, songs):
-        discs = max([s['disc'][0] for s in songs])
-        if not discs.isdigit():
+    @staticmethod
+    def check_for_multiple_discs(album):
+        if len(album.discs) == 0:
             return False
-        return True if int(discs) > 1 else False
+        last_disc = max(list(album.discs))
+        if not last_disc.isdigit():
+            return False
+        return True if len(album.discs) > 1 and int(last_disc) > 1 else False
 
-    def roundup_dates_to_year(self, songs):
-        years = {s.year for s in songs if s.year is not None}
-        return years
+    @staticmethod
+    def check_for_multiple_years(album):
+        return True if len(album.years) > 1 else False
 
-    def credit_found_in_song(self, role, value, song):
+    @staticmethod
+    def credit_found_in_song(role, value, song):
         credit_found = False
         if song[role][0] == value:
             credit_found = True
         elif role == 'genre' and song.genre == value:
             credit_found = True
-        elif role == 'year' and song.year == value:
+        elif role == 'date' and song.year == value:
             credit_found = True
         return credit_found
 
-    def expand_songs_for_all_album(self, client, artist_album_songs):
-        # for compilations and multiple cd albums, album title is not sufficient to find the songs
-        # we need to find all songs in the same album / folder
-
-        folders = { song.folder for song in artist_album_songs }
-        songs = []
-        for folder in sorted(folders):
-            songs.extend(client.get_albums_songs_by_common_folder(folder))
-        return songs
