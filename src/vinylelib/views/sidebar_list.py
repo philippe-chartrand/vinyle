@@ -3,7 +3,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 
 from .sidebar import SidebarListView
-from ..utils import group_dates_by_year
+from ..utils import group_dates_by_year, move_initial_article
 
 
 class SidebarList(SidebarListView):
@@ -11,19 +11,10 @@ class SidebarList(SidebarListView):
         super().__init__(client, SelectionModel)
         self.tag_name = sidebar_role
 
-    @staticmethod
-    def move_initial_article(tag_name, item):
-        if tag_name in ('artist', 'albumartist', 'composer', 'conductor', 'performer', 'album'):
-            moveable_articles_4 = ('The ', 'Les ')
-            moveable_articles_3 = ('An ', 'Le ', 'La ')
-            if item[0:4] in moveable_articles_4:
-                 return f"{item[4:]}, {item[0:3]}"
-            elif item[0:3] in moveable_articles_3:
-                 return f"{item[3:]}, {item[0:2]}"
-            else:
-                return item
-        else:
-            return item
+    def move_initial_article_if_required(self, item):
+        return move_initial_article(item) \
+            if self.tag_name in ('artist', 'albumartist', 'composer', 'conductor', 'performer', 'album') \
+            else item
 
     def _create_iterator_from_list(self, items):
         # expects a list of dicts where the key is the tag name, and the associated value for the tag
@@ -38,7 +29,7 @@ class SidebarList(SidebarListView):
                 next(grouper)
                 continue
             value = next(grouper)
-            value_with_sort_key_and_role = [value, self.move_initial_article(self.tag_name, name), self.tag_name]
+            value_with_sort_key_and_role = [value, self.move_initial_article_if_required(name).upper(), self.tag_name]
             filtered_items.append(value_with_sort_key_and_role)
             # ignore multiple albumartistsort values
             if next(grouper, None) is not None:

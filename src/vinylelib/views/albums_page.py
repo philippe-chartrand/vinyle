@@ -1,9 +1,11 @@
 from gettext import gettext as _
+from locale import strxfrm
 import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Adw, GLib, Gtk
 
 from ..models import SelectionModel
+from ..utils import move_initial_article
 
 
 class AlbumsPage(Adw.NavigationPage):
@@ -107,13 +109,13 @@ class AlbumsPage(Adw.NavigationPage):
 
         match self._settings['albums-order']:
             case 'most-recent-first':
-                order_by = lambda x: (-x.year_as_int, x.name)
+                order_by = lambda x: (-x.year_as_int, 'total_size_of.py', strxfrm(move_initial_article(x.name)))
             case 'oldest-first':
-                order_by = lambda x: (x.year_as_int, x.name)
+                order_by = lambda x: (x.year_as_int, strxfrm(move_initial_article(x.name)))
             case 'alphabetical':
-                order_by = lambda x: (x.name, x.year_as_int)
+                order_by = lambda x: (strxfrm(move_initial_article(x.name)), x.year_as_int)
             case _:
-                order_by = lambda x: (x.year_as_int, x.name)
+                order_by = lambda x: (x.year_as_int, strxfrm(move_initial_article(x.name)))
 
         self.update_property([Gtk.AccessibleProperty.LABEL], [_("Albums of {item}").format(item=item)])
         self._selection_model.append(sorted(self._get_albums(item, role), key=order_by)) # most recent first TODO: user preference fo sort order
