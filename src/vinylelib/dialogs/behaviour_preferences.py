@@ -7,7 +7,7 @@ from gi.repository import Adw, Gtk, Gio
 from gettext import gettext as _
 
 from ..role import Role
-from ..widgets import RoleDropDown
+from ..widgets import CacheSizeDropDown, RoleDropDown
 
 
 class BehaviorPreferences(Adw.PreferencesGroup):
@@ -23,6 +23,10 @@ class BehaviorPreferences(Adw.PreferencesGroup):
             (_("Default browsing mode, (after restart)"), "default-browsing-mode",
              _("Choose your favorite sidebar navigation")),
         )
+        cache_size_data = (
+            (_("Size of the cover cache, (change effective after restart)"), "cover-cache-size",
+             _("Depending on the collection size and the available computer memory")),
+        )
 
         for title, key, subtitle in toggle_data:
             row=Adw.SwitchRow(title=title, subtitle=subtitle, use_underline=True)
@@ -31,9 +35,16 @@ class BehaviorPreferences(Adw.PreferencesGroup):
 
         for title, key, subtitle in choice_data:
             row=Adw.ActionRow(title=title, subtitle=subtitle, use_underline=True)
-            role_dropdown = RoleDropDown(Role.ROLES, self._settings["default-browsing-mode"])
+            role_dropdown = RoleDropDown(Role.ROLES, self._settings[key])
             row.add_suffix(role_dropdown)
             role_dropdown.connect("notify::selected-item", self.on_role_selected)
+            self.add(row)
+
+        for title, key, subtitle in cache_size_data:
+            row = Adw.ActionRow(title=title, subtitle=subtitle, use_underline=True)
+            cache_size_dropdown = CacheSizeDropDown(self._settings[key])
+            row.add_suffix(cache_size_dropdown)
+            cache_size_dropdown.connect("notify::selected-item", self.on_cache_size_selected)
             self.add(row)
 
     def on_role_selected(self, dropdown, _pspec):
@@ -44,4 +55,14 @@ class BehaviorPreferences(Adw.PreferencesGroup):
         if new_value is not None and new_value != old_value:
             dropdown.set_selected_by_position(new_value)
             self._settings["default-browsing-mode"] = new_value
+            self._settings.apply()
+
+    def on_cache_size_selected(self, dropdown, _pspec):
+        if dropdown.props.selected_item is None:
+            return
+        old_value = self._settings["cover-cache-size"]
+        new_value = dropdown.get_selected()
+        if new_value is not None and new_value != old_value:
+            dropdown.set_selected_by_position(new_value)
+            self._settings["cover-cache-size"] = new_value
             self._settings.apply()

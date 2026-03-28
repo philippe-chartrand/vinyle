@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-21 16:07-0400\n"
+"POT-Creation-Date: 2026-03-28 14:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
@@ -105,7 +105,7 @@ msgid "Search collection"
 msgstr ""
 
 #: vinylelib/browser/browser.py:51 vinylelib/dialogs/server_info.py:24
-#: vinylelib/views/albums_page.py:11 vinylelib/views/albums_page.py:95
+#: vinylelib/views/albums_page.py:13 vinylelib/views/albums_page.py:97
 #: vinylelib/views/search.py:69
 msgid "Albums"
 msgstr ""
@@ -153,6 +153,14 @@ msgstr ""
 
 #: vinylelib/dialogs/behaviour_preferences.py:24
 msgid "Choose your favorite sidebar navigation"
+msgstr ""
+
+#: vinylelib/dialogs/behaviour_preferences.py:27
+msgid "Size of the cover cache, (change effective after restart)"
+msgstr ""
+
+#: vinylelib/dialogs/behaviour_preferences.py:28
+msgid "Depending on the collection size and the available computer memory"
 msgstr ""
 
 #: vinylelib/dialogs/connect_dialog.py:13 vinylelib/main_window.py:72
@@ -235,25 +243,25 @@ msgstr ""
 msgid "_Show Bit Rate"
 msgstr ""
 
-#: vinylelib/dialogs/view_preferences.py:22
-msgid "Covers per row"
-msgstr ""
-
-#: vinylelib/dialogs/view_preferences.py:23
-#: vinylelib/dialogs/view_preferences.py:27
-msgid "Requires a restart"
-msgstr ""
-
-#: vinylelib/dialogs/view_preferences.py:27
-msgid "Album cover size"
-msgstr ""
-
-#: vinylelib/dialogs/view_preferences.py:34
+#: vinylelib/dialogs/view_preferences.py:21
 msgid "Albums order"
 msgstr ""
 
-#: vinylelib/dialogs/view_preferences.py:34
+#: vinylelib/dialogs/view_preferences.py:21
 msgid "Choose the display order or the albums"
+msgstr ""
+
+#: vinylelib/dialogs/view_preferences.py:29
+msgid "Covers per row"
+msgstr ""
+
+#: vinylelib/dialogs/view_preferences.py:30
+#: vinylelib/dialogs/view_preferences.py:34
+msgid "Requires a restart"
+msgstr ""
+
+#: vinylelib/dialogs/view_preferences.py:34
+msgid "Album cover size"
 msgstr ""
 
 #: vinylelib/main_window.py:30
@@ -296,23 +304,23 @@ msgstr ""
 msgid "Activated A‐B loop from {start} to {end}"
 msgstr ""
 
-#: vinylelib/pages/album_page.py:49 vinylelib/pages/album_page.py:62
+#: vinylelib/pages/album_page.py:41 vinylelib/pages/album_page.py:69
 msgid "Multiple genres"
 msgstr ""
 
-#: vinylelib/pages/album_page.py:73 vinylelib/pages/album_page.py:78
+#: vinylelib/pages/album_page.py:76 vinylelib/pages/album_page.py:81
 msgid "Various artists"
 msgstr ""
 
-#: vinylelib/pages/album_page.py:82
+#: vinylelib/pages/album_page.py:85
 msgid "Various composers"
 msgstr ""
 
-#: vinylelib/pages/album_page.py:84
+#: vinylelib/pages/album_page.py:87
 msgid "Various conductors"
 msgstr ""
 
-#: vinylelib/pages/album_page.py:86
+#: vinylelib/pages/album_page.py:89
 msgid "Various performers"
 msgstr ""
 
@@ -460,11 +468,11 @@ msgstr ""
 msgid "Append All"
 msgstr ""
 
-#: vinylelib/views/albums_page.py:59
+#: vinylelib/views/albums_page.py:61
 msgid "No Albums"
 msgstr ""
 
-#: vinylelib/views/albums_page.py:118
+#: vinylelib/views/albums_page.py:120
 #, python-brace-format
 msgid "Albums of {item}"
 msgstr ""
@@ -540,6 +548,13 @@ msgstr ""
 #: vinylelib/widgets/bitrate.py:12
 #, python-brace-format
 msgid "{bitrate} kb/s"
+msgstr ""
+
+#: vinylelib/widgets/cache_size_dropdown.py:9
+#: vinylelib/widgets/cache_size_dropdown.py:10
+#: vinylelib/widgets/cache_size_dropdown.py:11
+#: vinylelib/widgets/cache_size_dropdown.py:12
+msgid "covers"
 msgstr ""
 
 #: vinylelib/widgets/cover_size_dropdown.py:9

@@ -11,11 +11,12 @@ Expect a memory usage of 130 000 000 bytes for 1000 600x600 covers
 
 class CoverCache(object):
 
-    def __init__(self, client, max_items=1000):
+    def __init__(self, client, cache_size):
         super().__init__()
         self._cache = OrderedDict()
         self._client = client
-        self.MAX_ITEMS = max_items
+        assert cache_size.isdigit(), "cover cache size should be an integer value"
+        self.MAX_ITEMS = int(cache_size)
         self.log = False
         self.logger = logging.getLogger(__name__)
 

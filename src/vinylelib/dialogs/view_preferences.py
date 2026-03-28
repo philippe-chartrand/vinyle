@@ -18,6 +18,13 @@ class ViewPreferences(Adw.PreferencesGroup):
             settings.bind(key, row, "active", Gio.SettingsBindFlags.DEFAULT)
             self.add(row)
 
+        cover_row = Adw.ActionRow(title=_("Albums order"), subtitle=_("Choose the display order or the albums"))
+        albums_order_dropdown = AlbumsOrderDropDown(settings["albums-order"])
+        cover_row.add_suffix(albums_order_dropdown)
+        self._settings = settings
+        albums_order_dropdown.connect("notify::selected-item", self.on_albums_order_selected)
+        self.add(cover_row)
+
         covers_row = Adw.SpinRow.new_with_range(3, 8, 1)
         covers_row.set_title(_("Covers per row"))
         covers_row.set_subtitle(_("Requires a restart"))
@@ -29,13 +36,6 @@ class ViewPreferences(Adw.PreferencesGroup):
         cover_row.add_suffix(cover_size_dropdown)
         self._settings = settings
         cover_size_dropdown.connect("notify::selected-item", self.on_cover_size_selected)
-        self.add(cover_row)
-
-        cover_row = Adw.ActionRow(title=_("Albums order"), subtitle=_("Choose the display order or the albums"))
-        albums_order_dropdown = AlbumsOrderDropDown(settings["albums-order"])
-        cover_row.add_suffix(albums_order_dropdown)
-        self._settings = settings
-        albums_order_dropdown.connect("notify::selected-item", self.on_albums_order_selected)
         self.add(cover_row)
 
     def on_cover_size_selected(self, dropdown, _pspec):

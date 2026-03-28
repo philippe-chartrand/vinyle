@@ -84,5 +84,15 @@
 			<default>"chronological"</default>
 			<summary>Ordering of covers on the albums page</summary>
 		</key>
+		<key type="s" name="cover-cache-size">
+			<choices>
+				<choice value="200" />
+				<choice value="400" />
+				<choice value="800" />
+				<choice value="1600" />
+			</choices>
+			<default>"800"</default>
+			<summary>Size of cover cache</summary>
+		</key>
 	</schema>
 </schemalist>

@@ -1,5 +1,6 @@
 from .albums_order_dropdown import AlbumsOrderDropDown
 from .bitrate import BitRate
+from .cache_size_dropdown import CacheSizeDropDown
 from .cover_size_dropdown import CoverSizeDropDown
 from .lookup_icon import lookup_icon
 from .media_buttons import MediaButtons
