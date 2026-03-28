@@ -14,6 +14,8 @@ class RoleAlbumRow(Adw.ActionRow):
         self.composer = album.get("composer", "")
         self.conductor = album.get("conductor", "")
         self.performer = album.get("performer", "")
+        self.genre = album.get("genre", "")
+        self.year = self.date[0:4]
 
         # fill
         self.set_title(self.albumartist)
