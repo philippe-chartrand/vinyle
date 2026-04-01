@@ -34,7 +34,7 @@ class Album(GObject.Object):
 
     @property
     def year_as_int(self):
-        return int(self.year) if self.year != "" else 0
+        return int(self.year) if self.year.isdigit()  else 0
 
     def set_selection(self, client, tag_name, tag_value, album_name, folder, tag_filter):
         if folder is None:
