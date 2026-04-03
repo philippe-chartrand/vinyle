@@ -1,5 +1,6 @@
 import gi
 
+
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gio, GLib
@@ -9,6 +10,7 @@ from .client import Client
 from .cover import CoverCache
 from .settings import Settings
 from .main_window import MainWindow
+from .history import HistoryLogger
 
 
 class Vinyle(Adw.Application):
@@ -20,6 +22,7 @@ class Vinyle(Adw.Application):
         self._settings=Settings()
         self._client=Client(self._settings)
         self._cache=CoverCache(self._client, self._settings.get_string('cover-cache-size'))
+        self._history=HistoryLogger(self._client)
         self._window=None
 
         # actions
