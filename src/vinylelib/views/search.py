@@ -171,6 +171,8 @@ class SearchView(Gtk.Stack):
                                      "group", "genre"
                                     )
             for album in itertools.islice(albums, self.RESULTS_COUNT_ALBUM):
+                if len(album['date']) > 4:
+                    album['date'] = album['date'][0:4]
                 album_row = RoleAlbumRow(album)
                 self._album_list.append(album_row)
 

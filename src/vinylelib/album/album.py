@@ -10,7 +10,7 @@ class Album(GObject.Object):
         GObject.Object.__init__(self)
         #minimal set
         self.name=name
-        self.date=date
+        self.date=date[0:4] if len(date) > 4 else date
         self.cover=None
 
         # selection of songs related to browsing context
