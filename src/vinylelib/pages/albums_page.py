@@ -1,5 +1,7 @@
 import datetime
 import logging
+from collections import OrderedDict
+
 import gi
 
 gi.require_version("Gtk", "4.0")
@@ -81,10 +83,12 @@ class ArtistAlbumsPage(AlbumsPage):
                 albums.append(dict(album=album_name, date=year))
 
     def make_unique(self, albums):
-        unique_albums = set([])
+        unique_albums = OrderedDict()
         for album in albums:
-            unique_albums.add((album['album'], album['date']))
-        return [dict(album=unique_album[0], date=unique_album[1]) for unique_album in list(unique_albums)]
+            key = (album['album'], album['date'])
+            if not key in unique_albums:
+                unique_albums[key] = 1
+        return [dict(album=key[0], date=key[1]) for key in unique_albums.keys()]
 
     def playlist_albums(self, playlist, playlist_name):
         albums = []

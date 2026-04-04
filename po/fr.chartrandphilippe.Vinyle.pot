@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-04 12:01-0400\n"
+"POT-Creation-Date: 2026-04-04 16:11-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
@@ -342,7 +342,7 @@ msgstr ""
 msgid "Various performers"
 msgstr ""
 
-#: vinylelib/pages/albums_page.py:17
+#: vinylelib/pages/albums_page.py:19
 msgid "Select an artist"
 msgstr ""
 
@@ -490,7 +490,7 @@ msgstr ""
 msgid "No Albums"
 msgstr ""
 
-#: vinylelib/views/albums_page.py:120
+#: vinylelib/views/albums_page.py:122
 #, python-brace-format
 msgid "Albums of {item}"
 msgstr ""
@@ -561,6 +561,10 @@ msgstr ""
 
 #: vinylelib/widgets/albums_order_dropdown.py:11
 msgid "Most Recent First"
+msgstr ""
+
+#: vinylelib/widgets/albums_order_dropdown.py:12
+msgid "As is"
 msgstr ""
 
 #: vinylelib/widgets/bitrate.py:12

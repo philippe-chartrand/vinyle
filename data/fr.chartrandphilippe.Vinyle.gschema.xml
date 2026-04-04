@@ -81,6 +81,7 @@
 				<choice value="alphabetical" />
 				<choice value="chronological" />
 				<choice value="most-recent-first" />
+				<choice value="as-is" />
 			</choices>
 			<default>"chronological"</default>
 			<summary>Ordering of covers on the albums page</summary>

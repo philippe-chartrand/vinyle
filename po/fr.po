@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-04 12:01-0400\n"
-"PO-Revision-Date: 2026-04-04 12:04-0400\n"
+"POT-Creation-Date: 2026-04-04 16:11-0400\n"
+"PO-Revision-Date: 2026-04-04 16:12-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \"Philippe Chartrand\"<philippe.chartrand@videotron.ca>\n"
 "Language: fr\n"
@@ -346,7 +346,7 @@ msgstr "Plusieurs chefs d'orchestre"
 msgid "Various performers"
 msgstr "Plusieurs interprètes"
 
-#: vinylelib/pages/albums_page.py:17
+#: vinylelib/pages/albums_page.py:19
 msgid "Select an artist"
 msgstr "Sélectionnez un artiste"
 
@@ -493,7 +493,7 @@ msgstr "Tout ajouter"
 msgid "No Albums"
 msgstr "Pas d'albums"
 
-#: vinylelib/views/albums_page.py:120
+#: vinylelib/views/albums_page.py:122
 #, python-brace-format
 msgid "Albums of {item}"
 msgstr "Albums de {item}"
@@ -565,6 +565,10 @@ msgstr "Chronologique"
 #: vinylelib/widgets/albums_order_dropdown.py:11
 msgid "Most Recent First"
 msgstr "Plus récents en premier"
+
+#: vinylelib/widgets/albums_order_dropdown.py:12
+msgid "As is"
+msgstr "Tel quel"
 
 #: vinylelib/widgets/bitrate.py:12
 #, python-brace-format

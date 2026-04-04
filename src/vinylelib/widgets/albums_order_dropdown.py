@@ -8,7 +8,8 @@ class AlbumsOrderDropDown(Gtk.DropDown):
     VALUES = (
         ('alphabetical', _("In Alphabetical order")),
         ('chronological', _("Oldest First")),
-        ('most-recent-first', _("Most Recent First"))
+        ('most-recent-first', _("Most Recent First")),
+        ('as-is', _("As is"))
     )
 
     def __init__(self, initial_value):

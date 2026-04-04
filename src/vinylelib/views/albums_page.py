@@ -114,11 +114,16 @@ class AlbumsPage(Adw.NavigationPage):
                 order_by = lambda x: (x.year_as_int, strxfrm(move_initial_article(x.name)))
             case 'alphabetical':
                 order_by = lambda x: (strxfrm(move_initial_article(x.name)), x.year_as_int)
+            case 'as-is':
+                order_by = None
             case _:
                 order_by = lambda x: (x.year_as_int, strxfrm(move_initial_article(x.name)))
 
         self.update_property([Gtk.AccessibleProperty.LABEL], [_("Albums of {item}").format(item=item)])
-        self._selection_model.append(sorted(self._get_albums(item, role), key=order_by)) # most recent first TODO: user preference fo sort order
+        if order_by is None:
+            self._selection_model.append(self._get_albums(item, role))
+        else:
+            self._selection_model.append(sorted(self._get_albums(item, role), key=order_by))
         self._settings.set_property("cursor-watch", False)
 
     def _on_activate(self, widget, pos):
