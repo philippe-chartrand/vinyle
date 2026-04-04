@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-28 14:30-0400\n"
-"PO-Revision-Date: 2026-03-28 14:38-0400\n"
+"POT-Creation-Date: 2026-04-04 12:01-0400\n"
+"PO-Revision-Date: 2026-04-04 12:04-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \"Philippe Chartrand\"<philippe.chartrand@videotron.ca>\n"
 "Language: fr\n"
@@ -32,41 +32,41 @@ msgstr "Album inconnu"
 msgid "Album cover of an unknown album"
 msgstr "Pochette d'un album inconnu"
 
-#: vinylelib/application.py:17
+#: vinylelib/application.py:19
 msgid "Debug mode"
 msgstr "Mode debug"
 
-#: vinylelib/application.py:18
+#: vinylelib/application.py:20
 msgid "Log level"
 msgstr "Niveau de log"
 
-#: vinylelib/application.py:124
+#: vinylelib/application.py:127
 msgid "translator-credits"
 msgstr "Emmanuel Averty"
 
-#: vinylelib/application.py:192
+#: vinylelib/application.py:195
 msgid "Next Title is Playing"
 msgstr "Le prochain titre est en cours"
 
-#: vinylelib/application.py:194
+#: vinylelib/application.py:197
 #, python-brace-format
 msgid "Now playing “{title}” by “{artist}”"
 msgstr "En cours «{title}» par «{artist}»"
 
-#: vinylelib/application.py:196
+#: vinylelib/application.py:199
 #, python-brace-format
 msgid "Now playing “{title}”"
 msgstr "En cours «{title}»"
 
-#: vinylelib/application.py:198
+#: vinylelib/application.py:201
 msgid "Skip"
 msgstr "Sauter"
 
-#: vinylelib/application.py:205
+#: vinylelib/application.py:208
 msgid "Playback Finished"
 msgstr "Lecture terminée"
 
-#: vinylelib/application.py:206
+#: vinylelib/application.py:209
 msgid "The playlist is over"
 msgstr "La liste est terminée"
 
@@ -145,21 +145,44 @@ msgstr "Support du \"_MPRIS\""
 msgid "Disable if “MPRIS” is supported by another client"
 msgstr "Désactiver si \"MPRIS\" est supporté par un autre client"
 
-#: vinylelib/dialogs/behaviour_preferences.py:23
+#: vinylelib/dialogs/behaviour_preferences.py:21
+msgid "Log to playlist"
+msgstr "Ajouter a une liste de lecture"
+
+#: vinylelib/dialogs/behaviour_preferences.py:21
+msgid "Register played songs in a dedicated playlist"
+msgstr "Enregistre les chansons jouées dans une liste dédiée"
+
+#: vinylelib/dialogs/behaviour_preferences.py:24
 msgid "Default browsing mode, (after restart)"
 msgstr "Mode de navigation par défaut (après redémarrage)"
 
-#: vinylelib/dialogs/behaviour_preferences.py:24
+#: vinylelib/dialogs/behaviour_preferences.py:25
 msgid "Choose your favorite sidebar navigation"
 msgstr "Choisir votre mode de navigation par liste"
 
-#: vinylelib/dialogs/behaviour_preferences.py:27
+#: vinylelib/dialogs/behaviour_preferences.py:28
 msgid "Size of the cover cache, (change effective after restart)"
 msgstr "Nombre de pochettes en cache (après redémarrage)"
 
-#: vinylelib/dialogs/behaviour_preferences.py:28
+#: vinylelib/dialogs/behaviour_preferences.py:29
 msgid "Depending on the collection size and the available computer memory"
 msgstr "Selon la taille de la collection et la mémoire disponible"
+
+#: vinylelib/dialogs/behaviour_preferences.py:52
+msgid "Maximum albums per page"
+msgstr "Maximum d'albums par page"
+
+#: vinylelib/dialogs/behaviour_preferences.py:53
+#: vinylelib/dialogs/behaviour_preferences.py:59
+#: vinylelib/dialogs/view_preferences.py:30
+#: vinylelib/dialogs/view_preferences.py:34
+msgid "Requires a restart"
+msgstr "Redémarrage requis"
+
+#: vinylelib/dialogs/behaviour_preferences.py:58
+msgid "Maximum number of items from a playlist"
+msgstr "Nombre maximum d'items provenant d'une liste de lecture"
 
 #: vinylelib/dialogs/connect_dialog.py:13 vinylelib/main_window.py:72
 msgid "_Connect"
@@ -257,11 +280,6 @@ msgstr "Choisissez l'ordre de présentation des albums"
 msgid "Covers per row"
 msgstr "Pochettes par rangée"
 
-#: vinylelib/dialogs/view_preferences.py:30
-#: vinylelib/dialogs/view_preferences.py:34
-msgid "Requires a restart"
-msgstr "Redémarrage requis"
-
 #: vinylelib/dialogs/view_preferences.py:34
 msgid "Album cover size"
 msgstr "Taille de la pochette de l'album"
@@ -328,7 +346,7 @@ msgstr "Plusieurs chefs d'orchestre"
 msgid "Various performers"
 msgstr "Plusieurs interprètes"
 
-#: vinylelib/pages/albums_page.py:16
+#: vinylelib/pages/albums_page.py:17
 msgid "Select an artist"
 msgstr "Sélectionnez un artiste"
 
@@ -336,7 +354,7 @@ msgstr "Sélectionnez un artiste"
 msgid "Progress bar"
 msgstr "Barre de progression"
 
-#: vinylelib/player/player.py:34
+#: vinylelib/player/player.py:34 vinylelib/role/role.py:21
 msgid "Playlist"
 msgstr "Liste de lecture"
 
@@ -898,9 +916,6 @@ msgstr "Volume"
 
 #~ msgid "Update database"
 #~ msgstr "Mettre à jour la base"
-
-#~ msgid "Clear playlist"
-#~ msgstr "Effacer la liste de lecture"
 
 #~ msgid "Toggle genre filter"
 #~ msgstr "(Dés-)activer le filtre de genre"

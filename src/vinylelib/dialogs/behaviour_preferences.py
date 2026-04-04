@@ -18,6 +18,7 @@ class BehaviorPreferences(Adw.PreferencesGroup):
             (_("Send _Notification on Title Change"), "send-notify", ""),
             (_("Stop _Playback on Quit"), "stop-on-quit", ""),
             (_("Support “_MPRIS”"), "mpris", _("Disable if “MPRIS” is supported by another client")),
+            (_("Log to playlist"), "log-to-playlist",_("Register played songs in a dedicated playlist"))
         )
         choice_data=(
             (_("Default browsing mode, (after restart)"), "default-browsing-mode",
@@ -46,6 +47,18 @@ class BehaviorPreferences(Adw.PreferencesGroup):
             row.add_suffix(cache_size_dropdown)
             cache_size_dropdown.connect("notify::selected-item", self.on_cache_size_selected)
             self.add(row)
+
+        max_albums_row = Adw.SpinRow.new_with_range(100, 1000, 100)
+        max_albums_row.set_title(_("Maximum albums per page"))
+        max_albums_row.set_subtitle(_("Requires a restart"))
+        settings.bind("max-number-of-albums", max_albums_row, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.add(max_albums_row)
+
+        max_items_row = Adw.SpinRow.new_with_range(200, 2000, 200)
+        max_items_row.set_title(_("Maximum number of items from a playlist"))
+        max_items_row.set_subtitle(_("Requires a restart"))
+        settings.bind("max-number-of-playlist-items", max_items_row, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.add(max_items_row)
 
     def on_role_selected(self, dropdown, _pspec):
         if dropdown.props.selected_item is None:

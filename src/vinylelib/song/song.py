@@ -105,7 +105,6 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
 
     @property
     def file(self):
-        # scalar only
         return self.data['file'] if 'file' in self.data else None
 
     @property
@@ -132,7 +131,13 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
 
     @property
     def title(self):
-        return self.titles[0] if 'title' in self.data else basename(self.file)
+        title = self.titles[0] if 'titles' in self.data else None
+        if title is not None:
+            return title
+        elif self.file is not None:
+            return basename(self.file)
+        else:
+            return None
 
     @property
     def track(self):

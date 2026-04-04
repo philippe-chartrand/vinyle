@@ -1,3 +1,4 @@
+import datetime
 import logging
 import gi
 
@@ -15,19 +16,30 @@ class ArtistAlbumsPage(AlbumsPage):
     def __init__(self, client, cache, settings):
         super().__init__(client, cache, settings, RoleAlbum, RoleAlbumListRow, _("Select an artist"))
         self.logger = logging.getLogger(__name__)
+        self.MAX_PLAYLIST_ITEMS = settings.get_int('max-number-of-playlist-items')
+        self.MAX_ALBUMS = settings.get_int('max-number-of-albums')
 
     def _get_albums(self, artist, role):
-        grouped_albums=self._client.list("album", role, artist, "group", "date")
+        grouped_albums = self.get_grouped_albums(artist, role)
         albums = self.make_sure_albums_are_different(grouped_albums)
         if len(albums) == 0:
             # example case: an album without a name:
             # grouped_albums will be [{'album': '', 'date': ''}]
             # albums will therefore be []
-            self.logger.warn("no albums found for %s «%s»", role, artist)
+            self.logger.warning("%s, no albums found for %s «%s»", datetime.datetime.now(), role, artist)
             return
 
         for album in albums:
             yield RoleAlbum(artist, role, album["album"], album["date"])
+
+    def get_grouped_albums(self, artist, role):
+        if role == 'playlist':
+            grouped_albums = self.playlist_albums(self._client.listplaylist(artist, f"0:{self.MAX_PLAYLIST_ITEMS}"), artist)
+        else:
+            grouped_albums = self._client.list("album", role, artist, "group", "date")
+        if len(grouped_albums) >= self.MAX_ALBUMS:
+            self.logger.warning("%s, number of albums has been limited to %s albums",  datetime.datetime.now(), self.MAX_ALBUMS)
+        return grouped_albums[0:self.MAX_ALBUMS]
 
     def group_albums_dates_by_album_name(self, grouped_albums):
         albums_dates = {}
@@ -73,6 +85,20 @@ class ArtistAlbumsPage(AlbumsPage):
         for album in albums:
             unique_albums.add((album['album'], album['date']))
         return [dict(album=unique_album[0], date=unique_album[1]) for unique_album in list(unique_albums)]
+
+    def playlist_albums(self, playlist, playlist_name):
+        albums = []
+        seen_albums = set([])
+        if len(playlist) == self.MAX_PLAYLIST_ITEMS:
+            self.logger.warning("%s, Playlist %s has been limited to the first %s items",  datetime.datetime.now(), playlist_name, self.MAX_PLAYLIST_ITEMS)
+        for item in playlist:
+            album_infos = self._client.list('album','file',item, "group","date")
+            if len(album_infos) > 0:
+                t = (album_infos[0]['album'], album_infos[0]['date'])
+                if t not in seen_albums:
+                    seen_albums.add(t)
+                    albums.append(album_infos[0])
+        return albums
 
     def _on_activate(self, widget, pos):
         album=self._selection_model.get_item(pos)

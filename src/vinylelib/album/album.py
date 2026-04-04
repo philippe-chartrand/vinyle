@@ -38,6 +38,8 @@ class Album(GObject.Object):
 
     def set_selection(self, client, tag_name, tag_value, album_name, folder, tag_filter):
         if folder is None:
+            if tag_filter[0] == 'playlist':
+                tag_filter = tuple(tag_filter[2:])
             self.selection=client.find(*tag_filter)
             if len(self.selection) == 0:
                 # The code assumes all tracks of an album have the same date, which is not always true.

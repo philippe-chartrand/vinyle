@@ -17,7 +17,8 @@ class Role(GObject.Object):
         ('performer', _("Performer")),
         ('album', _("Album")),
         ('genre', _("Genre")),
-        ('date', _("Year"))
+        ('date', _("Year")),
+        ('playlist', _("Playlist"))
     )
 
     def __init__(self, name, sort_key, role):

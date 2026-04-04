@@ -12,10 +12,10 @@ class RoleAlbumListRow(AlbumListRow):
         super().set_album(album)
         if album.cover is None:
             self._client.tagtypes("clear")
-            songs = self._client.find(album.role, album.artist, "album", album.name,"date", album.date, "window", "0:1")
+            songs = self.find_album_considering_date(album)
             if len(songs) == 0:
                 # issue with differing dates in same album
-                songs = self._client.find(album.role, album.artist, "album", album.name, "window", "0:1")
+                songs = self.find_album_regardless_of_date(album, songs)
             if len(songs) == 0:
                 self.logger.warn("no song found for album %s, %s %s ?", album.name, album.role, album.artist)
                 return
@@ -26,3 +26,18 @@ class RoleAlbumListRow(AlbumListRow):
             else:
                 album.cover=self._cache.get_cover(song.file).get_paintable()
         self._cover.set_paintable(album.cover)
+
+    def find_album_regardless_of_date(self, album, songs):
+        if album.role == 'playlist':
+            songs = self._client.find("album", album.name, "window", "0:1")
+        else:
+            songs = self._client.find(album.role, album.artist, "album", album.name, "window", "0:1")
+        return songs
+
+    def find_album_considering_date(self, album):
+        if album.role == 'playlist':
+            songs = self._client.find("album", album.name, "date", album.date, "window", "0:1")
+        else:
+            songs = self._client.find(album.role, album.artist, "album", album.name, "date", album.date, "window",
+                                      "0:1")
+        return songs

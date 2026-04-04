@@ -39,6 +39,8 @@ class SidebarList(SidebarListView):
     def refresh(self):
         if self.tag_name == 'date':
             items = group_dates_by_year(self._client.list(self.tag_name))
+        elif self.tag_name == 'playlist':
+            items = [ {'playlist': item['playlist']} for item in self._client.listplaylists() ]
         else:
             items = self._client.list(self.tag_name)
         items_iterator = self._create_iterator_from_list(items)

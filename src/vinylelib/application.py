@@ -22,7 +22,7 @@ class Vinyle(Adw.Application):
         self._settings=Settings()
         self._client=Client(self._settings)
         self._cache=CoverCache(self._client, self._settings.get_string('cover-cache-size'))
-        self._history=HistoryLogger(self._client)
+        self._history=HistoryLogger(self._client, self._settings.get_boolean('log-to-playlist'))
         self._window=None
 
         # actions

@@ -56,6 +56,7 @@
 				<choice value="album" />
 				<choice value="genre" />
 				<choice value="date" />
+				<choice value="playlist" />
 			</choices>
 			<default>"artist"</default>
 			<summary>To suit your definition of artist</summary>
@@ -93,6 +94,20 @@
 			</choices>
 			<default>"800"</default>
 			<summary>Size of cover cache</summary>
+		</key>
+		<key type="b" name="log-to-playlist">
+			<default>false</default>
+			<summary>Keep a history of played songs</summary>
+		</key>
+		<key type="i" name="max-number-of-albums">
+			<range min="0" max="1000"/>
+			<default>500</default>
+			<summary>Maximum number of albums on the same page</summary>
+		</key>
+		<key type="i" name="max-number-of-playlist-items">
+			<range min="0" max="2000"/>
+			<default>1000</default>
+			<summary>Maximum number of items from a playlist</summary>
 		</key>
 	</schema>
 </schemalist>
