@@ -131,7 +131,7 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
 
     @property
     def title(self):
-        title = self.titles[0] if 'titles' in self.data else None
+        title = self.titles[0] if 'title' in self.data else None
         if title is not None:
             return title
         elif self.file is not None:
