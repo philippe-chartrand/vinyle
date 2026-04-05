@@ -16,47 +16,61 @@
   </branding>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/main_window.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/main_window.png</image>
       <caption>Main window</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/album_view.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/album_view.png</image>
       <caption>Album view</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/search.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/search.png</image>
       <caption>Search</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/small.png</image>
       <caption>Small window</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small_playlist.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/small_playlist.png</image>
       <caption>Small window with playlist</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/small_cover.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/small_cover.png</image>
       <caption>Small window with cover</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/choices_dropdown.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/choices_dropdown.png</image>
       <caption>Browsing mode Dropdown</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/preferences.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/preferences.png</image>
       <caption>More view options</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/smaller_covers.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/smaller_covers.png</image>
       <caption>Smaller covers in albums view if desired</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.5.0/screenshots/large_album_cover.png</image>
+      <image>https://raw.githubusercontent.com/philippe-chartrand/vinyle/v2.7.0/screenshots/large_album_cover.png</image>
       <caption>Larger album cover in album view if desired</caption>
     </screenshot>
   </screenshots>
   <releases>
+   <release version="2.7.0" date="2026-04-05">
+      <description translate="no">
+        <ul>
+            <li>New browsing mode by playlists.</li>
+            <li>Album sort order is configurable.</li>
+            <li>Cover cache size is configurable.</li>
+            <li>A history logger keeps track of played songs.</li>
+            <li>File path can be copied to clipboard.</li>
+            <li>Configurable limits are set for maximum number of items and maximum number of albums.</li>
+            <li>Logging loglevel is configurable and implemented in several classes.</li>
+            <li>Small bug fixes and dead-ends avoided or logged.</li>
+        </ul>
+      </description>
+    </release>
   <release version="2.6.0" date="2026-03-16">
       <description translate="no">
         <ul>
