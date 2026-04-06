@@ -13,7 +13,10 @@ class BrowserSongRow(Adw.ActionRow):
         # populate
         self.set_title(song.title)
         self.define_and_set_subtitle(song)
-        length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
+        format = Gtk.Label(label=song.extension, xalign=1, single_line_mode=True, width_chars=1,
+                           css_classes=["numeric", "dimmed"])
+        self.add_suffix(format)
+        length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric"])
         self.add_suffix(length)
         if show_year:
             year = Gtk.Label(label=str(song.year if song.year is not None else "[----]"), xalign=1, single_line_mode=True, css_classes=["numeric", "dimmed"])
