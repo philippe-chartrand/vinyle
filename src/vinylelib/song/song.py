@@ -108,6 +108,14 @@ class Song(collections.UserDict, GObject.Object, metaclass=SongMetaclass):
         return self.data['file'] if 'file' in self.data else None
 
     @property
+    def extension(self):
+        filename = None
+        file = self.file
+        if file:
+            filename = basename(file)
+        return filename.split(".")[-1] if filename else None
+
+    @property
     def folder(self):
         return dirname(self.file)
 
