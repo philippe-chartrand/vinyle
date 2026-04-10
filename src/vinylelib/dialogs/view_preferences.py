@@ -11,9 +11,9 @@ class ViewPreferences(Adw.PreferencesGroup):
     def __init__(self, settings):
         super().__init__(title=_("View"))
         toggle_data=(
-            (_("_Show Bit Rate"), "show-bit-rate", "Show bit rate in the player window"),
-            (_("Show File Format"), "show-file-format", "Show file format in the song row"),
-            (_("Show Comments"), "show-comments", "Show comments in the song row")
+            (_("_Show Bit Rate"), "show-bit-rate", _("Show bit rate in the player window")),
+            (_("Show File Format"), "show-file-format", _("Show file format in the song row")),
+            (_("Show Comments"), "show-comments", _("Show comments in the song row"))
         )
         for title, key, subtitle in toggle_data:
             row=Adw.SwitchRow(title=title, subtitle=subtitle, use_underline=True)

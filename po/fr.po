@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-10 15:39-0400\n"
-"PO-Revision-Date: 2026-04-10 15:39-0400\n"
+"POT-Creation-Date: 2026-04-10 15:42-0400\n"
+"PO-Revision-Date: 2026-04-10 15:44-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \"Philippe Chartrand\"<philippe.chartrand@videotron.ca>\n"
 "Language: fr\n"
@@ -268,13 +268,25 @@ msgstr "Vue"
 msgid "_Show Bit Rate"
 msgstr "Affiche le débit"
 
+#: vinylelib/dialogs/view_preferences.py:14
+msgid "Show bit rate in the player window"
+msgstr ""
+
 #: vinylelib/dialogs/view_preferences.py:15
 msgid "Show File Format"
 msgstr "Afficher le format de fichier"
 
+#: vinylelib/dialogs/view_preferences.py:15
+msgid "Show file format in the song row"
+msgstr "Afficher le format de fichier de la piste"
+
 #: vinylelib/dialogs/view_preferences.py:16
 msgid "Show Comments"
-msgstr "Afficher les commentaires"
+msgstr "Afficher les commentaires de la piste"
+
+#: vinylelib/dialogs/view_preferences.py:16
+msgid "Show comments in the song row"
+msgstr "Afficher les commentaires de la piste"
 
 #: vinylelib/dialogs/view_preferences.py:23
 msgid "Albums order"
