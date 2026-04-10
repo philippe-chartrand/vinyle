@@ -10,6 +10,8 @@ class ArtistAlbumPage(AlbumPage):
     def __init__(self, client, cache, artist_role, artist, album_name, date, folder=None, **kwargs):
         super().__init__(client, album_name, date,  **kwargs)
         tag_filter = (artist_role, artist, "album", album_name, "date", date)
+        self.show_comments = kwargs.get('show_comments')
+        self.show_file_format = kwargs.get('show_file_format')
         self.play_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album_name), "play"))
         self.play_button.connect("clicked", lambda *args: client.filter_to_playlist(tag_filter, "play"))
         self.append_all_button.connect("clicked", lambda *args: client.filter_to_playlist(("album", album_name), "append"))
@@ -22,13 +24,15 @@ class ArtistAlbumPage(AlbumPage):
             self.logger.info("no songs found for %s %s %s %s", artist_role, artist, album_name, date)
             return
         album.expand_selection_to_all_album(client)
+        if self.show_comments:
+            album.add_comments(client)
         self.album_cover.set_paintable(album.get_cover(cache).get_paintable())
         self.suptitle.set_text(self.get_album_credits(album))
         self.hilite_album_year_in_date_browsing_context(artist_role, artist)
         self.set_genre_if_unique(album, artist_role)
         self.set_length_label(album.get_selection_length(), album.get_total_length())
 
-        self.add_song_rows(artist, artist_role, album)
+        self.add_song_rows(artist, artist_role, album, show_comments=self.show_comments, show_file_format=self.show_file_format)
 
     def set_length_label(self, selection_length, total_length):
         length_text =  str(total_length) \
@@ -48,13 +52,17 @@ class ArtistAlbumPage(AlbumPage):
         if tag_name == 'date' and tag_value == self.subtitle.get_text():
             self.subtitle.set_property('css_classes', ['heading'])
 
-    def add_song_rows(self, artist, artist_role, album):
+    def add_song_rows(self, artist, artist_role, album, show_comments, show_file_format):
         show_year = self.check_for_multiple_years(album)
         show_disc = self.check_for_multiple_discs(album)
         credit_common_to_all_songs = all((self.credit_found_in_song(artist_role, artist, s) for s in album.songs))
         track_sorting = lambda s: int(100 * int(s.disc) if s.disc else 0) + int(s.track if s.track else 0)
+        row_kwargs = dict(artist_to_highlight="", show_file_format=show_file_format, show_comments=show_comments)
         for song in sorted(album.songs, key=track_sorting):
-            row = BrowserSongRow(song, show_year=show_year, show_disc=show_disc)
+            row = BrowserSongRow(
+                song,
+                show_track=True, show_year=show_year, show_disc=show_disc, **row_kwargs
+            )
             if not credit_common_to_all_songs and self.credit_found_in_song(artist_role, artist, song):
                 row.set_property('css_classes', ['activatable', 'heading'])
             self.song_list.append(row)

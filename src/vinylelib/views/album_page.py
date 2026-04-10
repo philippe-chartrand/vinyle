@@ -11,7 +11,7 @@ class AlbumPage(Adw.NavigationPage):
     def __init__(self, client, album, date, **kwargs):
         super().__init__()
         tag_filter=("album", album, "date", date)
-
+        self.cover_size=kwargs.get('cover_size')
         # songs list
         self.song_list=BrowserSongList(client)
         self.song_list.add_css_class("boxed-list")
@@ -49,7 +49,7 @@ class AlbumPage(Adw.NavigationPage):
 
         # packing
         box=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, margin_start=12, margin_end=12, margin_top=6, margin_bottom=24)
-        maximum_size = self.determine_cover_size(kwargs)
+        maximum_size = self.determine_cover_size()
         if maximum_size:
             box.append(Adw.Clamp(child=self.album_cover, maximum_size=maximum_size))
         box.append(label_box)
@@ -71,20 +71,17 @@ class AlbumPage(Adw.NavigationPage):
             self.subtitle.set_text(date[0:4])
         client.tagtypes("all")
 
-    def determine_cover_size(self, kwargs):
-        default = 200
-        if 'cover_size' in kwargs:
-            match kwargs['cover_size']:
-                case 'small':
-                    maximum_size = 150
-                case 'medium':
-                    maximum_size = 220
-                case 'large':
-                    maximum_size = 400
-                case 'no-cover':
-                    maximum_size = None
-                case _:
-                    maximum_size = default
-        else:
-            maximum_size = default
+    def determine_cover_size(self):
+        maximum_size = 200
+        match self.cover_size:
+            case 'small':
+                maximum_size = 150
+            case 'medium':
+                maximum_size = 220
+            case 'large':
+                maximum_size = 400
+            case 'no-cover':
+                maximum_size = None
+            case _:
+                maximum_size = 200
         return maximum_size

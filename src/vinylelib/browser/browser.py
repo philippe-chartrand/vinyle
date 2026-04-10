@@ -30,8 +30,10 @@ class Browser(Gtk.Stack):
         super().__init__()
         self._client=client
         self._cache=cache
-        self.sidebar_role = settings['default-browsing-mode']
-        self.abum_cover_size = settings["album-cover-size"]
+        self.sidebar_role = settings.get_string('default-browsing-mode')
+        self.abum_cover_size = settings.get_string("album-cover-size")
+        self.show_file_format = settings.get_boolean('show-file-format')
+        self.show_comments = settings.get_boolean('show-comments')
         self.sidebar_page=None
         # search
         self._search_view=SearchView(client)
@@ -151,7 +153,9 @@ class Browser(Gtk.Stack):
         self._album_navigation_view.pop_to_tag("album_list")
 
     def _on_album_selected(self, widget, *tags):
-        album_page = ArtistAlbumPage(self._client, self._cache, *tags, cover_size=self.abum_cover_size)
+        album_page = ArtistAlbumPage(
+            self._client, self._cache, *tags, cover_size=self.abum_cover_size, show_comments=self.show_comments, show_file_format=self.show_file_format
+        )
         self._album_navigation_view.push(album_page)
         album_page.play_button.grab_focus()
 
@@ -203,7 +207,8 @@ class Browser(Gtk.Stack):
                 break
         if value is not None:
             self._sidebar_list.select(value)
-            album_page = ArtistAlbumPage(self._client, self._cache, self.sidebar_role, value, album, date, folder, cover_size=self.abum_cover_size)
+            album_page = ArtistAlbumPage(self._client, self._cache, self.sidebar_role, value, album, date, folder,
+                                         cover_size=self.abum_cover_size, show_comments=self.show_comments, show_file_format=self.show_file_format)
 
         return album_page
 

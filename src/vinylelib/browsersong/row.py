@@ -6,16 +6,19 @@ from gi.repository import Adw, Gtk
 
 
 class BrowserSongRow(Adw.ActionRow):
-    def __init__(self, song, show_track=True, show_year=True, show_disc=False, artist_to_highlight="", **kwargs):
-        super().__init__(use_markup=False, activatable=True, **kwargs)
-        self.song=song
+    def __init__(self, song, show_track=True, show_year=True, show_disc=False, **kwargs):
+        super().__init__(use_markup=False, activatable=True)
+        self.show_file_format = kwargs.get('show_file_format')
+        self.show_comments =  kwargs.get('show_comments')
+        self.song = song
 
         # populate
         self.set_title(song.title)
         self.define_and_set_subtitle(song)
-        format = Gtk.Label(label=song.extension, xalign=1, single_line_mode=True, width_chars=1,
+        if self.show_file_format:
+            format = Gtk.Label(label=song.extension, xalign=1, single_line_mode=True, width_chars=1,
                            css_classes=["numeric", "dimmed"])
-        self.add_suffix(format)
+            self.add_suffix(format)
         length=Gtk.Label(label=str(song.duration), xalign=1, single_line_mode=True, css_classes=["numeric"])
         self.add_suffix(length)
         if show_year:
@@ -32,5 +35,7 @@ class BrowserSongRow(Adw.ActionRow):
 
     def define_and_set_subtitle(self, song):
         subtitle = song.song_credits(show_various_artists=False)
+        if self.show_comments:
+            subtitle = f"{subtitle}\n{song.data['comments']}"
         if subtitle:
             self.set_subtitle(subtitle)

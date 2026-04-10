@@ -34,6 +34,14 @@
 			<default>false</default>
 			<summary>Show bit rate</summary>
 		</key>
+		<key type="b" name="show-file-format">
+			<default>false</default>
+			<summary>Show file format</summary>
+		</key>
+		<key type="b" name="show-comments">
+			<default>false</default>
+			<summary>Show comments</summary>
+		</key>
 		<key type="b" name="send-notify">
 			<default>false</default>
 			<summary>Send notification on title change</summary>
