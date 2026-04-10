@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vinyle\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-04 16:11-0400\n"
-"PO-Revision-Date: 2026-04-04 16:12-0400\n"
+"POT-Creation-Date: 2026-04-10 15:39-0400\n"
+"PO-Revision-Date: 2026-04-10 15:39-0400\n"
 "Last-Translator: Philippe Chartrand <philippe.e.chartrand@gmail.com>\n"
 "Language-Team: \"Philippe Chartrand\"<philippe.chartrand@videotron.ca>\n"
 "Language: fr\n"
@@ -98,29 +98,29 @@ msgstr "_Mettre à jour la base"
 msgid "_Server Information"
 msgstr "_Informations du serveur"
 
-#: vinylelib/browser/browser.py:38 vinylelib/browser/browser.py:39
+#: vinylelib/browser/browser.py:40 vinylelib/browser/browser.py:41
 msgid "Search collection"
 msgstr "Rechercher une collection"
 
-#: vinylelib/browser/browser.py:51 vinylelib/dialogs/server_info.py:24
+#: vinylelib/browser/browser.py:53 vinylelib/dialogs/server_info.py:24
 #: vinylelib/views/albums_page.py:13 vinylelib/views/albums_page.py:97
 #: vinylelib/views/search.py:69
 msgid "Albums"
 msgstr "Albums"
 
-#: vinylelib/browser/browser.py:67
+#: vinylelib/browser/browser.py:69
 msgid "Collection is Empty"
 msgstr "La collection est vide"
 
-#: vinylelib/browser/browser.py:75
+#: vinylelib/browser/browser.py:77
 msgid "Collection"
 msgstr "Collection"
 
-#: vinylelib/browser/browser.py:76 vinylelib/browser/browser.py:98
+#: vinylelib/browser/browser.py:78 vinylelib/browser/browser.py:100
 msgid "Search"
 msgstr "Rechercher"
 
-#: vinylelib/browser/browser.py:114 vinylelib/dialogs/server_info.py:23
+#: vinylelib/browser/browser.py:116 vinylelib/dialogs/server_info.py:23
 #: vinylelib/views/search.py:61
 msgid "Artists"
 msgstr "Artistes"
@@ -175,8 +175,8 @@ msgstr "Maximum d'albums par page"
 
 #: vinylelib/dialogs/behaviour_preferences.py:53
 #: vinylelib/dialogs/behaviour_preferences.py:59
-#: vinylelib/dialogs/view_preferences.py:30
-#: vinylelib/dialogs/view_preferences.py:34
+#: vinylelib/dialogs/view_preferences.py:32
+#: vinylelib/dialogs/view_preferences.py:36
 msgid "Requires a restart"
 msgstr "Redémarrage requis"
 
@@ -268,19 +268,27 @@ msgstr "Vue"
 msgid "_Show Bit Rate"
 msgstr "Affiche le débit"
 
-#: vinylelib/dialogs/view_preferences.py:21
+#: vinylelib/dialogs/view_preferences.py:15
+msgid "Show File Format"
+msgstr "Afficher le format de fichier"
+
+#: vinylelib/dialogs/view_preferences.py:16
+msgid "Show Comments"
+msgstr "Afficher les commentaires"
+
+#: vinylelib/dialogs/view_preferences.py:23
 msgid "Albums order"
 msgstr "Ordre des albums"
 
-#: vinylelib/dialogs/view_preferences.py:21
+#: vinylelib/dialogs/view_preferences.py:23
 msgid "Choose the display order or the albums"
 msgstr "Choisissez l'ordre de présentation des albums"
 
-#: vinylelib/dialogs/view_preferences.py:29
+#: vinylelib/dialogs/view_preferences.py:31
 msgid "Covers per row"
 msgstr "Pochettes par rangée"
 
-#: vinylelib/dialogs/view_preferences.py:34
+#: vinylelib/dialogs/view_preferences.py:36
 msgid "Album cover size"
 msgstr "Taille de la pochette de l'album"
 
@@ -326,23 +334,23 @@ msgstr "Boucle A-B démarrée à {start}"
 msgid "Activated A‐B loop from {start} to {end}"
 msgstr "Boucle A-B activée de {start} à {end}"
 
-#: vinylelib/pages/album_page.py:41 vinylelib/pages/album_page.py:69
+#: vinylelib/pages/album_page.py:45 vinylelib/pages/album_page.py:77
 msgid "Multiple genres"
 msgstr "Genres multiples"
 
-#: vinylelib/pages/album_page.py:76 vinylelib/pages/album_page.py:81
+#: vinylelib/pages/album_page.py:84 vinylelib/pages/album_page.py:89
 msgid "Various artists"
 msgstr "Plusieurs artistes"
 
-#: vinylelib/pages/album_page.py:85
+#: vinylelib/pages/album_page.py:93
 msgid "Various composers"
 msgstr "Plusieurs compositeurs"
 
-#: vinylelib/pages/album_page.py:87
+#: vinylelib/pages/album_page.py:95
 msgid "Various conductors"
 msgstr "Plusieurs chefs d'orchestre"
 
-#: vinylelib/pages/album_page.py:89
+#: vinylelib/pages/album_page.py:97
 msgid "Various performers"
 msgstr "Plusieurs interprètes"
 
@@ -779,10 +787,6 @@ msgstr "Volume"
 #, fuzzy
 #~ msgid "Show _Stop Button"
 #~ msgstr "Afficher le bouton stop"
-
-#, fuzzy
-#~ msgid "Show Audio _Format"
-#~ msgstr "Afficher le format audio"
 
 #, fuzzy
 #~ msgid "Sort _Albums by Year"
