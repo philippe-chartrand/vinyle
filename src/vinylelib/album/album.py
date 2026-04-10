@@ -62,6 +62,10 @@ class Album(GObject.Object):
             self.songs.extend(client.get_albums_songs_by_common_folder(folder))
         self._check_for_multiple_values()
 
+    def add_comments(self, client):
+        for song in self.songs:
+            song.data['comments'] = client.readcomments(song.file).get('description', '')
+
     def get_cover(self, cache):
         return cache.get_cover(self.songs[0].file)
     
